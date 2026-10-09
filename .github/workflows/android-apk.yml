@@ -33,12 +33,12 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PraticoAI-Android-v1.0.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PraticoAI-Android-v2.0.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: PraticoAI-Android-v1.0
-          path: PraticoAI-Android-v1.0.apk
+          name: PraticoAI-Android-v2.0
+          path: PraticoAI-Android-v2.0.apk
           if-no-files-found: error
           retention-days: 30
