@@ -1,0 +1,38 @@
+/* Pratiko AI v5.3 — subtle facial animation on the original Tiko */
+.tiko-expression-host{position:relative!important;overflow:visible!important}
+.tiko-expression-layer{position:absolute;z-index:8;pointer-events:none;overflow:visible;transform-origin:50% 72%;}
+.tiko-expression-patch{position:absolute;overflow:hidden;pointer-events:none;transform-origin:50% 50%;will-change:transform}
+.tiko-expression-patch img{position:absolute;max-width:none!important;max-height:none!important;object-fit:contain!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important;animation:none!important;pointer-events:none!important}
+
+/* Natural blink: preserve the exact original eye pixels and compress only the eye patch. */
+.tiko-expression-layer .eye-patch{animation:tiko53Blink 4.6s infinite ease-in-out}
+.tiko-expression-layer .eye-right{animation-delay:.035s}
+@keyframes tiko53Blink{
+  0%,42%,46%,100%{transform:scaleY(1)}
+  43.2%,44.5%{transform:scaleY(.08)}
+}
+
+/* Talking: animate only the real mouth area from the original character. */
+.tiko-expression-host.tiko-speaking .mouth-patch{animation:tiko53Talk .24s infinite alternate ease-in-out}
+@keyframes tiko53Talk{
+  0%{transform:scaleX(.96) scaleY(.78) translateY(1px)}
+  45%{transform:scaleX(1.03) scaleY(1.18) translateY(0)}
+  100%{transform:scaleX(.92) scaleY(1.42) translateY(-.5px)}
+}
+
+/* Thinking expression: eyes glance upward, eyebrows angle inward and smile closes slightly. */
+.tiko-expression-host.tiko-thinking .eye-left{animation:none;transform:translate(1px,-2px) scaleY(.82)}
+.tiko-expression-host.tiko-thinking .eye-right{animation:none;transform:translate(2px,-2px) scaleY(.82)}
+.tiko-expression-host.tiko-thinking .brow-left{transform:translateY(1px) rotate(9deg)}
+.tiko-expression-host.tiko-thinking .brow-right{transform:translateY(1px) rotate(-9deg)}
+.tiko-expression-host.tiko-thinking .mouth-patch{animation:none;transform:translate(2px,2px) scaleX(.72) scaleY(.48) rotate(-3deg)}
+.tiko-expression-host.tiko-thinking .tiko-expression-layer{animation:tiko53ThinkTilt 1.7s ease-in-out infinite alternate}
+@keyframes tiko53ThinkTilt{from{transform:rotate(-.7deg) translateY(0)}to{transform:rotate(1.1deg) translateY(-1px)}}
+
+/* Small living movement remains very subtle so the original character is preserved. */
+.tiko-expression-host.tiko-speaking .tiko-expression-layer{animation:tiko53SpeakEnergy .7s ease-in-out infinite alternate}
+@keyframes tiko53SpeakEnergy{from{transform:translateY(0)}to{transform:translateY(-1px)}}
+
+@media (prefers-reduced-motion:reduce){
+  .tiko-expression-layer .eye-patch,.tiko-expression-host.tiko-speaking .mouth-patch,.tiko-expression-host.tiko-thinking .tiko-expression-layer,.tiko-expression-host.tiko-speaking .tiko-expression-layer{animation:none!important}
+}
