@@ -21,8 +21,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare Pratiko AI v5.5
-        run: python android-app/prepare_v55.py
+      - name: Install Rive build runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libgles2 libgl1 libx11-6 libxext6 libxrender1 libxrandr2 libxi6 libxcursor1 libxinerama1
+          curl -fsSL https://releases.rive.app/cli/v1.5.1/rive-linux-x64.tar.gz -o /tmp/rive.tar.gz
+          echo 'f1c99eadc35920f8a0a802bebe8607101e18c581c040ab0dbf98895cff368477  /tmp/rive.tar.gz' | sha256sum -c -
+          tar -xzf /tmp/rive.tar.gz -C /tmp
+          chmod +x /tmp/rive
+
+      - name: Prepare Pratiko AI v5.6
+        env:
+          RIVE_CLI: /tmp/rive
+        run: python android-app/prepare_v56.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -40,13 +51,13 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.5.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.6.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v5.5
-          path: PratikoAI-Android-v5.5.apk
+          name: PratikoAI-Android-v5.6
+          path: PratikoAI-Android-v5.6.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -54,6 +65,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view pratiko-ai-v5.5 >/dev/null 2>&1 || \
-            gh release create pratiko-ai-v5.5 --title "Pratiko AI Android v5.5" --notes "Pratiko AI v5.5 — corrige le visage découpé/rectangulaire de Tiko. Repart de la version propre du personnage original sans cadre, réduit sa taille sur l’accueil et ajoute des animations faciales sans dupliquer des morceaux de l’image. Moteur IA de secours intégré."
-          gh release upload pratiko-ai-v5.5 PratikoAI-Android-v5.5.apk --clobber
+          gh release view pratiko-ai-v5.6 >/dev/null 2>&1 || \
+            gh release create pratiko-ai-v5.6 --title "Pratiko AI Android v5.6" --notes "Pratiko AI v5.6 — Tiko passe à un vrai moteur Rive avec une state machine : idle, blink, thinking, talking et happy. Le design original approuvé est conservé sans cadre. Rive et le fichier .riv sont intégrés localement dans l’APK, avec retour automatique au Tiko statique si le runtime ne charge pas."
+          gh release upload pratiko-ai-v5.6 PratikoAI-Android-v5.6.apk --clobber
