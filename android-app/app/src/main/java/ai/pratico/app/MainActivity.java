@@ -40,9 +40,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setStatusBarColor(Color.rgb(251, 250, 247));
-        getWindow().setNavigationBarColor(Color.rgb(247, 245, 239));
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(Color.rgb(9, 11, 14));
+        getWindow().setNavigationBarColor(Color.rgb(9, 11, 14));
+        getWindow().getDecorView().setSystemUiVisibility(0);
 
         deviceId = buildStableDeviceId();
         webView = new WebView(this);
@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
             for (byte b : digest) out.append(String.format("%02x", b));
             return out.toString();
         } catch (Exception e) {
-            return "pratico-android-fallback-0001";
+            return "pratiko-android-fallback-0001";
         }
     }
 
@@ -76,9 +76,9 @@ public class MainActivity extends Activity {
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         settings.setTextZoom(100);
-        settings.setUserAgentString(settings.getUserAgentString() + " PraticoAIAndroid/2.1");
+        settings.setUserAgentString(settings.getUserAgentString() + " PratikoAIAndroid/3.0");
 
-        webView.setBackgroundColor(Color.rgb(247, 245, 239));
+        webView.setBackgroundColor(Color.rgb(9, 11, 14));
         webView.addJavascriptInterface(new ChatBridge(), "PraticoNative");
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -144,7 +144,7 @@ public class MainActivity extends Activity {
             conn.setDoOutput(true);
             conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             conn.setRequestProperty("Accept", "text/event-stream, application/json");
-            conn.setRequestProperty("X-Pratico-Client", "android-2.1");
+            conn.setRequestProperty("X-Pratico-Client", "android-3.0");
             conn.setRequestProperty("X-Pratico-Device", deviceId);
             byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
             conn.getOutputStream().write(bytes);
@@ -159,7 +159,7 @@ public class MainActivity extends Activity {
             if (code < 200 || code >= 300) {
                 InputStream err = conn.getErrorStream();
                 String detail = err != null ? readAll(err) : ("HTTP " + code);
-                String message = "Je n’ai pas réussi à joindre le moteur Pratico AI. Réessaie dans un instant.";
+                String message = "Tiko n’a pas réussi à joindre le moteur Pratiko AI. Réessaie dans un instant.";
                 String errorCode = "network";
                 try {
                     JSONObject obj = new JSONObject(detail);
@@ -203,7 +203,7 @@ public class MainActivity extends Activity {
             if (generationId.get() == requestId) runJs("window.PraticoCloud.onDone()");
         } catch (Exception e) {
             if (generationId.get() == requestId) {
-                String msg = "Je n’ai pas réussi à joindre le moteur Pratico AI. Réessaie dans un instant.";
+                String msg = "Tiko n’a pas réussi à joindre le moteur Pratiko AI. Réessaie dans un instant.";
                 runJs("window.PraticoCloud.onError('network'," + JSONObject.quote(msg) + ")");
             }
         } finally {
@@ -221,7 +221,7 @@ public class MainActivity extends Activity {
         public void sendMessage(String payload) {
             int requestId = generationId.incrementAndGet();
             if (apiUrl.isEmpty()) {
-                runJs("window.PraticoCloud.onError('cloud_not_connected'," + JSONObject.quote("Le backend Pratico AI n’est pas encore joignable.") + ")");
+                runJs("window.PraticoCloud.onError('cloud_not_connected'," + JSONObject.quote("Le backend Pratiko AI n’est pas encore joignable.") + ")");
                 return;
             }
             executor.execute(() -> streamCloud(payload, requestId));
