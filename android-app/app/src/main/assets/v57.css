@@ -1,0 +1,55 @@
+/* Pratiko AI v5.7 — motion language inspired by the user's reference clip.
+   Rive still owns facial states; this layer adds fluid upper-body/head motion. */
+.tiko-rive-host{perspective:700px!important;transform-style:preserve-3d!important}
+.tiko-rive-canvas.ready{transform-origin:50% 82%!important;will-change:transform!important}
+
+.tiko-rive-host.tiko57-idle .tiko-rive-canvas.ready{
+  animation:tiko57Idle 4.8s ease-in-out infinite!important;
+}
+@keyframes tiko57Idle{
+  0%{transform:translate3d(0,0,0) rotateZ(-.25deg) scale(1)}
+  22%{transform:translate3d(1px,-2px,0) rotateZ(.35deg) scale(1.005)}
+  48%{transform:translate3d(-1px,-3px,0) rotateZ(-.45deg) scale(1.008)}
+  72%{transform:translate3d(1px,-1px,0) rotateZ(.25deg) scale(1.003)}
+  100%{transform:translate3d(0,0,0) rotateZ(-.25deg) scale(1)}
+}
+
+.tiko-rive-host.tiko57-thinking .tiko-rive-canvas.ready{
+  animation:tiko57Think 2.6s cubic-bezier(.4,0,.2,1) infinite!important;
+}
+@keyframes tiko57Think{
+  0%{transform:translate3d(-2px,0,0) rotateZ(-1.9deg) rotateY(-1.5deg) scale(1)}
+  35%{transform:translate3d(-1px,-4px,0) rotateZ(-2.8deg) rotateY(-2.5deg) scale(1.01)}
+  68%{transform:translate3d(1px,-2px,0) rotateZ(-1.2deg) rotateY(1.5deg) scale(1.006)}
+  100%{transform:translate3d(-2px,0,0) rotateZ(-1.9deg) rotateY(-1.5deg) scale(1)}
+}
+
+/* Talking is deliberately irregular: the reference character never bobs on a perfect metronome. */
+.tiko-rive-host.tiko57-talking .tiko-rive-canvas.ready{
+  animation:tiko57Talk 1.62s cubic-bezier(.4,0,.2,1) infinite!important;
+}
+@keyframes tiko57Talk{
+  0%{transform:translate3d(0,0,0) rotateZ(-.6deg) rotateY(-.6deg) scale(1)}
+  10%{transform:translate3d(1px,-2px,0) rotateZ(.25deg) rotateY(.8deg) scale(1.006)}
+  21%{transform:translate3d(-1px,-4px,0) rotateZ(-.9deg) rotateY(-.4deg) scale(1.012)}
+  34%{transform:translate3d(2px,-2px,0) rotateZ(.8deg) rotateY(1.4deg) scale(1.007)}
+  47%{transform:translate3d(0,-5px,0) rotateZ(-.15deg) rotateY(.2deg) scale(1.014)}
+  58%{transform:translate3d(-2px,-2px,0) rotateZ(-1deg) rotateY(-1.2deg) scale(1.006)}
+  71%{transform:translate3d(1px,-4px,0) rotateZ(.55deg) rotateY(.9deg) scale(1.012)}
+  84%{transform:translate3d(-1px,-1px,0) rotateZ(-.35deg) rotateY(-.5deg) scale(1.004)}
+  100%{transform:translate3d(0,0,0) rotateZ(-.6deg) rotateY(-.6deg) scale(1)}
+}
+
+.tiko-rive-host.tiko57-happy .tiko-rive-canvas.ready{
+  animation:tiko57Happy .72s cubic-bezier(.2,.8,.2,1) both!important;
+}
+@keyframes tiko57Happy{
+  0%{transform:translateY(0) rotateZ(0) scale(1)}
+  30%{transform:translateY(-8px) rotateZ(1.6deg) scale(1.025)}
+  58%{transform:translateY(-3px) rotateZ(-1deg) scale(1.012)}
+  100%{transform:translateY(0) rotateZ(0) scale(1)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .tiko-rive-host .tiko-rive-canvas.ready{animation:none!important;transform:none!important}
+}
