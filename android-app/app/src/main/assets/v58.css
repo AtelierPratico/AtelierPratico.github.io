@@ -1,0 +1,21 @@
+/* Pratiko AI v5.8 — Tiko movement is now driven inside Rive by segmented layers. */
+.tiko-rive-host{perspective:none!important;transform-style:flat!important}
+.tiko-rive-canvas.ready{
+  animation:none!important;
+  transform:none!important;
+  transform-origin:50% 50%!important;
+  will-change:auto!important;
+}
+
+/* Keep the exact approved hero footprint while the internal rig moves. */
+#tikoHero.tiko-original-hero{
+  width:100%!important;
+  height:100%!important;
+  max-width:205px!important;
+  max-height:255px!important;
+  object-fit:contain!important;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .tiko-rive-canvas.ready{animation:none!important;transform:none!important}
+}
