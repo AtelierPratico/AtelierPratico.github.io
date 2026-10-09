@@ -30,10 +30,10 @@ jobs:
           tar -xzf /tmp/rive.tar.gz -C /tmp
           chmod +x /tmp/rive
 
-      - name: Prepare Pratiko AI v5.6
+      - name: Prepare Pratiko AI v5.7
         env:
           RIVE_CLI: /tmp/rive
-        run: python android-app/prepare_v56.py
+        run: python android-app/prepare_v57.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -51,13 +51,13 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.6.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.7.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v5.6
-          path: PratikoAI-Android-v5.6.apk
+          name: PratikoAI-Android-v5.7
+          path: PratikoAI-Android-v5.7.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -65,6 +65,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view pratiko-ai-v5.6 >/dev/null 2>&1 || \
-            gh release create pratiko-ai-v5.6 --title "Pratiko AI Android v5.6" --notes "Pratiko AI v5.6 — Tiko passe à un vrai moteur Rive avec une state machine : idle, blink, thinking, talking et happy. Le design original approuvé est conservé sans cadre. Rive et le fichier .riv sont intégrés localement dans l’APK, avec retour automatique au Tiko statique si le runtime ne charge pas."
-          gh release upload pratiko-ai-v5.6 PratikoAI-Android-v5.6.apk --clobber
+          gh release view pratiko-ai-v5.7 >/dev/null 2>&1 || \
+            gh release create pratiko-ai-v5.7 --title "Pratiko AI Android v5.7" --notes "Pratiko AI v5.7 — conserve le Tiko original et son moteur Rive, mais ajoute un mouvement beaucoup plus vivant inspiré de la vidéo de référence : respiration, balancement naturel de la tête et du haut du corps, mouvement irrégulier pendant la parole, posture de réflexion et réaction joyeuse après une réponse."
+          gh release upload pratiko-ai-v5.7 PratikoAI-Android-v5.7.apk --clobber
