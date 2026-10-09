@@ -21,8 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare Pratiko AI v5.0
-        run: python android-app/prepare_v50.py
+      - name: Prepare Pratiko AI v5.1
+        run: python android-app/prepare_v51.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -40,13 +40,13 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.0.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.1.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v5.0
-          path: PratikoAI-Android-v5.0.apk
+          name: PratikoAI-Android-v5.1
+          path: PratikoAI-Android-v5.1.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -54,6 +54,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view pratiko-ai-v5.0 >/dev/null 2>&1 || \
-            gh release create pratiko-ai-v5.0 --title "Pratiko AI Android v5.0" --notes "Pratiko AI v5.0 — retour du Tiko original 3D avec casquette jaune P, sans cadre ni panneau autour du personnage. Build Android généré proprement avec Gradle et signature APK Android valide."
-          gh release upload pratiko-ai-v5.0 PratikoAI-Android-v5.0.apk --clobber
+          gh release view pratiko-ai-v5.1 >/dev/null 2>&1 || \
+            gh release create pratiko-ai-v5.1 --title "Pratiko AI Android v5.1" --notes "Pratiko AI v5.1 — correction du Tiko original invisible. Le personnage 3D original revient sans cadre, avec fond transparent et animation légère. Build Android propre via Gradle."
+          gh release upload pratiko-ai-v5.1 PratikoAI-Android-v5.1.apk --clobber
