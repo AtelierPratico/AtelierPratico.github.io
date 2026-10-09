@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Pratico — L’atelier du quotidien</title>
+  <meta name="description" content="Pratico — guides visuels, fiches pratiques et assistant IA pour les petits problèmes de la maison.">
+  <style>
+    html,body{margin:0;min-height:100%;background:#fff;font-family:Arial,sans-serif;color:#171717}
+    .loading{min-height:100vh;display:grid;place-items:center;text-align:center;padding:32px}
+    .loading strong{display:block;font-family:Georgia,serif;font-size:34px;margin-bottom:10px}
+    .loading span{color:#777;font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="loading"><div><strong>Pratico</strong><span>Chargement de l’atelier du quotidien…</span></div></div>
+  <script>
+    fetch('https://raw.githubusercontent.com/Rin7548/atelier-pratico/main/index.html?ts=' + Date.now())
+      .then(r => { if(!r.ok) throw new Error('Chargement impossible'); return r.text(); })
+      .then(html => { document.open(); document.write(html); document.close(); })
+      .catch(() => { document.body.innerHTML='<div class="loading"><div><strong>Pratico</strong><span>Le site est temporairement indisponible. Réessayez dans un instant.</span></div></div>'; });
+  </script>
+</body>
+</html>
