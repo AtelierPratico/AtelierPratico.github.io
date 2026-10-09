@@ -49,7 +49,7 @@
 
   function instantReply(text){
     const t=text.toLowerCase().trim().replace(/[!?.,]/g,'');
-    if(/^(allo|salut|bonjour|bonsoir|hey|yo|coucou|hello)$/.test(t)) return 'Salut 👋 Moi c’est Tiko. Qu’est-ce que je peux faire pour toi?';
+    if(/^(allo+|salut|bonjour|bonsoir|hey+|yo+|coucou|hello)$/.test(t)) return 'Salut 👋 Moi c’est Tiko. Qu’est-ce que je peux faire pour toi?';
     if(/^(ca va|ça va|comment ca va|comment ça va|tu vas bien)$/.test(t)) return 'Oui 😄 Prêt à t’aider. Et toi?';
     if(/^(merci|merci beaucoup|thanks)$/.test(t)) return 'Avec plaisir 😊';
     return null;
@@ -64,8 +64,8 @@
     const quick=instantReply(text);
     if(quick){ setTiko('point'); setTimeout(()=>{c.messages.push({role:'assistant',content:quick});save();appendMessage('assistant',quick);setTimeout(()=>setTiko('wave'),900);},110); return; }
     const bubble=appendMessage('assistant',''); bubble.classList.add('typing-cursor'); state.activeBubble=bubble; setGenerating(true);
-    const payload={conversation_id:c.remoteId||null,plan:'free',messages:c.messages.slice(-20),client:{platform:'android',app:'pratiko-ai',version:'3.1'}};
-    try{ if(window.PraticoNative?.sendMessage) window.PraticoNative.sendMessage(JSON.stringify(payload)); else window.PraticoCloud.onError('preview','Le moteur IA n’est pas encore connecté.'); }
+    const payload={conversation_id:c.remoteId||null,plan:'free',messages:c.messages.slice(-20),client:{platform:'android',app:'pratiko-ai',version:'3.3'}};
+    try{ if(window.PraticoNative?.sendMessage) window.PraticoNative.sendMessage(JSON.stringify(payload)); else window.PraticoCloud.onError('preview','Le moteur Pratiko AI n’est pas encore connecté.'); }
     catch(e){ window.PraticoCloud.onError('bridge',e.message||'Erreur de connexion'); }
   }
 
@@ -75,10 +75,10 @@
     els.voicePanel.classList.remove('show','listening');
     if(status==='connecting'){
       els.mic.classList.add('connecting'); els.voicePanel.classList.add('show');
-      els.voiceState.textContent='CONNEXION GEMINI LIVE'; els.voiceTitle.textContent='Tiko se prépare…'; els.voiceTranscript.textContent='Connexion au mode vocal sécurisé.'; setTiko('think');
+      els.voiceState.textContent='CONNEXION VOCALE'; els.voiceTitle.textContent='Tiko se prépare…'; els.voiceTranscript.textContent='Connexion au mode vocal sécurisé.'; setTiko('think');
     } else if(status==='listening'){
       els.mic.classList.add('live'); els.voicePanel.classList.add('show','listening');
-      els.voiceState.textContent='MODE VOCAL · GEMINI LIVE'; els.voiceTitle.textContent='Tiko écoute…'; setTiko('wave');
+      els.voiceState.textContent='MODE VOCAL'; els.voiceTitle.textContent='Tiko écoute…'; setTiko('wave');
     } else {
       els.voiceState.textContent='MODE VOCAL'; els.voiceTitle.textContent='Tiko écoute…'; els.voiceTranscript.textContent='Parle naturellement. Tiko te répondra à voix haute.'; setTiko('wave');
     }
