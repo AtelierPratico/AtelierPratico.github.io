@@ -26,7 +26,7 @@
 
   cloud.onStart = function(){
     originalStart?.();
-    requestAnimationFrame(showThinking);
+    showThinking();
   };
 
   cloud.onToken = function(token){
