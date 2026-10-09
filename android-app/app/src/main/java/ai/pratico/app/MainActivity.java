@@ -1,59 +1,52 @@
 package ai.pratico.app;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
-import android.webkit.CookieManager;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends Activity {
-    private static final String START_URL = "https://atelierpratico.github.io/?app=android-v1";
-    private static final int FILE_CHOOSER_REQUEST = 9201;
+    private static final String APP_URL = "file:///android_asset/index.html";
+    private static final String CONFIG_URL = "https://atelierpratico.github.io/pratico-ai-config.json";
 
     private WebView webView;
-    private ProgressBar progressBar;
-    private ValueCallback<Uri[]> filePathCallback;
+    private final Handler main = new Handler(Looper.getMainLooper());
+    private final ExecutorService executor = Executors.newCachedThreadPool();
+    private final AtomicInteger generationId = new AtomicInteger(0);
+    private volatile String apiUrl = "";
+    private volatile boolean pageReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setStatusBarColor(Color.WHITE);
-        getWindow().setNavigationBarColor(Color.rgb(17, 17, 15));
+        getWindow().setStatusBarColor(Color.rgb(251, 250, 247));
+        getWindow().setNavigationBarColor(Color.rgb(247, 245, 239));
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
-        FrameLayout root = new FrameLayout(this);
         webView = new WebView(this);
-        progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
-        progressBar.setMax(100);
-        progressBar.setProgressTintList(android.content.res.ColorStateList.valueOf(Color.rgb(213, 179, 115)));
-        progressBar.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.rgb(238, 233, 223)));
-
-        FrameLayout.LayoutParams webParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
-        );
-        root.addView(webView, webParams);
-
-        FrameLayout.LayoutParams progressParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                8
-        );
-        root.addView(progressBar, progressParams);
-        setContentView(root);
-
         configureWebView();
-        webView.loadUrl(START_URL);
+        setContentView(webView);
+        webView.loadUrl(APP_URL);
+        fetchRemoteConfig();
     }
 
     private void configureWebView() {
@@ -61,89 +54,166 @@ public class MainActivity extends Activity {
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
-        settings.setAllowContentAccess(true);
+        settings.setAllowContentAccess(false);
         settings.setAllowFileAccess(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setUseWideViewPort(true);
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        settings.setUserAgentString(settings.getUserAgentString() + " PraticoAIAndroid/1.0");
+        settings.setTextZoom(100);
+        settings.setUserAgentString(settings.getUserAgentString() + " PraticoAIAndroid/2.0");
 
-        CookieManager.getInstance().setAcceptCookie(true);
-        CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true);
-
+        webView.setBackgroundColor(Color.rgb(247, 245, 239));
+        webView.addJavascriptInterface(new ChatBridge(), "PraticoNative");
         webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                Uri uri = request.getUrl();
-                String host = uri.getHost();
-                if (host != null && (host.equals("atelierpratico.github.io") || host.endsWith(".atelierpratico.github.io"))) {
-                    return false;
-                }
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, uri));
-                } catch (Exception ignored) {
-                    Toast.makeText(MainActivity.this, "Impossible d'ouvrir ce lien.", Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            }
-
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-
-        webView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                progressBar.setVisibility(newProgress >= 100 ? View.GONE : View.VISIBLE);
-                progressBar.setProgress(newProgress);
-            }
-
-            @Override
-            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> callback, FileChooserParams fileChooserParams) {
-                if (filePathCallback != null) {
-                    filePathCallback.onReceiveValue(null);
-                }
-                filePathCallback = callback;
-                try {
-                    Intent chooser = fileChooserParams.createIntent();
-                    chooser.addCategory(Intent.CATEGORY_OPENABLE);
-                    startActivityForResult(chooser, FILE_CHOOSER_REQUEST);
-                    return true;
-                } catch (Exception e) {
-                    filePathCallback = null;
-                    Toast.makeText(MainActivity.this, "Sélection de fichier indisponible.", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
+                pageReady = true;
+                notifyEngineStatus();
             }
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == FILE_CHOOSER_REQUEST && filePathCallback != null) {
-            Uri[] result = WebChromeClient.FileChooserParams.parseResult(resultCode, data);
-            filePathCallback.onReceiveValue(result);
-            filePathCallback = null;
+    private void fetchRemoteConfig() {
+        executor.execute(() -> {
+            HttpURLConnection conn = null;
+            try {
+                conn = (HttpURLConnection) new URL(CONFIG_URL + "?v=" + System.currentTimeMillis()).openConnection();
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(5000);
+                conn.setReadTimeout(5000);
+                conn.setRequestProperty("Accept", "application/json");
+                if (conn.getResponseCode() >= 200 && conn.getResponseCode() < 300) {
+                    String body = readAll(conn.getInputStream());
+                    JSONObject obj = new JSONObject(body);
+                    apiUrl = obj.optString("api_url", "").trim();
+                }
+            } catch (Exception ignored) {
+                apiUrl = "";
+            } finally {
+                if (conn != null) conn.disconnect();
+                notifyEngineStatus();
+            }
+        });
+    }
+
+    private void notifyEngineStatus() {
+        if (!pageReady) return;
+        String status = apiUrl.isEmpty() ? "setup" : "ready";
+        runJs("window.PraticoCloud && window.PraticoCloud.onEngineStatus(" + JSONObject.quote(status) + ")");
+    }
+
+    private void runJs(String js) {
+        main.post(() -> {
+            if (webView != null) webView.evaluateJavascript(js, null);
+        });
+    }
+
+    private String readAll(InputStream input) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
+        StringBuilder out = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) out.append(line).append('\n');
+        return out.toString().trim();
+    }
+
+    private void streamCloud(String payload, int requestId) {
+        HttpURLConnection conn = null;
+        try {
+            runJs("window.PraticoCloud.onStart()");
+            conn = (HttpURLConnection) new URL(apiUrl).openConnection();
+            conn.setRequestMethod("POST");
+            conn.setConnectTimeout(10000);
+            conn.setReadTimeout(120000);
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            conn.setRequestProperty("Accept", "text/event-stream, application/json");
+            conn.setRequestProperty("X-Pratico-Client", "android-2.0");
+            byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
+            conn.getOutputStream().write(bytes);
+            conn.getOutputStream().flush();
+
+            int code = conn.getResponseCode();
+            if (code < 200 || code >= 300) {
+                InputStream err = conn.getErrorStream();
+                String detail = err != null ? readAll(err) : ("HTTP " + code);
+                throw new Exception(detail.isEmpty() ? ("HTTP " + code) : detail);
+            }
+
+            String type = conn.getContentType() == null ? "" : conn.getContentType().toLowerCase();
+            if (type.contains("text/event-stream")) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+                String line;
+                while ((line = reader.readLine()) != null && generationId.get() == requestId) {
+                    if (!line.startsWith("data:")) continue;
+                    String data = line.substring(5).trim();
+                    if (data.isEmpty()) continue;
+                    if ("[DONE]".equals(data)) break;
+                    String delta = "";
+                    try {
+                        JSONObject obj = new JSONObject(data);
+                        delta = obj.optString("delta", obj.optString("text", ""));
+                    } catch (Exception ignored) {
+                        delta = data;
+                    }
+                    if (!delta.isEmpty()) runJs("window.PraticoCloud.onToken(" + JSONObject.quote(delta) + ")");
+                }
+            } else {
+                String body = readAll(conn.getInputStream());
+                String text = body;
+                try {
+                    JSONObject obj = new JSONObject(body);
+                    text = obj.optString("text", obj.optString("output_text", body));
+                } catch (Exception ignored) { }
+                if (!text.isEmpty() && generationId.get() == requestId) {
+                    runJs("window.PraticoCloud.onToken(" + JSONObject.quote(text) + ")");
+                }
+            }
+
+            if (generationId.get() == requestId) runJs("window.PraticoCloud.onDone()");
+        } catch (Exception e) {
+            if (generationId.get() == requestId) {
+                String msg = "Je n’ai pas réussi à joindre le moteur Pratico AI. Réessaie dans un instant.";
+                runJs("window.PraticoCloud.onError('network'," + JSONObject.quote(msg) + ")");
+            }
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
+
+    public class ChatBridge {
+        @JavascriptInterface
+        public String getEngineStatus() {
+            return apiUrl.isEmpty() ? "setup" : "ready";
+        }
+
+        @JavascriptInterface
+        public void sendMessage(String payload) {
+            int requestId = generationId.incrementAndGet();
+            if (apiUrl.isEmpty()) {
+                runJs("window.PraticoCloud.onError('cloud_not_connected'," + JSONObject.quote("L’application est prête. Il reste à connecter le moteur cloud Pratico AI pour activer les réponses rapides et intelligentes.") + ")");
+                return;
+            }
+            executor.execute(() -> streamCloud(payload, requestId));
+        }
+
+        @JavascriptInterface
+        public void cancelGeneration() {
+            generationId.incrementAndGet();
+            runJs("window.PraticoCloud.onDone()");
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (webView != null && webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            super.onBackPressed();
-        }
+        runJs("if(document.getElementById('drawer')?.classList.contains('open')){document.getElementById('closeDrawer').click()}else{history.back()}");
     }
 
     @Override
     protected void onDestroy() {
+        generationId.incrementAndGet();
+        executor.shutdownNow();
         if (webView != null) {
+            webView.removeJavascriptInterface("PraticoNative");
             webView.stopLoading();
             webView.destroy();
         }
