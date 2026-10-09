@@ -5,13 +5,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,6 +35,7 @@ public class MainActivity extends Activity {
     private final AtomicInteger generationId = new AtomicInteger(0);
     private volatile String apiUrl = "";
     private volatile boolean pageReady = false;
+    private String deviceId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +44,26 @@ public class MainActivity extends Activity {
         getWindow().setNavigationBarColor(Color.rgb(247, 245, 239));
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
+        deviceId = buildStableDeviceId();
         webView = new WebView(this);
         configureWebView();
         setContentView(webView);
         webView.loadUrl(APP_URL);
         fetchRemoteConfig();
+    }
+
+    private String buildStableDeviceId() {
+        try {
+            String raw = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+            if (raw == null || raw.isEmpty()) raw = getPackageName() + "-fallback";
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest((getPackageName() + ":" + raw).getBytes(StandardCharsets.UTF_8));
+            StringBuilder out = new StringBuilder();
+            for (byte b : digest) out.append(String.format("%02x", b));
+            return out.toString();
+        } catch (Exception e) {
+            return "pratico-android-fallback-0001";
+        }
     }
 
     private void configureWebView() {
@@ -59,7 +76,7 @@ public class MainActivity extends Activity {
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         settings.setTextZoom(100);
-        settings.setUserAgentString(settings.getUserAgentString() + " PraticoAIAndroid/2.0");
+        settings.setUserAgentString(settings.getUserAgentString() + " PraticoAIAndroid/2.1");
 
         webView.setBackgroundColor(Color.rgb(247, 245, 239));
         webView.addJavascriptInterface(new ChatBridge(), "PraticoNative");
@@ -127,16 +144,30 @@ public class MainActivity extends Activity {
             conn.setDoOutput(true);
             conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             conn.setRequestProperty("Accept", "text/event-stream, application/json");
-            conn.setRequestProperty("X-Pratico-Client", "android-2.0");
+            conn.setRequestProperty("X-Pratico-Client", "android-2.1");
+            conn.setRequestProperty("X-Pratico-Device", deviceId);
             byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
             conn.getOutputStream().write(bytes);
             conn.getOutputStream().flush();
 
             int code = conn.getResponseCode();
+            String remoteConversationId = conn.getHeaderField("X-Pratico-Conversation-ID");
+            if (remoteConversationId != null && !remoteConversationId.isEmpty()) {
+                runJs("window.PraticoCloud.onConversationId(" + JSONObject.quote(remoteConversationId) + ")");
+            }
+
             if (code < 200 || code >= 300) {
                 InputStream err = conn.getErrorStream();
                 String detail = err != null ? readAll(err) : ("HTTP " + code);
-                throw new Exception(detail.isEmpty() ? ("HTTP " + code) : detail);
+                String message = "Je n’ai pas réussi à joindre le moteur Pratico AI. Réessaie dans un instant.";
+                String errorCode = "network";
+                try {
+                    JSONObject obj = new JSONObject(detail);
+                    errorCode = obj.optString("error", errorCode);
+                    message = obj.optString("message", message);
+                } catch (Exception ignored) { }
+                runJs("window.PraticoCloud.onError(" + JSONObject.quote(errorCode) + "," + JSONObject.quote(message) + ")");
+                return;
             }
 
             String type = conn.getContentType() == null ? "" : conn.getContentType().toLowerCase();
@@ -190,7 +221,7 @@ public class MainActivity extends Activity {
         public void sendMessage(String payload) {
             int requestId = generationId.incrementAndGet();
             if (apiUrl.isEmpty()) {
-                runJs("window.PraticoCloud.onError('cloud_not_connected'," + JSONObject.quote("L’application est prête. Il reste à connecter le moteur cloud Pratico AI pour activer les réponses rapides et intelligentes.") + ")");
+                runJs("window.PraticoCloud.onError('cloud_not_connected'," + JSONObject.quote("Le backend Pratico AI n’est pas encore joignable.") + ")");
                 return;
             }
             executor.execute(() -> streamCloud(payload, requestId));
