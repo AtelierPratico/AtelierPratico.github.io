@@ -1,0 +1,32 @@
+/* Pratiko AI v5.6 — Rive-driven Tiko. Keep exact static image as fallback until Rive is ready. */
+.tiko-rive-host{position:relative!important;overflow:visible!important}
+.tiko-rive-canvas{
+  position:absolute;
+  z-index:12;
+  display:block;
+  pointer-events:none;
+  opacity:0;
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  transition:opacity .12s ease;
+}
+.tiko-rive-canvas.ready{opacity:1}
+
+/* Preserve the approved welcome-screen proportions. */
+#tikoHero.tiko-original-hero{
+  width:100%!important;
+  height:100%!important;
+  max-width:205px!important;
+  max-height:255px!important;
+  margin-left:0!important;
+  object-fit:contain!important;
+}
+
+/* The Rive canvas owns movement; never run the old bitmap facial overlays. */
+.tiko-safe-layer,.tiko-expression-layer{display:none!important}
+
+@media (prefers-reduced-motion:reduce){
+  .tiko-rive-canvas{transition:none}
+}
