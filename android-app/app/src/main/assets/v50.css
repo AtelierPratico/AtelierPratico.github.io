@@ -1,4 +1,4 @@
-/* Pratiko AI v5.0 — original Tiko, no frame */
+/* Pratiko AI v5.1 — original Tiko, no frame */
 #tikoLiveHero,.tiko-live-host{display:none!important}
 .mascot-stage,.welcome-card,.assistant-avatar{
   background:transparent!important;
@@ -17,6 +17,19 @@
   mask-image:none!important;
   object-fit:contain!important;
   filter:drop-shadow(0 14px 18px rgba(0,0,0,.35))!important;
+}
+/* v4.7 hid every legacy image with !important. Force the restored original Tiko visible. */
+#tikoHero.tiko-original-hero{
+  opacity:1!important;
+  display:block!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
+.message.assistant .assistant-avatar>img.tiko-original-chat,
+.message.assistant .assistant-avatar>img[src="tiko-original.svg"]{
+  display:block!important;
+  opacity:1!important;
+  visibility:visible!important;
 }
 .tiko-original-hero{
   width:116%!important;
