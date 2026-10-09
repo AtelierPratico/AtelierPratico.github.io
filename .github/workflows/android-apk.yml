@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Probe Rive CLI project format
+        run: python android-app/rive_probe.py
+
       - name: Prepare Pratiko AI v5.5
         run: python android-app/prepare_v55.py
 
