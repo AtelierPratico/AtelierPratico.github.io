@@ -8,7 +8,7 @@ on:
       - '.github/workflows/android-apk.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -33,12 +33,20 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PraticoAI-Android-v2.0.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PraticoAI-Android-v2.1.apk
 
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PraticoAI-Android-v2.0
-          path: PraticoAI-Android-v2.0.apk
+          name: PraticoAI-Android-v2.1
+          path: PraticoAI-Android-v2.1.apk
           if-no-files-found: error
           retention-days: 30
+
+      - name: Publish public GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view pratico-ai-v2.1 >/dev/null 2>&1 || \
+            gh release create pratico-ai-v2.1 --title "Pratico AI Android v2.1" --notes "Pratico AI Android v2.1 — interface de chat dédiée, backend Supabase connecté et streaming prêt."
+          gh release upload pratico-ai-v2.1 PraticoAI-Android-v2.1.apk --clobber
