@@ -1,0 +1,90 @@
+/* Pratiko AI v4.7 — true frame-free live vector Tiko */
+:root{--tiko-look-x:0px;--tiko-look-y:0px}
+
+/* Hide every old picture-based Tiko in the main experience. */
+#tikoHero{opacity:0!important;pointer-events:none!important}
+.message.assistant .assistant-avatar>img{display:none!important}
+
+/* Remove any visual tile/frame around Tiko. */
+.message.assistant .assistant-avatar,
+.tiko-live-host,
+.tiko-live-svg{
+  background:transparent!important;
+  background-color:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+}
+
+.tiko-live-host{position:relative;display:block;overflow:visible;pointer-events:auto!important;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.tiko-live-svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 12px 15px rgba(0,0,0,.38));transform-origin:50% 82%}
+
+/* HOME character: full body, floating freely with no card behind him. */
+.mascot-stage{overflow:visible!important;position:relative!important}
+#tikoLiveHero{position:absolute;left:-18%;bottom:-9%;width:142%;height:118%;z-index:3;animation:p47Breath 3.3s ease-in-out infinite}
+#tikoLiveHero .tiko-live-svg{filter:drop-shadow(0 18px 21px rgba(0,0,0,.45)) drop-shadow(0 0 18px rgba(244,201,108,.14))}
+#tikoLiveHero.is-thinking .tiko-head{animation:p47ThinkHead 1.35s ease-in-out infinite}
+#tikoLiveHero.is-thinking .tiko-arm-right{transform:translate(-12px,-24px) rotate(-28deg)}
+#tikoLiveHero.is-pointing .tiko-arm-right{animation:p47Point 1.05s ease-in-out infinite}
+
+/* CHAT character: body beside the bubble, never inside a rectangle. */
+.message.assistant{padding-left:96px!important;min-height:132px!important;overflow:visible!important}
+.message.assistant .assistant-avatar{
+  left:-18px!important;
+  bottom:-17px!important;
+  width:122px!important;
+  height:164px!important;
+  overflow:visible!important;
+  pointer-events:auto!important;
+}
+.message.assistant .assistant-avatar .tiko-live-host{width:100%;height:100%;animation:p47Breath 3.1s ease-in-out infinite}
+.message.assistant .bubble{position:relative;z-index:2}
+
+/* Eyes blink naturally. Pupils follow the user's touch/pointer. */
+.tiko-eye{transform-box:fill-box;transform-origin:center;animation:p47Blink 5.1s infinite}
+.tiko-pupil{transform:translate(var(--tiko-look-x),var(--tiko-look-y));transition:transform .16s ease-out}
+
+/* Idle micro-movements. */
+.tiko-head{transform-box:fill-box;transform-origin:50% 86%;animation:p47HeadIdle 3.8s ease-in-out infinite}
+.tiko-arm-left,.tiko-arm-right{transition:transform .26s ease;transform-box:fill-box}
+.tiko-mouth{transform-box:fill-box;transform-origin:center}
+
+/* During generation/thinking: eyes look up and the character leans in. */
+.message.assistant.p45-thinking .tiko-live-host{animation:p47ThinkBody 1.05s ease-in-out infinite!important}
+.message.assistant.p45-thinking .tiko-head{animation:p47ThinkHead 1.05s ease-in-out infinite!important}
+.message.assistant.p45-thinking .tiko-pupil{transform:translate(2px,-3px)!important}
+.message.assistant.p45-thinking .tiko-arm-right{transform:translate(-12px,-25px) rotate(-28deg)}
+.message.assistant.p45-thinking .tiko-mouth{transform:scaleX(.72)}
+
+/* While Tiko streams/speaks: mouth, head and hand actually move. */
+.message.assistant.p45-speaking .tiko-mouth{animation:p47Talk .34s ease-in-out infinite}
+.message.assistant.p45-speaking .tiko-arm-right{animation:p47Gesture .78s ease-in-out infinite}
+.message.assistant.p45-speaking .tiko-head{animation:p47TalkHead .92s ease-in-out infinite}
+.message.assistant.p45-speaking .tiko-brow-right{animation:p47Brow .92s ease-in-out infinite}
+.message.assistant.p45-speaking .tiko-live-svg{filter:drop-shadow(0 12px 15px rgba(0,0,0,.4)) drop-shadow(0 0 11px rgba(51,215,208,.14))}
+
+/* Tap Tiko: he waves back. */
+.tiko-live-host.manual-wave .tiko-arm-left{animation:p47Wave .27s ease-in-out 4!important}
+.tiko-live-host.manual-wave .tiko-head{animation:p47Happy .55s ease-in-out 2!important}
+.tiko-live-host.manual-wave .tiko-mouth{animation:p47Smile .5s ease-in-out 2!important}
+
+@keyframes p47Breath{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.008,1.016)}}
+@keyframes p47HeadIdle{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1.4deg)}}
+@keyframes p47Blink{0%,43%,47%,100%{transform:scaleY(1)}45%{transform:scaleY(.10)}}
+@keyframes p47Talk{0%,100%{transform:scale(1,1)}35%{transform:scale(.96,1.6)}68%{transform:scale(1.07,.72)}}
+@keyframes p47Gesture{0%,100%{transform:rotate(0deg) translate(0,0)}45%{transform:rotate(-17deg) translate(-3px,-6px)}70%{transform:rotate(7deg) translate(2px,-2px)}}
+@keyframes p47TalkHead{0%,100%{transform:rotate(-1deg) translateY(0)}50%{transform:rotate(2deg) translateY(-2px)}}
+@keyframes p47Brow{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes p47ThinkBody{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1.2deg)}}
+@keyframes p47ThinkHead{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(3deg) translateY(-2px)}}
+@keyframes p47Point{0%,100%{transform:rotate(0)}50%{transform:rotate(-10deg) translateY(-4px)}}
+@keyframes p47Wave{0%,100%{transform:rotate(4deg)}50%{transform:rotate(-28deg) translateY(-8px)}}
+@keyframes p47Happy{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(4deg) translateY(-2px)}}
+@keyframes p47Smile{0%,100%{transform:scale(1)}50%{transform:scale(1.12,1.2)}}
+
+@media(max-width:480px){
+  .message.assistant{padding-left:88px!important;min-height:124px!important}
+  .message.assistant .assistant-avatar{left:-18px!important;width:112px!important;height:154px!important}
+  #tikoLiveHero{left:-22%;width:150%;height:121%}
+}
