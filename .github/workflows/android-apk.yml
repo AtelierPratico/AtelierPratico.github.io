@@ -21,8 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare Pratiko AI v4.1
-        run: python android-app/prepare_v41.py
+      - name: Prepare Pratiko AI v4.2
+        run: python android-app/prepare_v42.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -40,13 +40,13 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v4.1.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v4.2.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v4.1
-          path: PratikoAI-Android-v4.1.apk
+          name: PratikoAI-Android-v4.2
+          path: PratikoAI-Android-v4.2.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -54,6 +54,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view pratiko-ai-v4.1 >/dev/null 2>&1 || \
-            gh release create pratiko-ai-v4.1 --title "Pratiko AI Android v4.1" --notes "Pratiko AI v4.1 — nouvelle interface premium plus vive, Tiko original plus charismatique et animé, mascotte sans cadre, compagnon interactif dans les conversations, costumes contextuels automatiques, quota d’images compact sans cadre, Entrée pour une nouvelle ligne, streaming en direct, génération d’images et mode vocal."
-          gh release upload pratiko-ai-v4.1 PratikoAI-Android-v4.1.apk --clobber
+          gh release view pratiko-ai-v4.2 >/dev/null 2>&1 || \
+            gh release create pratiko-ai-v4.2 --title "Pratiko AI Android v4.2" --notes "Pratiko AI v4.2 — nouveau Tiko premium cohérent dans toute l’app, interface plus lumineuse or/teal, mascotte sans cadre, animations plus vivantes, rôles contextuels, quota d’images compact, Entrée pour nouvelle ligne, streaming en direct, génération d’images et mode vocal."
+          gh release upload pratiko-ai-v4.2 PratikoAI-Android-v4.2.apk --clobber
