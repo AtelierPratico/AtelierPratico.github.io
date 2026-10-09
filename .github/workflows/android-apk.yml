@@ -63,7 +63,7 @@ jobs:
               }
           }
 
-'''
+          '''
           if marker not in s:
               raise SystemExit('Missing ChatBridge marker')
           s = s.replace(marker, download_method + marker)
