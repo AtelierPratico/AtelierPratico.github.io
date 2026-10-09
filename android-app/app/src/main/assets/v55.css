@@ -1,0 +1,33 @@
+/* Pratiko AI v5.5 — safe facial animation: no duplicated bitmap patches */
+.tiko-safe-host{position:relative!important;overflow:visible!important}
+.tiko-safe-layer{position:absolute;inset:0;z-index:9;pointer-events:none;overflow:visible}
+
+/* Keep the original Tiko clean and slightly smaller on the welcome screen. */
+#tikoHero.tiko-original-hero{width:100%!important;height:100%!important;max-width:205px!important;max-height:255px!important;margin-left:0!important;object-fit:contain!important;}
+
+/* Eyes: lightweight eyelids drawn over the original image instead of cloning face fragments. */
+.tiko-lid{position:absolute;width:10.5%;height:5.8%;top:32.4%;border-radius:50% 50% 45% 45%;background:linear-gradient(180deg,#d88a62 0%,#c76d4f 72%,#7b3d2a 73%,#4a2419 100%);opacity:0;transform:scaleY(.12);transform-origin:50% 0;}
+.tiko-lid.left{left:38.2%}.tiko-lid.right{left:54.8%}
+.tiko-safe-host.tiko-idle .tiko-lid,.tiko-safe-host.tiko-speaking .tiko-lid{animation:tiko55Blink 4.7s infinite ease-in-out}
+.tiko-safe-host.tiko-speaking .tiko-lid.right{animation-delay:.04s}
+@keyframes tiko55Blink{0%,41%,46%,100%{opacity:0;transform:scaleY(.1)}42.5%,44.3%{opacity:.96;transform:scaleY(1)}}
+
+/* Mouth: a small open-mouth shape only while Tiko is speaking. */
+.tiko-talk-mouth{position:absolute;left:45.7%;top:46.6%;width:15.5%;height:4.7%;border-radius:45% 45% 58% 58%;background:#54251e;box-shadow:inset 0 -2px 0 rgba(236,143,132,.45);opacity:0;transform-origin:50% 50%;}
+.tiko-safe-host.tiko-speaking .tiko-talk-mouth{opacity:.96;animation:tiko55Talk .19s infinite alternate ease-in-out}
+@keyframes tiko55Talk{from{transform:scaleX(.88) scaleY(.62) translateY(1px)}to{transform:scaleX(1.03) scaleY(1.5) translateY(-1px)}}
+
+/* Thinking: subtle brows + head tilt. No image slicing. */
+.tiko-think-brow{position:absolute;top:29.1%;width:11%;height:1.8%;background:#3b2118;border-radius:999px;opacity:0;transform-origin:center;}
+.tiko-think-brow.left{left:38.2%}.tiko-think-brow.right{left:55.2%}
+.tiko-safe-host.tiko-thinking .tiko-think-brow{opacity:.88}
+.tiko-safe-host.tiko-thinking .tiko-think-brow.left{transform:rotate(12deg) translateY(1px)}
+.tiko-safe-host.tiko-thinking .tiko-think-brow.right{transform:rotate(-12deg) translateY(1px)}
+.tiko-safe-host.tiko-thinking>img{animation:tiko55Think 1.5s ease-in-out infinite alternate!important;transform-origin:50% 78%!important}
+@keyframes tiko55Think{from{transform:translateY(0) rotate(-1deg)}to{transform:translateY(-2px) rotate(1.4deg)}}
+
+/* Normal living movement stays subtle. */
+.tiko-safe-host.tiko-speaking>img{animation:tiko55SpeakBob .65s ease-in-out infinite alternate!important}
+@keyframes tiko55SpeakBob{from{transform:translateY(0)}to{transform:translateY(-2px)}}
+
+@media (prefers-reduced-motion:reduce){.tiko-lid,.tiko-talk-mouth,.tiko-safe-host>img{animation:none!important}}
