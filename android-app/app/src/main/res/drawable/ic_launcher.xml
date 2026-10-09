@@ -4,8 +4,12 @@
     android:height="108dp"
     android:viewportWidth="512"
     android:viewportHeight="512">
-    <path android:fillColor="#11110F" android:pathData="M0,0h512v512h-512z"/>
-    <path android:fillColor="@android:color/transparent" android:strokeColor="#D5B373" android:strokeWidth="24" android:strokeLineCap="round" android:strokeLineJoin="round" android:pathData="M112,223 L255,104 L309,149 L351,114 L427,181"/>
-    <path android:fillColor="#FFFFFF" android:pathData="M165,172v219h72c91,0 139,-47 139,-118 0,-67 -44,-101 -122,-101h-89zM223,227h31c42,0 62,16 62,51 0,38 -23,57 -70,57h-23v-108z"/>
-    <path android:fillColor="#D5B373" android:pathData="M390,105a18,18 0,1 0,0 36a18,18 0,1 0,0 -36"/>
+    <path android:fillColor="#0A0C0F" android:pathData="M256,20 A236,236 0,1 0,256,492 A236,236 0,1 0,256,20"/>
+    <path android:fillColor="#171B20" android:strokeColor="#E1B35F" android:strokeWidth="18" android:strokeLineJoin="round" android:pathData="M102,206 L186,110 L326,110 L410,206 L385,224 L127,224 Z"/>
+    <path android:fillColor="#F7EFDE" android:strokeColor="#B97830" android:strokeWidth="16" android:pathData="M118,205 L394,205 L394,330 Q394,397 327,397 L185,397 Q118,397 118,330 Z"/>
+    <path android:fillColor="#E1B35F" android:pathData="M226,137h24v24h-24z M262,137h24v24h-24z M226,173h24v24h-24z M262,173h24v24h-24z"/>
+    <path android:fillColor="@android:color/transparent" android:strokeColor="#2A2119" android:strokeWidth="16" android:strokeLineCap="round" android:pathData="M177,286 Q199,262 221,286 M291,286 Q313,262 335,286"/>
+    <path android:fillColor="#5A3027" android:strokeColor="#2A2119" android:strokeWidth="12" android:pathData="M214,315 Q256,356 298,315 Q284,373 256,373 Q228,373 214,315 Z"/>
+    <path android:fillColor="#EF8E7A" android:pathData="M232,350 Q256,366 280,350 Q270,372 256,372 Q242,372 232,350 Z"/>
+    <path android:fillColor="#111419" android:strokeColor="#E1B35F" android:strokeWidth="12" android:pathData="M96,258 A28,28 0,1 0,96,314 A28,28 0,1 0,96,258 M416,258 A28,28 0,1 0,416,314 A28,28 0,1 0,416,258"/>
 </vector>
