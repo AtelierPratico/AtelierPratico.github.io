@@ -20,19 +20,33 @@ jobs:
           echo 'f1c99eadc35920f8a0a802bebe8607101e18c581c040ab0dbf98895cff368477  /tmp/rive.tar.gz' | sha256sum -c -
           tar -xzf /tmp/rive.tar.gz -C /tmp
           chmod +x /tmp/rive
-      - name: Inspect authoring docs
+      - name: Extract exact approved Tiko asset
         run: |
-          echo '===== DRAWING ====='
-          /tmp/rive docs drawing
-          echo '===== EASING / ANIMATION ====='
-          /tmp/rive docs easing
-          echo '===== SAMPLES ====='
-          /tmp/rive samples --list || /tmp/rive samples || true
-          echo '===== FILL ====='
-          /tmp/rive schema Fill
-          echo '===== KEYED OBJECT ====='
-          /tmp/rive schema KeyedObject
-          echo '===== KEYED PROPERTY ====='
-          /tmp/rive schema KeyedProperty
-          echo '===== KEYFRAME DOUBLE ====='
-          /tmp/rive schema KeyFrameDouble
+          python - <<'PY'
+          from pathlib import Path
+          import base64, re
+          src=Path('android-app/app/src/main/assets/tiko-original.svg').read_text(encoding='utf-8')
+          m=re.search(r'data:image/webp;base64,([^\"\']+)', src)
+          if not m: raise SystemExit('Embedded Tiko WebP not found')
+          Path('android-app/tiko-rive/tiko.webp').write_bytes(base64.b64decode(m.group(1)))
+          print('Extracted exact Tiko:', Path('android-app/tiko-rive/tiko.webp').stat().st_size, 'bytes')
+          PY
+      - name: Build and inspect Rive
+        run: |
+          /tmp/rive android-app/tiko-rive --once
+          /tmp/rive inspect android-app/tiko-rive --json > /tmp/tiko-inspect.json
+          cat /tmp/tiko-inspect.json
+          test -f android-app/tiko-rive/build/tiko.riv
+          if [ -s android-app/tiko-rive/build/problems.log ]; then cat android-app/tiko-rive/build/problems.log; fi
+      - name: Capture idle preview
+        run: |
+          /tmp/rive android-app/tiko-rive --screenshot=/tmp/tiko-idle.png --advance=90
+      - name: Upload Rive preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: tiko-rive-preview
+          path: |
+            android-app/tiko-rive/build/tiko.riv
+            /tmp/tiko-idle.png
+            /tmp/tiko-inspect.json
+          retention-days: 7
