@@ -1,0 +1,1 @@
+# Pratico AI - ProGuard rules
