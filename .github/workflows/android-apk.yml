@@ -21,8 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare Pratiko AI v5.4
-        run: python android-app/prepare_v54.py
+      - name: Prepare Pratiko AI v5.5
+        run: python android-app/prepare_v55.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -40,13 +40,13 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.4.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.5.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v5.4
-          path: PratikoAI-Android-v5.4.apk
+          name: PratikoAI-Android-v5.5
+          path: PratikoAI-Android-v5.5.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -54,6 +54,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view pratiko-ai-v5.4 >/dev/null 2>&1 || \
-            gh release create pratiko-ai-v5.4 --title "Pratiko AI Android v5.4" --notes "Pratiko AI v5.4 — corrige le gel de l’interface causé par l’animation faciale et garde un moteur IA de secours intégré si la configuration distante ne répond pas. Tiko original sans cadre conservé, avec clignement, bouche animée et expression de réflexion."
-          gh release upload pratiko-ai-v5.4 PratikoAI-Android-v5.4.apk --clobber
+          gh release view pratiko-ai-v5.5 >/dev/null 2>&1 || \
+            gh release create pratiko-ai-v5.5 --title "Pratiko AI Android v5.5" --notes "Pratiko AI v5.5 — corrige le visage découpé/rectangulaire de Tiko. Repart de la version propre du personnage original sans cadre, réduit sa taille sur l’accueil et ajoute des animations faciales sans dupliquer des morceaux de l’image. Moteur IA de secours intégré."
+          gh release upload pratiko-ai-v5.5 PratikoAI-Android-v5.5.apk --clobber
