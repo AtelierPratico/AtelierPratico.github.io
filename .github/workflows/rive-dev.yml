@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'android-app/rive_probe.py'
       - 'android-app/tiko-rive/**'
       - '.github/workflows/rive-dev.yml'
 
@@ -13,9 +12,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install graphics libs
+      - name: Install graphics libs and Rive CLI
         run: |
           sudo apt-get update
           sudo apt-get install -y libegl1 libgles2 libgl1 libx11-6 libxext6 libxrender1 libxrandr2 libxi6 libxcursor1 libxinerama1
-      - name: Probe Rive docs
-        run: python android-app/rive_probe.py
+          curl -fsSL https://releases.rive.app/cli/v1.5.1/rive-linux-x64.tar.gz -o /tmp/rive.tar.gz
+          echo 'f1c99eadc35920f8a0a802bebe8607101e18c581c040ab0dbf98895cff368477  /tmp/rive.tar.gz' | sha256sum -c -
+          tar -xzf /tmp/rive.tar.gz -C /tmp
+          chmod +x /tmp/rive
+      - name: Inspect authoring docs
+        run: |
+          echo '===== DRAWING ====='
+          /tmp/rive docs drawing
+          echo '===== EASING / ANIMATION ====='
+          /tmp/rive docs easing
+          echo '===== SAMPLES ====='
+          /tmp/rive samples --list || /tmp/rive samples || true
+          echo '===== FILL ====='
+          /tmp/rive schema Fill
+          echo '===== KEYED OBJECT ====='
+          /tmp/rive schema KeyedObject
+          echo '===== KEYED PROPERTY ====='
+          /tmp/rive schema KeyedProperty
+          echo '===== KEYFRAME DOUBLE ====='
+          /tmp/rive schema KeyFrameDouble
