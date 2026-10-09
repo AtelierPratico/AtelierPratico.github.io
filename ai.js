@@ -9,6 +9,7 @@ const loadbar = document.getElementById('loadbar');
 const MODEL = 'gpt-5.4-nano';
 let history = [];
 let busy = false;
+let puterPromise = null;
 
 const SYSTEM = `Tu es Assistant Pratico, l'assistant généraliste de la marque Pratico - L'atelier du quotidien.
 Pratico est une collection de guides qui pourra couvrir la maison, la cuisine et les recettes, les relations, l'organisation, l'apprentissage, la technologie, les loisirs et d'autres thèmes du quotidien.
@@ -56,6 +57,33 @@ function instantReply(raw) {
   return null;
 }
 
+function ensurePuter() {
+  if (window.puter?.ai?.chat) return Promise.resolve(window.puter);
+  if (puterPromise) return puterPromise;
+
+  setStatus('Connexion à GPT…');
+  puterPromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[data-pratico-puter]');
+    if (existing) {
+      existing.addEventListener('load', () => window.puter?.ai?.chat ? resolve(window.puter) : reject(new Error('Puter.js indisponible')),{ once: true });
+      existing.addEventListener('error', () => reject(new Error('Chargement Puter.js impossible')),{ once: true });
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://js.puter.com/v2/';
+    script.async = true;
+    script.dataset.praticoPuter = '1';
+    script.onload = () => window.puter?.ai?.chat ? resolve(window.puter) : reject(new Error('Puter.js indisponible'));
+    script.onerror = () => reject(new Error('Chargement Puter.js impossible'));
+    document.head.appendChild(script);
+  }).catch(err => {
+    puterPromise = null;
+    throw err;
+  });
+  return puterPromise;
+}
+
 function buildConversation(q) {
   return [
     { role: 'system', content: SYSTEM },
@@ -65,7 +93,7 @@ function buildConversation(q) {
 }
 
 async function askOpenAI(q, bubble) {
-  if (!window.puter?.ai?.chat) throw new Error('Puter.js indisponible');
+  await ensurePuter();
 
   setStatus('GPT réfléchit…');
   if (loadbar) {
