@@ -1,5 +1,5 @@
 from pathlib import Path
-import hashlib, io, os, subprocess, tarfile, tempfile, urllib.request
+import hashlib, subprocess, tarfile, tempfile, urllib.request
 
 URL = 'https://releases.rive.app/cli/v1.5.1/rive-linux-x64.tar.gz'
 SHA256 = 'f1c99eadc35920f8a0a802bebe8607101e18c581c040ab0dbf98895cff368477'
@@ -19,13 +19,19 @@ with tempfile.TemporaryDirectory() as td:
         raise SystemExit('Rive CLI binary not found in archive')
     rive = candidates[0]
     rive.chmod(0o755)
+
+    def run(*args):
+        print('\n===== rive ' + ' '.join(args) + ' =====')
+        subprocess.run([str(rive), *args], check=False)
+
     proj = td / 'probe'
     subprocess.run([str(rive), 'create', str(proj)], check=True)
     print('\n===== RIVE SAMPLE scene.rml =====')
     print((proj / 'scene.rml').read_text(encoding='utf-8'))
     print('\n===== RIVE SAMPLE rive.yaml =====')
     print((proj / 'rive.yaml').read_text(encoding='utf-8'))
-    print('\n===== RIVE AGENTS.md =====')
-    print((proj / 'AGENTS.md').read_text(encoding='utf-8'))
-    print('\n===== RIVE CLI HELP =====')
-    subprocess.run([str(rive), '--help'], check=False)
+
+    for item in ['Image', 'ImageAsset', 'StateMachine', 'StateMachineLayer', 'StateMachineBool', 'StateMachineNumber', 'StateMachineTrigger', 'StateTransition', 'TransitionBoolCondition', 'TransitionNumberCondition', 'AnimationState', 'LinearAnimation', 'Shape', 'Rectangle', 'Ellipse', 'SolidColor']:
+        run('schema', item)
+    for topic in ['assets', 'state-machines', 'animations', 'images', 'project-config']:
+        run('docs', topic)
