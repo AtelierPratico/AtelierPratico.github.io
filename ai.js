@@ -8,11 +8,12 @@ const statusText = document.getElementById('statusText');
 const loadbar = document.getElementById('loadbar');
 const quick = document.getElementById('quick');
 
+// Aucun modèle Qwen : Assistant Pratico choisit parmi plusieurs familles selon l'appareil.
 const TIERS = [
-  { id: 'Qwen2.5-7B-Instruct-q4f16_1-MLC', label: 'Qwen 2.5 · 7B', rank: 4 },
-  { id: 'Qwen2.5-3B-Instruct-q4f16_1-MLC', label: 'Qwen 2.5 · 3B', rank: 3 },
-  { id: 'Qwen2.5-1.5B-Instruct-q4f16_1-MLC', label: 'Qwen 2.5 · 1.5B', rank: 2 },
-  { id: 'Qwen2.5-0.5B-Instruct-q4f16_1-MLC', label: 'Qwen 2.5 · 0.5B', rank: 1 }
+  { id: 'Mistral-7B-Instruct-v0.3-q4f16_1-MLC', label: 'Mistral 7B', rank: 4 },
+  { id: 'Phi-4-mini-instruct-q4f16_1-MLC', label: 'Phi-4 Mini', rank: 3 },
+  { id: 'gemma-2-2b-it-q4f16_1-MLC', label: 'Gemma 2 · 2B', rank: 2 },
+  { id: 'Llama-3.2-1B-Instruct-q4f16_1-MLC', label: 'Llama 3.2 · 1B', rank: 1 }
 ];
 
 const SYSTEM = `Tu es Assistant Pratico, l'assistant généraliste de la marque Pratico - L'atelier du quotidien.
@@ -85,9 +86,9 @@ function chooseTier() {
   const dm = Number(navigator.deviceMemory || 0);
   const mobile = /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent || '');
 
-  // Sur mobile, la fiabilité passe avant la taille du modèle : 0.5B par défaut,
-  // 1.5B seulement sur les appareils qui annoncent beaucoup de mémoire.
+  // Mobile : Llama 1B par défaut pour garder une réponse utilisable et un téléchargement raisonnable.
   if (mobile) return dm >= 12 ? 2 : 3;
+  // Ordinateurs puissants : privilégier Mistral/Phi pour la qualité générale.
   if (dm >= 16) return 0;
   if (dm >= 8) return 1;
   if (dm >= 4) return 2;
@@ -162,21 +163,21 @@ async function ensureCompatGenerator() {
   if (compatGenerator) return compatGenerator;
   if (compatPromise) return compatPromise;
 
-  setStatus('Mode compatibilité · préparation…');
+  setStatus('Mode compatibilité · Llama 3.2…');
   if (loadbar) {
     loadbar.style.opacity = '1';
-    loadbar.style.width = '35%';
+    loadbar.style.width = '30%';
   }
 
   compatPromise = import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/+esm')
     .then(async ({ pipeline }) => {
       const gen = await pipeline(
         'text-generation',
-        'onnx-community/Qwen2.5-0.5B-Instruct',
+        'onnx-community/Llama-3.2-1B-Instruct-ONNX',
         { dtype: 'q4' }
       );
       compatGenerator = gen;
-      setStatus('IA prête · mode compatibilité', 'ready');
+      setStatus('IA prête · Llama 3.2 compatibilité', 'ready');
       if (loadbar) loadbar.style.width = '100%';
       return gen;
     })
@@ -223,7 +224,6 @@ async function generateWithWebLLM(q, bubble) {
     if (!answer.trim()) throw new Error('Réponse vide');
     return answer.trim();
   } catch (firstErr) {
-    // Si le modèle chargé est trop lourd au moment de générer, descendre d'un niveau et retenter.
     if (activeTierIndex !== null && activeTierIndex + 1 < TIERS.length) {
       const next = activeTierIndex + 1;
       await disposeEngine();
@@ -262,17 +262,15 @@ async function generateWithCompat(q) {
 }
 
 async function answerQuestion(q, bubble) {
-  // 1) WebLLM/WebGPU, le moteur le plus performant disponible.
   if ('gpu' in navigator) {
     try {
       return await generateWithWebLLM(q, bubble);
     } catch (err) {
-      console.warn('WebLLM indisponible, passage au moteur de compatibilité', err);
+      console.warn('WebLLM indisponible, passage au moteur Llama de compatibilité', err);
     }
   }
 
-  // 2) Secours CPU/WASM via Transformers.js. Plus lent, mais fonctionne sur davantage de navigateurs.
-  bubble.textContent = 'Je charge le moteur local compatible avec ton appareil…';
+  bubble.textContent = 'Je charge la version locale compatible avec ton appareil…';
   bubble.classList.add('typing');
   return await generateWithCompat(q);
 }
@@ -308,7 +306,7 @@ async function send(raw) {
   } catch (err) {
     console.error('Tous les moteurs locaux ont échoué', err);
     bubble.classList.remove('typing');
-    bubble.textContent = 'Je n’ai pas réussi à charger mon moteur local sur ce navigateur. Ta question est correcte : le problème vient de la compatibilité de l’appareil, pas du sujet demandé. Ouvre Pratico dans une version récente de Chrome, Edge ou Safari et je pourrai répondre normalement.';
+    bubble.textContent = 'Mon moteur local n’a pas pu démarrer sur cet appareil. Ta question n’est pas le problème. Essaie Pratico dans une version récente de Chrome, Edge ou Safari pour utiliser l’assistant complet.';
     setStatus('Moteur local non disponible sur ce navigateur', 'error');
   }
 }
@@ -332,7 +330,6 @@ input.addEventListener('input', () => {
 
 quick.querySelectorAll('button').forEach(b => b.addEventListener('click', () => send(b.dataset.q || b.textContent)));
 
-// Préchargement uniquement des petits modèles, pour ne pas télécharger plusieurs Go sans raison.
 const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 const canPreload = !connection?.saveData && !['slow-2g', '2g', '3g'].includes(connection?.effectiveType);
 const chosen = TIERS[preferredIndex];
@@ -341,5 +338,5 @@ if (canPreload && 'gpu' in navigator && chosen.rank <= 2) {
   if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 3000 });
   else setTimeout(start, 1800);
 } else if (!('gpu' in navigator)) {
-  setStatus('IA locale · mode compatibilité');
+  setStatus('IA locale · Llama 3.2 compatibilité');
 }
