@@ -4,9 +4,10 @@
   const els = {
     drawer: $('#drawer'), scrim: $('#scrim'), messages: $('#messages'), empty: $('#emptyState'),
     input: $('#input'), composer: $('#composer'), send: $('#sendBtn'), history: $('#historyList'),
-    sheet: $('#modelSheet'), toast: $('#toast'), notice: $('#cloudNotice'), tiko: $('#tikoHero')
+    sheet: $('#modelSheet'), toast: $('#toast'), notice: $('#cloudNotice'), tiko: $('#tikoHero'),
+    mic: $('#micBtn'), voicePanel: $('#voicePanel'), voiceState: $('#voiceState'), voiceTitle: $('#voiceTitle'), voiceTranscript: $('#voiceTranscript')
   };
-  const state = { chats: [], activeId: null, generating: false, activeBubble: null, engine: 'setup' };
+  const state = { chats: [], activeId: null, generating: false, activeBubble: null, engine: 'setup', voice: 'idle' };
   const STORAGE = 'pratiko_chats_v3', ACTIVE = 'pratiko_active_v3';
 
   function id(){ return 'c_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
@@ -63,9 +64,24 @@
     const quick=instantReply(text);
     if(quick){ setTiko('point'); setTimeout(()=>{c.messages.push({role:'assistant',content:quick});save();appendMessage('assistant',quick);setTimeout(()=>setTiko('wave'),900);},110); return; }
     const bubble=appendMessage('assistant',''); bubble.classList.add('typing-cursor'); state.activeBubble=bubble; setGenerating(true);
-    const payload={conversation_id:c.remoteId||null,plan:'free',messages:c.messages.slice(-20),client:{platform:'android',app:'pratiko-ai',version:'3.0'}};
+    const payload={conversation_id:c.remoteId||null,plan:'free',messages:c.messages.slice(-20),client:{platform:'android',app:'pratiko-ai',version:'3.1'}};
     try{ if(window.PraticoNative?.sendMessage) window.PraticoNative.sendMessage(JSON.stringify(payload)); else window.PraticoCloud.onError('preview','Le moteur IA n’est pas encore connecté.'); }
     catch(e){ window.PraticoCloud.onError('bridge',e.message||'Erreur de connexion'); }
+  }
+
+  function setVoiceUi(status){
+    state.voice=status;
+    els.mic.classList.remove('live','connecting');
+    els.voicePanel.classList.remove('show','listening');
+    if(status==='connecting'){
+      els.mic.classList.add('connecting'); els.voicePanel.classList.add('show');
+      els.voiceState.textContent='CONNEXION GEMINI LIVE'; els.voiceTitle.textContent='Tiko se prépare…'; els.voiceTranscript.textContent='Connexion au mode vocal sécurisé.'; setTiko('think');
+    } else if(status==='listening'){
+      els.mic.classList.add('live'); els.voicePanel.classList.add('show','listening');
+      els.voiceState.textContent='MODE VOCAL · GEMINI LIVE'; els.voiceTitle.textContent='Tiko écoute…'; setTiko('wave');
+    } else {
+      els.voiceState.textContent='MODE VOCAL'; els.voiceTitle.textContent='Tiko écoute…'; els.voiceTranscript.textContent='Parle naturellement. Tiko te répondra à voix haute.'; setTiko('wave');
+    }
   }
 
   window.PraticoCloud={
@@ -85,15 +101,31 @@
     onEngineStatus(status){ state.engine=status; els.notice.classList.toggle('show',status!=='ready'); }
   };
 
+  window.PratikoVoice={
+    onAvailability(ok){ els.mic.style.opacity=ok?'1':'.45'; },
+    onState(status){ setVoiceUi(status); },
+    onTranscript(role,text){
+      if(!text)return;
+      els.voicePanel.classList.add('show');
+      if(role==='user'){
+        els.voiceState.textContent='TU PARLES'; els.voiceTitle.textContent='Tiko t’écoute'; els.voiceTranscript.textContent=text;
+      } else {
+        els.voiceState.textContent='TIKO RÉPOND'; els.voiceTitle.textContent='Conversation en direct'; els.voiceTranscript.textContent=text; setTiko('point');
+      }
+    },
+    onError(message){ setVoiceUi('idle'); showToast(message||'Le mode vocal est indisponible.'); }
+  };
+
   $('#menuBtn').onclick=openDrawer; $('#closeDrawer').onclick=closeDrawer; els.scrim.onclick=()=>{closeDrawer();closeSheet();};
   $('#newChatTop').onclick=()=>newChat(); $('#newChatDrawer').onclick=()=>newChat(); $('#modelBtn').onclick=openSheet;
   $('#plusPreview').onclick=$('#plusOption').onclick=()=>{closeSheet();showToast('Pratiko AI Plus arrive bientôt ✦');};
   $('#settingsBtn').onclick=()=>showToast('Réglages avancés bientôt disponibles');
   $('#attachBtn').onclick=()=>showToast('Photos et fichiers seront activés avec Plus');
-  $('#micBtn').onclick=()=>showToast('Le mode vocal de Tiko est en préparation');
+  $('#micBtn').onclick=()=>{ try{ window.PraticoNative?.toggleVoice?.(); }catch{ showToast('Le mode vocal nécessite l’application Android.'); } };
+  $('#voiceClose').onclick=()=>{ try{ window.PraticoNative?.stopVoice?.(); }catch{} setVoiceUi('idle'); };
   els.composer.addEventListener('submit',e=>{e.preventDefault();send();});
   els.input.addEventListener('input',resize);
   els.input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
   $$('.suggestions button,.chips button').forEach(b=>b.onclick=()=>send(b.dataset.prompt));
-  load(); refreshStatus(); setTimeout(refreshStatus,500);
+  load(); refreshStatus(); setVoiceUi('idle'); setTimeout(refreshStatus,500);
 })();
