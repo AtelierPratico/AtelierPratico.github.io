@@ -1,0 +1,91 @@
+/* Pratiko AI v4.3 — living frameless Tiko */
+:root{--p43-gold:#F4C96C;--p43-teal:#28D0C9}
+
+/* Tiko must float freely: never a tile, circle, border or card around him. */
+.assistant-avatar,
+.assistant-avatar:hover,
+.assistant-avatar:active{
+  position:relative!important;
+  width:48px!important;
+  height:58px!important;
+  flex:0 0 48px!important;
+  overflow:visible!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  border:0!important;
+  outline:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+}
+.assistant-avatar:before{display:none!important}
+.assistant-avatar:after{
+  content:'✦';position:absolute;right:-5px;top:0;color:var(--p43-gold);font-size:9px;
+  filter:drop-shadow(0 0 7px rgba(244,201,108,.75));opacity:.58;
+  animation:p43Spark 2.4s ease-in-out infinite;pointer-events:none
+}
+.assistant-avatar img{
+  display:block!important;width:54px!important;height:62px!important;max-width:none!important;
+  margin:0!important;padding:0!important;border:0!important;outline:0!important;border-radius:0!important;
+  background:transparent!important;box-shadow:none!important;object-fit:contain!important;
+  filter:drop-shadow(0 8px 7px rgba(0,0,0,.52)) drop-shadow(0 0 9px rgba(244,201,108,.10))!important;
+  transform-origin:50% 82%;animation:p43Alive 3.1s ease-in-out infinite!important;
+  will-change:transform,filter
+}
+.message.assistant{align-items:flex-start!important;gap:10px!important}
+.message.assistant .bubble{margin-top:2px}
+
+/* More visible thinking motion while the answer is streaming. */
+.message.assistant.p43-thinking .assistant-avatar img{
+  animation:p43Think .82s ease-in-out infinite!important;
+  filter:drop-shadow(0 9px 8px rgba(0,0,0,.52)) drop-shadow(0 0 13px rgba(40,208,201,.25))!important
+}
+.message.assistant.p43-speaking .assistant-avatar img{animation:p43Speak 1.15s ease-in-out infinite!important}
+.assistant-avatar.p43-react img{animation:p43React .62s cubic-bezier(.16,.9,.28,1.2)!important}
+
+/* Home mascot: no card/frame, stronger living motion. */
+.mascot-stage{overflow:visible!important;background:radial-gradient(circle at 48% 48%,rgba(244,201,108,.18),rgba(40,208,201,.055) 48%,transparent 71%)!important;border:0!important;box-shadow:none!important}
+.mascot-stage:before,.mascot-stage:after{border:0!important;box-shadow:none!important}
+.tiko-hero{border:0!important;outline:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;animation:p43Hero 3.2s ease-in-out infinite!important;transform-origin:50% 82%!important}
+.tiko-hero.p43-react{animation:p43HeroReact .7s cubic-bezier(.18,.9,.25,1.18)!important}
+.p42-context,.v4-mode-badge{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;text-shadow:0 2px 11px rgba(0,0,0,.95)!important}
+
+/* Keep the image quota tiny and unboxed. */
+.image-quota,.quota-pill,#imageQuota{background:transparent!important;border:0!important;outline:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;font-size:10.5px!important;font-weight:650!important;color:rgba(244,201,108,.88)!important}
+.image-quota strong,.quota-pill strong,#imageQuota strong{font-size:10.5px!important;color:inherit!important}
+
+/* Mobile readability: responses should feel light, not like giant blocks. */
+.message.assistant .bubble{line-height:1.52!important;padding:13px 15px!important}
+.message.assistant .bubble p:first-child{margin-top:0}.message.assistant .bubble p:last-child{margin-bottom:0}
+
+@keyframes p43Alive{
+  0%,100%{transform:translate3d(0,0,0) rotate(-.6deg) scale(1)}
+  26%{transform:translate3d(0,-2px,0) rotate(.5deg) scale(1.012)}
+  52%{transform:translate3d(0,-4px,0) rotate(1deg) scale(.995)}
+  76%{transform:translate3d(0,-1px,0) rotate(-.2deg) scale(1.008)}
+}
+@keyframes p43Think{
+  0%,100%{transform:translateY(0) rotate(-2deg) scale(1)}
+  50%{transform:translateY(-5px) rotate(2.2deg) scale(1.035)}
+}
+@keyframes p43Speak{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-2px) scale(1.025)}
+}
+@keyframes p43React{
+  0%{transform:scale(1) rotate(0)}35%{transform:scale(1.12) rotate(-4deg) translateY(-3px)}
+  65%{transform:scale(.98) rotate(2deg)}100%{transform:scale(1) rotate(0)}
+}
+@keyframes p43Hero{
+  0%,100%{transform:translateY(0) rotate(-.55deg) scale(1)}
+  47%{transform:translateY(-9px) rotate(.65deg) scale(1.012)}
+  53%{transform:translateY(-9px) rotate(.65deg) scale(.995,1.012)}
+}
+@keyframes p43HeroReact{0%{transform:scale(1)}38%{transform:scale(1.055) rotate(-2deg) translateY(-7px)}68%{transform:scale(.985) rotate(1deg)}100%{transform:scale(1)}}
+@keyframes p43Spark{0%,100%{opacity:.25;transform:scale(.72) rotate(0)}50%{opacity:1;transform:scale(1.18) rotate(24deg)}}
+
+@media(max-width:480px){
+  .assistant-avatar{width:44px!important;height:54px!important;flex-basis:44px!important}
+  .assistant-avatar img{width:50px!important;height:58px!important}
+  .message.assistant{gap:8px!important}
+}
