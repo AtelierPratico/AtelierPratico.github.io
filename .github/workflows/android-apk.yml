@@ -33,13 +33,13 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v3.0.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v3.1.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v3.0
-          path: PratikoAI-Android-v3.0.apk
+          name: PratikoAI-Android-v3.1
+          path: PratikoAI-Android-v3.1.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -47,6 +47,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view pratiko-ai-v3.0 >/dev/null 2>&1 || \
-            gh release create pratiko-ai-v3.0 --title "Pratiko AI Android v3.0" --notes "Pratiko AI v3.0 — nouvelle identité Pratiko, mascotte Tiko animée, interface sombre premium, backend Supabase et streaming prêts."
-          gh release upload pratiko-ai-v3.0 PratikoAI-Android-v3.0.apk --clobber
+          gh release view pratiko-ai-v3.1 >/dev/null 2>&1 || \
+            gh release create pratiko-ai-v3.1 --title "Pratiko AI Android v3.1" --notes "Pratiko AI v3.1 — OpenAI pour le chat, Gemini Live pour la voix de Tiko, streaming texte et audio, interface sombre premium."
+          gh release upload pratiko-ai-v3.1 PratikoAI-Android-v3.1.apk --clobber
