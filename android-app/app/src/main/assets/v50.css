@@ -1,0 +1,39 @@
+/* Pratiko AI v5.0 — original Tiko, no frame */
+#tikoLiveHero,.tiko-live-host{display:none!important}
+.mascot-stage,.welcome-card,.assistant-avatar{
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+.tiko-original-hero,.message.assistant .assistant-avatar .tiko-original-chat{
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 14px 18px rgba(0,0,0,.35))!important;
+}
+.tiko-original-hero{
+  width:116%!important;
+  height:108%!important;
+  max-width:none!important;
+  max-height:345px!important;
+  margin-left:-8%!important;
+  animation:tikoOriginalIdle 3.4s ease-in-out infinite!important;
+  transform-origin:50% 80%!important;
+}
+.message.assistant .assistant-avatar .tiko-original-chat{
+  width:122px!important;
+  height:142px!important;
+  max-width:none!important;
+  animation:tikoOriginalChat 3.2s ease-in-out infinite!important;
+}
+.tiko-tap{animation:tikoOriginalTap .9s ease!important}
+@keyframes tikoOriginalIdle{0%,100%{transform:translateY(1px) rotate(-.35deg)}50%{transform:translateY(-5px) rotate(.35deg)}}
+@keyframes tikoOriginalChat{0%,100%{transform:translateY(1px)}50%{transform:translateY(-3px)}}
+@keyframes tikoOriginalTap{0%{transform:scale(1)}35%{transform:scale(1.05) rotate(-1deg)}70%{transform:scale(.99) rotate(.7deg)}100%{transform:scale(1)}}
