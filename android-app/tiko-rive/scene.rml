@@ -1,0 +1,153 @@
+<Rive version="1" kind="fragment">
+    <ImageAsset file="tiko.webp" name="Tiko Original" id="0:60"/>
+
+    <Artboard defaultStateMachineId="0:7" width="222" height="360" name="Tiko" id="0:2">
+        <!-- Facial overlays are real vector elements. They sit above the exact original Tiko image. -->
+        <Shape x="97" y="128" opacity="0" name="Left Lid" id="0:20">
+            <Rectangle width="19" height="9" cornerRadiusTL="4.5" name="Lid Path"/>
+            <Fill name="Lid Fill"><SolidColor colorValue="FFD6A47F" name="Skin"/></Fill>
+        </Shape>
+        <Shape x="133" y="127" opacity="0" name="Right Lid" id="0:21">
+            <Rectangle width="19" height="9" cornerRadiusTL="4.5" name="Lid Path"/>
+            <Fill name="Lid Fill"><SolidColor colorValue="FFD6A47F" name="Skin"/></Fill>
+        </Shape>
+
+        <Shape x="98" y="125" opacity="0" name="Thinking Left Pupil" id="0:22">
+            <Ellipse width="5" height="5" name="Pupil"/>
+            <Fill name="Pupil Fill"><SolidColor colorValue="FF302018" name="Dark"/></Fill>
+        </Shape>
+        <Shape x="134" y="124" opacity="0" name="Thinking Right Pupil" id="0:23">
+            <Ellipse width="5" height="5" name="Pupil"/>
+            <Fill name="Pupil Fill"><SolidColor colorValue="FF302018" name="Dark"/></Fill>
+        </Shape>
+
+        <Shape x="97" y="109" rotation="0.10" opacity="0" name="Thinking Left Brow" id="0:24">
+            <Rectangle width="17" height="3" cornerRadiusTL="1.5" name="Brow"/>
+            <Fill name="Brow Fill"><SolidColor colorValue="FF34231B" name="Dark"/></Fill>
+        </Shape>
+        <Shape x="133" y="108" rotation="-0.10" opacity="0" name="Thinking Right Brow" id="0:25">
+            <Rectangle width="17" height="3" cornerRadiusTL="1.5" name="Brow"/>
+            <Fill name="Brow Fill"><SolidColor colorValue="FF34231B" name="Dark"/></Fill>
+        </Shape>
+
+        <Shape x="114" y="176" opacity="0" name="Talking Mouth" id="0:26">
+            <Ellipse width="17" height="8" name="Mouth"/>
+            <Fill name="Mouth Fill"><SolidColor colorValue="FF70362F" name="Mouth Color"/></Fill>
+        </Shape>
+
+        <!-- Exact approved Tiko artwork. -->
+        <Image x="111" y="180" originX="0.5" originY="0.5" assetId="0:60" name="Tiko Original" id="0:10"/>
+
+        <StateMachine name="Tiko Machine" id="0:7">
+            <!-- 0 idle, 1 thinking, 2 talking, 3 happy -->
+            <StateMachineNumber name="mode" value="0" id="0:40"/>
+
+            <StateMachineLayer name="Expression" id="0:8">
+                <AnyState x="40" y="-110"/>
+                <ExitState x="820" y="-110"/>
+                <EntryState x="40" y="20"><StateTransition stateToId="0:11"/></EntryState>
+
+                <AnimationState x="190" y="20" animationId="0:70" id="0:11">
+                    <StateTransition stateToId="0:12" duration="140"><TransitionNumberCondition inputId="0:40" opValue="equal" value="1"/></StateTransition>
+                    <StateTransition stateToId="0:13" duration="100"><TransitionNumberCondition inputId="0:40" opValue="equal" value="2"/></StateTransition>
+                    <StateTransition stateToId="0:14" duration="120"><TransitionNumberCondition inputId="0:40" opValue="equal" value="3"/></StateTransition>
+                </AnimationState>
+                <AnimationState x="390" y="-70" animationId="0:71" reset="true" id="0:12">
+                    <StateTransition stateToId="0:11" duration="140"><TransitionNumberCondition inputId="0:40" opValue="equal" value="0"/></StateTransition>
+                    <StateTransition stateToId="0:13" duration="100"><TransitionNumberCondition inputId="0:40" opValue="equal" value="2"/></StateTransition>
+                    <StateTransition stateToId="0:14" duration="120"><TransitionNumberCondition inputId="0:40" opValue="equal" value="3"/></StateTransition>
+                </AnimationState>
+                <AnimationState x="390" y="100" animationId="0:72" reset="true" id="0:13">
+                    <StateTransition stateToId="0:11" duration="100"><TransitionNumberCondition inputId="0:40" opValue="equal" value="0"/></StateTransition>
+                    <StateTransition stateToId="0:12" duration="100"><TransitionNumberCondition inputId="0:40" opValue="equal" value="1"/></StateTransition>
+                    <StateTransition stateToId="0:14" duration="100"><TransitionNumberCondition inputId="0:40" opValue="equal" value="3"/></StateTransition>
+                </AnimationState>
+                <AnimationState x="600" y="20" animationId="0:73" reset="true" id="0:14">
+                    <StateTransition stateToId="0:11" duration="120"><TransitionNumberCondition inputId="0:40" opValue="equal" value="0"/></StateTransition>
+                    <StateTransition stateToId="0:12" duration="120"><TransitionNumberCondition inputId="0:40" opValue="equal" value="1"/></StateTransition>
+                    <StateTransition stateToId="0:13" duration="100"><TransitionNumberCondition inputId="0:40" opValue="equal" value="2"/></StateTransition>
+                </AnimationState>
+            </StateMachineLayer>
+
+            <!-- Blink runs independently, so Tiko can blink while idle, thinking or talking. -->
+            <StateMachineLayer name="Blink" id="0:9">
+                <AnyState x="40" y="250"/>
+                <ExitState x="420" y="250"/>
+                <EntryState x="40" y="350"><StateTransition stateToId="0:15"/></EntryState>
+                <AnimationState x="230" y="350" animationId="0:74" id="0:15"/>
+            </StateMachineLayer>
+        </StateMachine>
+
+        <LinearAnimation fps="60" duration="90" loopValue="pingPong" name="Idle" id="0:70">
+            <KeyedObject objectId="0:10">
+                <KeyedProperty propertyKey="14">
+                    <KeyFrameDouble value="180" frame="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.42" y1="0" x2="0.58" y2="1"/></KeyFrameDouble>
+                    <KeyFrameDouble value="177" frame="90" interpolationType="linear"/>
+                </KeyedProperty>
+                <KeyedProperty propertyKey="15">
+                    <KeyFrameDouble value="-0.006" frame="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.42" y1="0" x2="0.58" y2="1"/></KeyFrameDouble>
+                    <KeyFrameDouble value="0.006" frame="90" interpolationType="linear"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="0:22"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="90"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:23"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="90"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:24"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="90"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:25"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="90"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:26"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="90"/></KeyedProperty></KeyedObject>
+        </LinearAnimation>
+
+        <LinearAnimation fps="60" duration="70" loopValue="pingPong" name="Thinking" id="0:71">
+            <KeyedObject objectId="0:10">
+                <KeyedProperty propertyKey="14"><KeyFrameDouble value="180" frame="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.42" y1="0" x2="0.58" y2="1"/></KeyFrameDouble><KeyFrameDouble value="177" frame="70" interpolationType="linear"/></KeyedProperty>
+                <KeyedProperty propertyKey="15"><KeyFrameDouble value="-0.018" frame="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.42" y1="0" x2="0.58" y2="1"/></KeyFrameDouble><KeyFrameDouble value="0.012" frame="70" interpolationType="linear"/></KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="0:22"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0.86" frame="0"/><KeyFrameDouble value="0.86" frame="70"/></KeyedProperty><KeyedProperty propertyKey="14"><KeyFrameDouble value="125" frame="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.42" y1="0" x2="0.58" y2="1"/></KeyFrameDouble><KeyFrameDouble value="123.5" frame="70" interpolationType="linear"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:23"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0.86" frame="0"/><KeyFrameDouble value="0.86" frame="70"/></KeyedProperty><KeyedProperty propertyKey="14"><KeyFrameDouble value="124" frame="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.42" y1="0" x2="0.58" y2="1"/></KeyFrameDouble><KeyFrameDouble value="122.5" frame="70" interpolationType="linear"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:24"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0.78" frame="0"/><KeyFrameDouble value="0.78" frame="70"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:25"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0.78" frame="0"/><KeyFrameDouble value="0.78" frame="70"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:26"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="70"/></KeyedProperty></KeyedObject>
+        </LinearAnimation>
+
+        <LinearAnimation fps="60" duration="18" loopValue="loop" name="Talking" id="0:72">
+            <KeyedObject objectId="0:10">
+                <KeyedProperty propertyKey="14"><KeyFrameDouble value="180" frame="0" interpolationType="linear"/><KeyFrameDouble value="178.5" frame="9" interpolationType="linear"/><KeyFrameDouble value="180" frame="18" interpolationType="linear"/></KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="0:22"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="18"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:23"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="18"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:24"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="18"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:25"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="18"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:26">
+                <KeyedProperty propertyKey="18"><KeyFrameDouble value="0.72" frame="0"/><KeyFrameDouble value="0.72" frame="18"/></KeyedProperty>
+                <KeyedProperty propertyKey="17"><KeyFrameDouble value="0.58" frame="0" interpolationType="linear"/><KeyFrameDouble value="1.35" frame="6" interpolationType="linear"/><KeyFrameDouble value="0.82" frame="12" interpolationType="linear"/><KeyFrameDouble value="0.58" frame="18" interpolationType="linear"/></KeyedProperty>
+                <KeyedProperty propertyKey="16"><KeyFrameDouble value="0.94" frame="0" interpolationType="linear"/><KeyFrameDouble value="1.06" frame="9" interpolationType="linear"/><KeyFrameDouble value="0.94" frame="18" interpolationType="linear"/></KeyedProperty>
+            </KeyedObject>
+        </LinearAnimation>
+
+        <LinearAnimation fps="60" duration="30" loopValue="pingPong" name="Happy" id="0:73">
+            <KeyedObject objectId="0:10">
+                <KeyedProperty propertyKey="14"><KeyFrameDouble value="180" frame="0" interpolationType="cubic"><CubicEaseInterpolator x1="0.2" y1="0.8" x2="0.3" y2="1"/></KeyFrameDouble><KeyFrameDouble value="172" frame="30" interpolationType="linear"/></KeyedProperty>
+                <KeyedProperty propertyKey="15"><KeyFrameDouble value="-0.015" frame="0" interpolationType="linear"/><KeyFrameDouble value="0.018" frame="30" interpolationType="linear"/></KeyedProperty>
+                <KeyedProperty propertyKey="16"><KeyFrameDouble value="1" frame="0" interpolationType="linear"/><KeyFrameDouble value="1.025" frame="30" interpolationType="linear"/></KeyedProperty>
+                <KeyedProperty propertyKey="17"><KeyFrameDouble value="1" frame="0" interpolationType="linear"/><KeyFrameDouble value="1.025" frame="30" interpolationType="linear"/></KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="0:22"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="30"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:23"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="30"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:24"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="30"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:25"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="30"/></KeyedProperty></KeyedObject>
+            <KeyedObject objectId="0:26"><KeyedProperty propertyKey="18"><KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="30"/></KeyedProperty></KeyedObject>
+        </LinearAnimation>
+
+        <LinearAnimation fps="60" duration="240" loopValue="loop" name="Blink" id="0:74">
+            <KeyedObject objectId="0:20">
+                <KeyedProperty propertyKey="18">
+                    <KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="180"/><KeyFrameDouble value="1" frame="182"/><KeyFrameDouble value="1" frame="184"/><KeyFrameDouble value="0" frame="187"/><KeyFrameDouble value="0" frame="240"/>
+                </KeyedProperty>
+            </KeyedObject>
+            <KeyedObject objectId="0:21">
+                <KeyedProperty propertyKey="18">
+                    <KeyFrameDouble value="0" frame="0"/><KeyFrameDouble value="0" frame="180"/><KeyFrameDouble value="1" frame="182"/><KeyFrameDouble value="1" frame="184"/><KeyFrameDouble value="0" frame="187"/><KeyFrameDouble value="0" frame="240"/>
+                </KeyedProperty>
+            </KeyedObject>
+        </LinearAnimation>
+    </Artboard>
+</Rive>
