@@ -42,10 +42,11 @@
     const {img,host,canvas,riveInstance}=record;
     const r=rectInsideHost(img,host);
     if(r.width < 2 || r.height < 2) return;
-    canvas.style.left=r.left+'px';
-    canvas.style.top=r.top+'px';
-    canvas.style.width=r.width+'px';
-    canvas.style.height=r.height+'px';
+    const left=r.left+'px', top=r.top+'px', width=r.width+'px', height=r.height+'px';
+    if(canvas.style.left!==left) canvas.style.left=left;
+    if(canvas.style.top!==top) canvas.style.top=top;
+    if(canvas.style.width!==width) canvas.style.width=width;
+    if(canvas.style.height!==height) canvas.style.height=height;
     const dpr=Math.min(window.devicePixelRatio || 1, 2.5);
     const w=Math.max(2,Math.round(r.width*dpr));
     const h=Math.max(2,Math.round(r.height*dpr));
@@ -103,10 +104,10 @@
             const inputs=r.stateMachineInputs(MACHINE) || [];
             record.modeInput=inputs.find(i=>i.name==='mode') || null;
           }catch(_){ record.modeInput=null; }
-          sizeCanvas(record);
           canvas.classList.add('ready');
           img.style.setProperty('animation','none','important');
           img.style.setProperty('opacity','0','important');
+          requestAnimationFrame(()=>sizeCanvas(record));
           setMode(record,stateFromUi());
         },
         onLoadError:(err)=>{
@@ -153,9 +154,7 @@
     if(allowHappy && lastDetectedState==='talking' && state==='idle'){
       clearTimeout(happyTimer);
       instances.forEach(r=>setMode(r,'happy'));
-      happyTimer=setTimeout(()=>{
-        instances.forEach(r=>setMode(r,stateFromUi()));
-      },720);
+      happyTimer=setTimeout(()=>instances.forEach(r=>setMode(r,stateFromUi())),720);
     }else{
       instances.forEach(r=>setMode(r,state));
     }
@@ -182,7 +181,9 @@
     }
     sync();
     const root=document.querySelector('#app')||document.body;
-    new MutationObserver(schedule).observe(root,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class','style','src']});
+    // Deliberately ignore style/src mutations: the Rive canvas updates its own dimensions,
+    // and observing those styles would create a self-triggering animation loop in WebView.
+    new MutationObserver(schedule).observe(root,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});
     window.addEventListener('resize',schedule,{passive:true});
     document.addEventListener('visibilitychange',()=>{if(!document.hidden) schedule();});
   }
