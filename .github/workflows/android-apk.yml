@@ -21,8 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare Pratiko AI v4.0
-        run: python android-app/prepare_v40.py
+      - name: Prepare Pratiko AI v4.1
+        run: python android-app/prepare_v41.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -40,13 +40,13 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v4.0.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v4.1.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v4.0
-          path: PratikoAI-Android-v4.0.apk
+          name: PratikoAI-Android-v4.1
+          path: PratikoAI-Android-v4.1.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -54,6 +54,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view pratiko-ai-v4.0 >/dev/null 2>&1 || \
-            gh release create pratiko-ai-v4.0 --title "Pratiko AI Android v4.0" --notes "Pratiko AI v4.0 — interface premium modernisée, Entrée pour créer une nouvelle ligne, réponses en streaming, Tiko original plus vivant avec costumes contextuels automatiques (artiste, plombier, chef, techno, prof, bricoleur et coach), génération d’images, quota Free de 15 créations/mois et mode vocal."
-          gh release upload pratiko-ai-v4.0 PratikoAI-Android-v4.0.apk --clobber
+          gh release view pratiko-ai-v4.1 >/dev/null 2>&1 || \
+            gh release create pratiko-ai-v4.1 --title "Pratiko AI Android v4.1" --notes "Pratiko AI v4.1 — nouvelle interface premium plus vive, Tiko original plus charismatique et animé, mascotte sans cadre, compagnon interactif dans les conversations, costumes contextuels automatiques, quota d’images compact sans cadre, Entrée pour une nouvelle ligne, streaming en direct, génération d’images et mode vocal."
+          gh release upload pratiko-ai-v4.1 PratikoAI-Android-v4.1.apk --clobber
