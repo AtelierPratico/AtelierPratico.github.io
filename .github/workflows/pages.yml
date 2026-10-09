@@ -21,24 +21,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout deployment repository
+      - name: Checkout Pratico
         uses: actions/checkout@v4
-
-      - name: Fetch Pratico site
-        run: |
-          rm -rf site
-          git clone --depth 1 https://github.com/Rin7548/atelier-pratico.git site
-          rm -rf site/.git site/.github
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: .
 
       - name: Deploy
         id: deployment
