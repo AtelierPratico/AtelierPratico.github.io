@@ -17,6 +17,40 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Prepare Pratiko AI v3.2
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          main = Path('android-app/app/src/main/java/ai/pratico/app/MainActivity.java')
+          s = main.read_text(encoding='utf-8')
+          replacements = {
+              'PratikoAIAndroid/3.1': 'PratikoAIAndroid/3.2',
+              'android-3.1': 'android-3.2',
+              'String voiceName = obj.optString("voice", "Kore");': 'String voiceName = obj.optString("voice", "Achird");',
+              "Tu es Tiko, l'assistant vocal de Pratiko AI. Parle naturellement, chaleureusement et de façon concise. Réponds en français par défaut, sauf si la personne parle dans une autre langue.": "Tu es Tiko, l'assistant vocal de Pratiko AI. Ta personnalité est amicale, souriante, spontanée et légèrement taquine. Parle avec chaleur et naturel, avec une légère coloration hispanique ou méditerranéenne dans le rythme et l'intonation, subtile et jamais caricaturale. Tu peux rire doucement quand le contexte s'y prête. Garde un ton charmant, accessible et énergique, sans surjouer. Réponds en français par défaut, sauf si la personne parle dans une autre langue. Sois concis et conversationnel."
+          }
+          for old, new in replacements.items():
+              if old not in s:
+                  raise SystemExit(f'Missing MainActivity replacement: {old}')
+              s = s.replace(old, new)
+          main.write_text(s, encoding='utf-8')
+
+          appjs = Path('android-app/app/src/main/assets/app.js')
+          s = appjs.read_text(encoding='utf-8')
+          old = "version:'3.1'"
+          if old not in s:
+              raise SystemExit('Missing app.js version marker')
+          appjs.write_text(s.replace(old, "version:'3.2'"), encoding='utf-8')
+
+          gradle = Path('android-app/app/build.gradle')
+          s = gradle.read_text(encoding='utf-8')
+          if 'versionCode 4' not in s or "versionName '3.1.0'" not in s:
+              raise SystemExit('Missing Gradle version markers')
+          s = s.replace('versionCode 4', 'versionCode 5').replace("versionName '3.1.0'", "versionName '3.2.0'")
+          gradle.write_text(s, encoding='utf-8')
+          PY
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -33,13 +67,13 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v3.1.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v3.2.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v3.1
-          path: PratikoAI-Android-v3.1.apk
+          name: PratikoAI-Android-v3.2
+          path: PratikoAI-Android-v3.2.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -47,6 +81,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view pratiko-ai-v3.1 >/dev/null 2>&1 || \
-            gh release create pratiko-ai-v3.1 --title "Pratiko AI Android v3.1" --notes "Pratiko AI v3.1 — OpenAI pour le chat, Gemini Live pour la voix de Tiko, streaming texte et audio, interface sombre premium."
-          gh release upload pratiko-ai-v3.1 PratikoAI-Android-v3.1.apk --clobber
+          gh release view pratiko-ai-v3.2 >/dev/null 2>&1 || \
+            gh release create pratiko-ai-v3.2 --title "Pratiko AI Android v3.2" --notes "Pratiko AI v3.2 — OpenAI pour le chat, Gemini 3.8 Live pour la voix de Tiko, personnalité vocale plus amicale, chaleureuse et joueuse, légère coloration hispanique/méditerranéenne, streaming texte et audio."
+          gh release upload pratiko-ai-v3.2 PratikoAI-Android-v3.2.apk --clobber
