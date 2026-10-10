@@ -1,0 +1,231 @@
+/* Pratiko AI 7.0 — premium conversational interface, familiar modern AI patterns with Tiko identity */
+:root{
+  --p7-bg:#0b0d10;
+  --p7-bg-soft:#101318;
+  --p7-panel:#15191f;
+  --p7-panel-2:#1a1f26;
+  --p7-line:rgba(255,255,255,.09);
+  --p7-line-strong:rgba(255,255,255,.14);
+  --p7-text:#f5f5f2;
+  --p7-muted:#989fa9;
+  --p7-gold:#e8b85e;
+  --p7-gold-soft:#f2ca7a;
+  --p7-user:#2b2418;
+  --p7-shadow:0 18px 55px rgba(0,0,0,.36);
+}
+
+html,body{background:var(--p7-bg)!important;color:var(--p7-text)!important}
+body{overscroll-behavior:none;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.shell{background:var(--p7-bg)!important}
+
+/* Top bar: intentionally quiet. Conversation gets the visual priority. */
+.topbar{
+  height:60px!important;
+  grid-template-columns:48px 1fr 48px!important;
+  padding:env(safe-area-inset-top) 10px 0!important;
+  background:rgba(11,13,16,.84)!important;
+  border-bottom:1px solid rgba(255,255,255,.045)!important;
+  backdrop-filter:blur(26px) saturate(1.35)!important;
+  -webkit-backdrop-filter:blur(26px) saturate(1.35)!important;
+}
+.icon-btn{width:42px!important;height:42px!important;border-radius:50%!important;color:#d7d9dc!important;transition:background .16s ease,transform .12s ease!important}
+.icon-btn:active{background:rgba(255,255,255,.075)!important;transform:scale(.94)!important}
+.menu{font-size:0!important}
+.menu:after{content:'☰';font-size:21px!important}
+.new-top{font-size:0!important;color:var(--p7-text)!important}
+.new-top:after{content:'＋';font-size:25px!important;font-weight:300!important}
+.brand-switch{
+  font-size:17px!important;font-weight:720!important;gap:5px!important;padding:8px 12px!important;
+  border-radius:13px!important;letter-spacing:-.015em!important;
+}
+.brand-switch img{display:none!important}
+.brand-switch em{color:var(--p7-gold)!important;font-style:normal!important}
+.brand-switch b{display:none!important}
+.brand-switch .chev{font-size:12px!important;color:#7e858e!important;margin-left:2px!important}
+
+/* Chat viewport */
+.chat-area{
+  padding:8px 0 158px!important;
+  background:
+    radial-gradient(circle at 50% -15%,rgba(232,184,94,.055),transparent 30%),
+    var(--p7-bg)!important;
+  scrollbar-width:none!important;
+}
+.chat-area::-webkit-scrollbar{display:none!important}
+.messages{width:min(760px,100%)!important;gap:8px!important;padding:10px 16px 20px!important}
+.message{gap:10px!important;animation:p7MessageIn .28s cubic-bezier(.2,.75,.25,1)!important;transform-origin:bottom center}
+.message.user{padding:5px 0 12px!important}
+.message.user .bubble{
+  max-width:86%!important;
+  padding:11px 15px!important;
+  background:#22262c!important;
+  color:#f6f6f3!important;
+  border:1px solid rgba(255,255,255,.055)!important;
+  border-radius:20px 20px 6px 20px!important;
+  box-shadow:none!important;
+  font-weight:450!important;
+  line-height:1.52!important;
+  font-size:15.5px!important;
+}
+.message.assistant{padding:4px 0 18px!important;align-items:flex-start!important}
+.assistant-avatar{
+  flex:0 0 38px!important;width:38px!important;height:38px!important;
+  margin-top:0!important;border-radius:12px!important;border:0!important;background:transparent!important;
+  overflow:visible!important;box-shadow:none!important;
+}
+.assistant-avatar img{
+  width:38px!important;height:38px!important;object-fit:contain!important;border-radius:0!important;
+  filter:drop-shadow(0 7px 12px rgba(0,0,0,.32))!important;
+}
+.message.assistant .bubble{
+  max-width:calc(100% - 48px)!important;
+  padding:4px 2px 2px!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  color:#eceeeb!important;
+  line-height:1.67!important;
+  font-size:15.8px!important;
+  letter-spacing:-.006em!important;
+}
+.typing-cursor:after{width:2px!important;height:18px!important;background:var(--p7-gold)!important;border-radius:2px!important;box-shadow:none!important}
+.message.assistant .typing-cursor:empty:before{content:'Tiko réfléchit…';color:#7f8791;font-size:14px;font-style:normal;animation:p7Pulse 1.5s ease-in-out infinite}
+
+/* Empty state: no giant framed dashboard — a clean assistant landing screen. */
+.empty-state{
+  width:min(760px,100%)!important;
+  min-height:calc(100dvh - 235px)!important;
+  justify-content:center!important;
+  padding:22px 18px 24px!important;
+}
+.welcome-card{
+  width:100%!important;min-height:auto!important;
+  display:flex!important;flex-direction:column!important;
+  align-items:center!important;text-align:center!important;
+  overflow:visible!important;
+  border:0!important;background:transparent!important;border-radius:0!important;
+  box-shadow:none!important;padding:0!important;margin:0 0 24px!important;
+}
+.welcome-card:before{display:none!important}
+.mascot-stage{width:150px!important;height:170px!important;margin-bottom:6px!important}
+.mascot-glow{width:128px!important;height:128px!important;opacity:.55!important;background:radial-gradient(circle,rgba(232,184,94,.18),transparent 70%)!important;filter:blur(14px)!important}
+.tiko-hero{width:145px!important;height:170px!important;filter:drop-shadow(0 16px 28px rgba(0,0,0,.3))!important}
+.spark{opacity:.65!important}
+.welcome-copy{padding:0!important;max-width:560px!important}
+.eyebrow{display:none!important}
+.welcome-copy h1{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important;
+  font-size:29px!important;line-height:1.13!important;font-weight:720!important;
+  margin:0 0 9px!important;letter-spacing:-.035em!important;color:#f4f4f1!important;
+}
+.welcome-copy h1 span{color:var(--p7-gold-soft)!important}
+.welcome-copy p{font-size:14.5px!important;line-height:1.55!important;color:#9ca3ad!important;margin:0 auto 17px!important;max-width:430px!important}
+.chips{justify-content:center!important;gap:8px!important}
+.chips button{
+  padding:8px 12px!important;border:1px solid var(--p7-line)!important;
+  background:#13171b!important;color:#c8ccd1!important;border-radius:999px!important;font-size:11.5px!important;
+  transition:transform .13s ease,background .15s ease,border-color .15s ease!important;
+}
+.chips button:active{transform:scale(.96)!important;background:#191e24!important;border-color:rgba(232,184,94,.28)!important}
+.starter-title{display:none!important}
+.suggestions{
+  width:min(560px,100%)!important;display:grid!important;grid-template-columns:1fr 1fr!important;gap:9px!important;margin-top:2px!important;
+}
+.suggestions button{
+  min-height:66px!important;padding:12px 13px!important;border-radius:16px!important;
+  border:1px solid var(--p7-line)!important;background:#11151a!important;
+  grid-template-columns:27px 1fr!important;column-gap:9px!important;
+  box-shadow:none!important;transition:transform .13s ease,background .15s ease,border-color .15s ease!important;
+}
+.suggestions button:active{transform:scale(.975)!important;background:#171c22!important;border-color:rgba(232,184,94,.22)!important}
+.suggestions span{font-size:18px!important}
+.suggestions b{font-size:12.5px!important;font-weight:650!important;color:#e4e6e8!important}
+.suggestions small{font-size:10.5px!important;color:#777f89!important}
+
+/* Composer: floating, compact and responsive to keyboard. */
+.composer-wrap{
+  padding:10px 12px calc(8px + env(safe-area-inset-bottom))!important;
+  background:linear-gradient(180deg,rgba(11,13,16,0),rgba(11,13,16,.82) 22%,#0b0d10 48%)!important;
+}
+.composer{
+  width:min(760px,100%)!important;min-height:58px!important;
+  gap:5px!important;padding:7px!important;border-radius:29px!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  background:#171b20!important;
+  box-shadow:0 12px 38px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.035)!important;
+  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease!important;
+}
+.composer:focus-within{border-color:rgba(232,184,94,.34)!important;box-shadow:0 13px 40px rgba(0,0,0,.4),0 0 0 1px rgba(232,184,94,.07)!important}
+.composer textarea{min-height:42px!important;padding:10px 5px 8px!important;font-size:16px!important;color:#f4f4f1!important;caret-color:var(--p7-gold)!important}
+.composer textarea::placeholder{color:#747b84!important}
+.round-btn,.send-btn{flex:0 0 42px!important;width:42px!important;height:42px!important;border:0!important;transition:transform .12s ease,background .15s ease!important}
+.round-btn{background:transparent!important;color:#c6cbd1!important;font-size:23px!important}
+.round-btn:active,.send-btn:active{transform:scale(.9)!important}
+.round-btn.mic{font-size:18px!important;background:#20252c!important}
+.send-btn{background:var(--p7-gold-soft)!important;color:#14110c!important;box-shadow:none!important;font-size:18px!important}
+.disclaimer{font-size:9.5px!important;color:#565d66!important;margin-top:6px!important}
+.cloud-notice{background:#181c21!important;border-color:rgba(255,255,255,.08)!important}
+
+/* Image results */
+.image-card{
+  max-width:calc(100% - 48px)!important;border-radius:20px!important;overflow:hidden!important;
+  border:1px solid var(--p7-line)!important;background:#12161b!important;box-shadow:0 12px 36px rgba(0,0,0,.18)!important;
+}
+.image-card>img{display:block!important;width:100%!important;background:#0e1115!important}
+.image-card-body{padding:12px!important}
+.image-card-title{font-size:13px!important;font-weight:700!important;color:#e7e8e6!important}
+.image-card-actions{gap:7px!important}
+.image-card-actions button{border-radius:12px!important;background:#1b2026!important;border:1px solid rgba(255,255,255,.09)!important;color:#d7dadd!important}
+.image-card-actions .primary{background:var(--p7-gold-soft)!important;color:#17130d!important;border-color:transparent!important}
+.image-quota{color:#8a919a!important}
+.image-loading{background:transparent!important;border:0!important;padding:5px 0!important;box-shadow:none!important}
+
+/* Drawer: simple conversation history, less dashboard-like. */
+.drawer{
+  width:min(86vw,340px)!important;background:#111419!important;border-right:1px solid rgba(255,255,255,.07)!important;
+  padding:calc(12px + env(safe-area-inset-top)) 10px calc(12px + env(safe-area-inset-bottom))!important;
+  box-shadow:28px 0 70px rgba(0,0,0,.38)!important;
+}
+.drawer-head{grid-template-columns:38px 1fr 40px!important;margin-bottom:12px!important;padding:0 4px!important}
+.brand-avatar{width:36px!important;height:36px!important;border-radius:0!important;object-fit:contain!important}
+.drawer-head strong{font-size:13px!important;letter-spacing:.015em!important}
+.drawer-head span{font-size:10.5px!important;color:#808892!important}
+.new-chat{
+  border:0!important;background:#1a1e24!important;border-radius:13px!important;padding:12px 13px!important;
+  color:#e8e9e7!important;box-shadow:none!important;margin-bottom:14px!important;font-weight:650!important;
+}
+.drawer-label{font-size:9.5px!important;color:#666e78!important;margin-top:4px!important}
+.history-item{border-radius:10px!important;padding:10px 11px!important;color:#a8aeb6!important;font-size:12.5px!important}
+.history-item.active,.history-item:active{background:#1a1f25!important;color:#f1f2f0!important}
+.plan-card{display:none!important}
+.drawer-row{border-radius:10px!important;color:#9da4ad!important}
+
+/* Bottom model sheet */
+.sheet{
+  left:10px!important;right:10px!important;bottom:10px!important;
+  background:#171b20!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:24px!important;
+  box-shadow:0 24px 80px rgba(0,0,0,.5)!important;
+}
+.model-option.active{background:#20252b!important;border-color:rgba(255,255,255,.08)!important}
+
+.voice-panel{background:#15191f!important;border-color:var(--p7-line)!important;box-shadow:var(--p7-shadow)!important}
+.toast{background:#20242a!important;border-color:rgba(255,255,255,.08)!important;border-radius:12px!important}
+.scrim{background:rgba(0,0,0,.48)!important;backdrop-filter:blur(7px)!important;-webkit-backdrop-filter:blur(7px)!important}
+
+/* Motion */
+@keyframes p7MessageIn{from{opacity:0;transform:translateY(8px) scale(.995)}to{opacity:1;transform:none}}
+@keyframes p7Pulse{0%,100%{opacity:.55}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.message,.icon-btn,.round-btn,.send-btn,.suggestions button,.chips button{animation:none!important;transition:none!important}}
+
+@media (max-width:560px){
+  .messages{padding-left:14px!important;padding-right:14px!important}
+  .empty-state{padding-left:14px!important;padding-right:14px!important}
+  .suggestions{grid-template-columns:1fr 1fr!important}
+  .welcome-copy h1{font-size:27px!important}
+  .message.user .bubble{max-width:88%!important}
+}
+@media (max-width:380px){
+  .suggestions{grid-template-columns:1fr!important}
+  .mascot-stage{height:150px!important}.tiko-hero{height:150px!important}
+}
