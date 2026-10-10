@@ -49,7 +49,7 @@
     const q=document.createElement('div'); q.className='image-quota'; q.innerHTML=`<strong>${Math.max(0,m.remaining??state.imageQuota.remaining)}/${m.limit??state.imageQuota.limit}</strong> créations gratuites restantes ce mois-ci`;
     body.appendChild(q); card.appendChild(body); row.appendChild(card); if(animate) scrollBottom(); return row;
   }
-  function appendImageLoading(){ const row=makeAssistantRow(); row.classList.add('image-loading-row'); const b=document.createElement('div'); b.className='bubble image-loading'; b.innerHTML='<div class="image-loading-orb"></div><div class="image-loading-copy"><b>Tiko crée ton image…</b><span>Ça peut prendre quelques secondes.</span></div>'; row.appendChild(b); scrollBottom(); return row; }
+  function appendImageLoading(){ const row=makeAssistantRow(); row.classList.add('image-loading-row'); const b=document.createElement('div'); b.className='bubble image-loading'; b.innerHTML='<div class="image-loading-orb"></div><div class="image-loading-copy"><b>Tiko modifie ton image…</b><span>Ça peut prendre quelques secondes.</span></div>'; row.appendChild(b); scrollBottom(); return row; }
   function scrollBottom(smooth=true){ requestAnimationFrame(()=>{ const area=$('.chat-area'); if(area) area.scrollTo({top:area.scrollHeight,behavior:smooth?'smooth':'auto'}); }); }
   function showToast(t){ els.toast.textContent=t; els.toast.classList.add('show'); clearTimeout(showToast.t); showToast.t=setTimeout(()=>els.toast.classList.remove('show'),2600); }
   function openDrawer(){els.drawer.classList.add('open');els.scrim.classList.add('show');}
@@ -78,6 +78,25 @@
     const visual=/(image|photo|logo|affiche|poster|wallpaper|fond d['’ ]?[ée]cran|visuel|illustration|portrait|maquette)/i.test(t);
     return action && visual;
   }
+  function lastImageContext(chat){
+    if(!chat?.messages?.length)return null;
+    for(let i=chat.messages.length-1;i>=0;i--){
+      const m=chat.messages[i];
+      if(m?.kind==='image') return {message:m,index:i,distance:chat.messages.length-1-i};
+    }
+    return null;
+  }
+  function imageEditContext(text,chat){
+    const ctx=lastImageContext(chat); if(!ctx)return null;
+    const t=text.toLowerCase().trim();
+    const explicit=/(image|photo|visuel|celle[- ]?ci|celle[- ]?l[aà]|pr[eé]c[eé]dente|dessus|sur l['’]image|sur la photo)/i.test(t);
+    const edit=/(ajout|enl[eè]v|retir|supprim|chang|remplac|modifi|transform|mets?\b|met\b|rends?\b|rend\b|avec\b|sans\b|plus de\b|moins de\b|fleur|couleur|ciel|fond|arri[eè]re[- ]?plan|recadr|zoom|[ée]clairc|assombr)/i.test(t);
+    if(!edit || (ctx.distance!==1 && !explicit)) return null;
+    return ctx;
+  }
+  function buildImageEditPrompt(text,ctx){
+    return `${ctx.message.prompt}\n\nMODIFICATION DEMANDÉE: ${text}\nConserve autant que possible la même composition, le même cadrage, le même sujet, le même style et le même éclairage de l’image précédente. Modifie uniquement ce qui est demandé.`;
+  }
   function aspectFor(text){ const t=text.toLowerCase(); if(/wallpaper|fond d['’ ]?[ée]cran|t[eé]l[eé]phone|vertical/.test(t))return'9:16'; if(/banni[eè]re|paysage|horizontal|youtube/.test(t))return'16:9'; if(/portrait/.test(t))return'3:4'; return'1:1'; }
 
   function send(raw){
@@ -86,26 +105,34 @@
     let c=active(); if(!c){newChat(false);c=active();}
     c.messages.push({role:'user',content:text}); if(c.messages.length===1)c.title=titleFrom(text); save();
     els.empty.style.display='none'; els.messages.style.display='flex'; appendMessage('user',text); els.input.value=''; resize(); renderHistory();
+    const editCtx=imageEditContext(text,c);
+    if(editCtx){
+      requestImage(buildImageEditPrompt(text,editCtx),{sourceImageUrl:editCtx.message.url,aspectRatio:editCtx.message.aspect_ratio||aspectFor(editCtx.message.prompt||'')});
+      return;
+    }
     if(isImageRequest(text)){ requestImage(text); return; }
     const quick=instantReply(text);
     if(quick){ setTiko('point'); setTimeout(()=>{c.messages.push({role:'assistant',content:quick});save();appendMessage('assistant',quick);setTimeout(()=>setTiko('wave'),900);},110); return; }
     const bubble=appendMessage('assistant',''); bubble.classList.add('typing-cursor'); state.activeBubble=bubble; setGenerating(true);
-    const payload={conversation_id:c.remoteId||null,plan:'free',messages:c.messages.filter(m=>m.kind!=='image').slice(-20),client:{platform:'android',app:'pratiko-ai',version:'3.4'}};
+    const payload={conversation_id:c.remoteId||null,plan:'free',messages:c.messages.filter(m=>m.kind!=='image').slice(-20),client:{platform:'android',app:'pratiko-ai',version:'5.10'}};
     try{ if(window.PraticoNative?.sendMessage) window.PraticoNative.sendMessage(JSON.stringify(payload)); else window.PraticoCloud.onError('preview','Le moteur Pratiko AI n’est pas encore connecté.'); }
     catch(e){ window.PraticoCloud.onError('bridge',e.message||'Erreur de connexion'); }
   }
 
-  async function requestImage(prompt){
+  async function requestImage(prompt,options={}){
     const d=deviceId(); if(!d){ appendMessage('assistant','La création d’images nécessite l’application Pratiko AI à jour.'); return; }
     if(state.imageQuota.plan==='free' && state.imageQuota.remaining<=0){ showImageLimit(); return; }
     const loading=appendImageLoading(); setGenerating(true);
+    const aspectRatio=options.aspectRatio||aspectFor(prompt);
+    const body={prompt,aspect_ratio:aspectRatio};
+    if(options.sourceImageUrl) body.source_image_url=options.sourceImageUrl;
     try{
-      const r=await fetch(IMAGE_API,{method:'POST',headers:{'Content-Type':'application/json','X-Pratiko-Device':d},body:JSON.stringify({prompt,aspect_ratio:aspectFor(prompt)})});
+      const r=await fetch(IMAGE_API,{method:'POST',headers:{'Content-Type':'application/json','X-Pratiko-Device':d},body:JSON.stringify(body)});
       const data=await r.json().catch(()=>({})); loading.remove();
       if(r.status===429 || data?.error==='image_quota_reached'){ if(data?.quota)updateQuota(data.quota); showImageLimit(data?.message); return; }
       if(!r.ok || !data?.image?.url){ appendMessage('assistant',data?.message||'Tiko n’a pas réussi à créer l’image pour le moment. Réessaie dans quelques instants.'); if(data?.quota)updateQuota(data.quota); return; }
       updateQuota(data.quota);
-      const c=active(); const m={role:'assistant',kind:'image',url:data.image.url,prompt:data.image.prompt||prompt,remaining:data.quota?.remaining,limit:data.quota?.limit}; c.messages.push(m); save(); appendImageMessage(m); setTiko('point'); setTimeout(()=>setTiko('wave'),1200);
+      const c=active(); const m={role:'assistant',kind:'image',url:data.image.url,prompt:data.image.prompt||prompt,aspect_ratio:data.image.aspect_ratio||aspectRatio,remaining:data.quota?.remaining,limit:data.quota?.limit}; c.messages.push(m); save(); appendImageMessage(m); setTiko('point'); setTimeout(()=>setTiko('wave'),1200);
     }catch(e){ loading.remove(); appendMessage('assistant','La création d’images est temporairement indisponible. Réessaie dans un instant.'); }
     finally{ setGenerating(false); }
   }
