@@ -1,0 +1,233 @@
+/* Pratiko AI 7.1 — clean premium conversation UI + correctly scaled live Tiko */
+:root{
+  --p71-bg:#0a0c0f;
+  --p71-surface:#15191e;
+  --p71-surface2:#1b2026;
+  --p71-text:#f5f5f2;
+  --p71-muted:#8c939c;
+  --p71-line:rgba(255,255,255,.085);
+  --p71-gold:#efc56f;
+  --p71-gold2:#d9a64a;
+}
+html,body,.shell{background:var(--p71-bg)!important}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+/* Header — compact, balanced, no oversized outlined + button. */
+.topbar{
+  height:58px!important;
+  padding:env(safe-area-inset-top) 12px 0!important;
+  grid-template-columns:46px 1fr 46px!important;
+  background:rgba(10,12,15,.76)!important;
+  border-bottom:1px solid rgba(255,255,255,.04)!important;
+  backdrop-filter:blur(24px) saturate(1.25)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(1.25)!important;
+}
+body.p71-scrolled .topbar{background:rgba(10,12,15,.94)!important;border-bottom-color:rgba(255,255,255,.07)!important}
+.topbar .icon-btn{width:40px!important;height:40px!important;border:0!important;background:transparent!important;box-shadow:none!important;border-radius:12px!important}
+.topbar .menu{font-size:0!important}
+.topbar .menu:after{content:'☰';font-size:22px;color:#c8cdd2;font-weight:400}
+.topbar .new-top{font-size:0!important;color:#d5d8dc!important}
+.topbar .new-top:after{content:'＋';font-size:27px;line-height:1;color:#dadddf;font-weight:300}
+.topbar .new-top:active,.topbar .menu:active{background:rgba(255,255,255,.065)!important;transform:scale(.94)!important}
+.brand-switch{gap:4px!important;padding:7px 10px!important;font-size:17px!important;font-weight:730!important;letter-spacing:-.02em!important}
+.brand-switch img,.brand-switch b{display:none!important}
+.brand-switch em{color:var(--p71-gold)!important}
+.brand-switch .chev{display:none!important}
+
+/* Conversation canvas */
+.chat-area{
+  padding:7px 0 142px!important;
+  scroll-padding-bottom:132px!important;
+  background:
+    radial-gradient(850px 420px at 50% -180px,rgba(222,172,82,.055),transparent 70%),
+    var(--p71-bg)!important;
+  scroll-behavior:smooth!important;
+}
+.messages{width:min(780px,100%)!important;padding:9px 17px 30px!important;gap:2px!important}
+.message{animation:p71Enter .24s cubic-bezier(.2,.72,.28,1)!important}
+.message.user{padding:9px 0 14px!important}
+.message.user .bubble{
+  max-width:78%!important;
+  padding:11px 15px!important;
+  background:#24282e!important;
+  border:1px solid rgba(255,255,255,.045)!important;
+  color:#f5f5f2!important;
+  border-radius:20px 20px 6px 20px!important;
+  box-shadow:none!important;
+  font-size:15.8px!important;
+  font-weight:470!important;
+  line-height:1.48!important;
+}
+.message.assistant{
+  display:grid!important;
+  grid-template-columns:54px minmax(0,1fr)!important;
+  column-gap:10px!important;
+  align-items:start!important;
+  padding:4px 0 22px!important;
+  min-height:64px!important;
+}
+
+/* Critical: older Tiko CSS made the chat character 122x142 and overflowed the row.
+   v7.1 locks him to a deliberate premium avatar footprint. */
+.message.assistant .assistant-avatar{
+  position:relative!important;
+  grid-column:1!important;
+  flex:none!important;
+  width:54px!important;
+  height:66px!important;
+  min-width:54px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  overflow:visible!important;
+  box-shadow:none!important;
+  align-self:start!important;
+}
+.message.assistant .assistant-avatar>img,
+.message.assistant .assistant-avatar>img.tiko-original-chat,
+.message.assistant .assistant-avatar>img[src="tiko-original.svg"]{
+  display:block!important;
+  width:54px!important;
+  height:66px!important;
+  min-width:54px!important;
+  max-width:54px!important;
+  min-height:66px!important;
+  max-height:66px!important;
+  margin:0!important;
+  object-fit:contain!important;
+  opacity:1!important;
+  animation:none!important;
+  transform:none!important;
+  filter:drop-shadow(0 7px 12px rgba(0,0,0,.28))!important;
+}
+.message.assistant .bubble{
+  grid-column:2!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:5px 2px 2px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#eef0ed!important;
+  font-size:16px!important;
+  line-height:1.62!important;
+  letter-spacing:-.008em!important;
+  white-space:pre-wrap!important;
+  overflow-wrap:anywhere!important;
+}
+.message.assistant .bubble strong{color:#fff!important;font-weight:690!important}
+.typing-cursor:after{width:2px!important;height:18px!important;background:var(--p71-gold)!important;box-shadow:none!important;margin-left:3px!important}
+.message.assistant .typing-cursor:empty:before{content:'Tiko réfléchit…';color:#777f89;font-size:14px;animation:p71Pulse 1.45s ease-in-out infinite}
+
+/* Live Tiko canvas always follows the corrected avatar geometry. */
+.message.assistant .assistant-avatar.tiko-rive-host .tiko-rive-canvas{
+  max-width:54px!important;max-height:66px!important;
+  transform-origin:50% 82%!important;
+  filter:drop-shadow(0 7px 12px rgba(0,0,0,.28));
+}
+.mascot-stage.tiko-rive-host .tiko-rive-canvas{transform-origin:50% 82%!important}
+.tiko-rive-host.tiko71-idle .tiko-rive-canvas.ready{animation:p71TikoIdle 4.4s ease-in-out infinite!important}
+.tiko-rive-host.tiko71-thinking .tiko-rive-canvas.ready{animation:p71TikoThink 2.15s cubic-bezier(.4,0,.2,1) infinite!important}
+.tiko-rive-host.tiko71-talking .tiko-rive-canvas.ready{animation:p71TikoTalk 1.15s cubic-bezier(.4,0,.2,1) infinite!important}
+.tiko-rive-host.tiko71-happy .tiko-rive-canvas.ready{animation:p71TikoHappy .72s cubic-bezier(.2,.85,.25,1) both!important}
+@keyframes p71TikoIdle{
+  0%,100%{transform:translate3d(0,0,0) rotate(-.2deg) scale(1)}
+  42%{transform:translate3d(0,-1.5px,0) rotate(.35deg) scale(1.006)}
+  72%{transform:translate3d(.6px,-.5px,0) rotate(-.15deg) scale(1.002)}
+}
+@keyframes p71TikoThink{
+  0%,100%{transform:translate3d(-.5px,0,0) rotate(-1.3deg) scale(1)}
+  45%{transform:translate3d(1px,-3px,0) rotate(1.5deg) scale(1.018)}
+  72%{transform:translate3d(-1px,-1.5px,0) rotate(-2deg) scale(1.01)}
+}
+@keyframes p71TikoTalk{
+  0%{transform:translate3d(0,0,0) rotate(-.25deg) scale(1)}
+  18%{transform:translate3d(1px,-2px,0) rotate(.7deg) scale(1.012)}
+  38%{transform:translate3d(-.5px,-1px,0) rotate(-.8deg) scale(1.006)}
+  58%{transform:translate3d(1.2px,-2.8px,0) rotate(.55deg) scale(1.014)}
+  78%{transform:translate3d(-1px,-1px,0) rotate(-.45deg) scale(1.005)}
+  100%{transform:translate3d(0,0,0) rotate(-.25deg) scale(1)}
+}
+@keyframes p71TikoHappy{
+  0%{transform:translateY(0) scale(1) rotate(0)}
+  38%{transform:translateY(-5px) scale(1.035) rotate(1.4deg)}
+  68%{transform:translateY(-1.5px) scale(1.012) rotate(-.8deg)}
+  100%{transform:translateY(0) scale(1) rotate(0)}
+}
+
+/* Welcome: centered like a modern AI app, but unmistakably Pratiko/Tiko. */
+.empty-state{
+  width:min(760px,100%)!important;
+  min-height:calc(100dvh - 220px)!important;
+  justify-content:center!important;
+  padding:18px 18px 26px!important;
+}
+.welcome-card{
+  display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important;
+  width:100%!important;min-height:auto!important;padding:0!important;margin:0 0 20px!important;
+  border:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;
+}
+.welcome-card:before,.spark{display:none!important}
+.mascot-stage{width:156px!important;height:188px!important;margin:0 auto 10px!important;overflow:visible!important}
+.mascot-glow{width:138px!important;height:138px!important;background:radial-gradient(circle,rgba(239,197,111,.17),transparent 70%)!important;filter:blur(17px)!important;opacity:.78!important}
+#tikoHero.tiko-original-hero,
+.mascot-stage #tikoHero.tiko-original-hero{
+  width:156px!important;height:188px!important;max-width:156px!important;max-height:188px!important;
+  margin:0!important;object-fit:contain!important;animation:none!important;transform:none!important;
+  filter:drop-shadow(0 16px 28px rgba(0,0,0,.3))!important;
+}
+.welcome-copy{max-width:530px!important;padding:0!important}
+.eyebrow{display:none!important}
+.welcome-copy h1{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important;font-size:30px!important;line-height:1.12!important;font-weight:740!important;letter-spacing:-.04em!important;margin:0 0 9px!important;color:#f6f6f3!important}
+.welcome-copy h1 span{color:var(--p71-gold)!important}
+.welcome-copy p{max-width:440px!important;margin:0 auto 17px!important;font-size:14.5px!important;line-height:1.55!important;color:#9198a1!important}
+.chips{justify-content:center!important;gap:7px!important}
+.chips button{padding:8px 11px!important;background:#14181d!important;border:1px solid var(--p71-line)!important;border-radius:999px!important;color:#c9cdd2!important;font-size:11.5px!important;transition:transform .12s ease,background .15s ease!important}
+.chips button:active{transform:scale(.96)!important;background:#1a1f25!important}
+.starter-title{display:none!important}
+.suggestions{width:min(570px,100%)!important;display:flex!important;gap:8px!important;overflow-x:auto!important;scrollbar-width:none!important;padding:2px 2px 7px!important;justify-content:flex-start!important}
+.suggestions::-webkit-scrollbar{display:none!important}
+.suggestions button{flex:0 0 auto!important;min-height:auto!important;display:flex!important;align-items:center!important;gap:8px!important;padding:9px 12px!important;border-radius:15px!important;border:1px solid var(--p71-line)!important;background:#11151a!important;color:#dfe1e2!important;box-shadow:none!important}
+.suggestions button span{font-size:16px!important;grid-row:auto!important}.suggestions button b{font-size:11.5px!important;font-weight:620!important}.suggestions button small{display:none!important}
+
+/* Composer — responsive, no chunky frame. */
+.composer-wrap{padding:9px 12px calc(7px + env(safe-area-inset-bottom))!important;background:linear-gradient(180deg,rgba(10,12,15,0),rgba(10,12,15,.91) 28%,#0a0c0f 52%)!important}
+.composer{width:min(780px,100%)!important;min-height:58px!important;padding:7px 7px!important;gap:5px!important;border-radius:29px!important;border:1px solid rgba(255,255,255,.11)!important;background:#171b20!important;box-shadow:0 12px 34px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.03)!important;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease!important}
+.composer:focus-within{border-color:rgba(239,197,111,.34)!important;box-shadow:0 14px 40px rgba(0,0,0,.42),0 0 0 1px rgba(239,197,111,.055)!important}
+.composer textarea{min-height:42px!important;max-height:150px!important;padding:10px 5px 8px!important;font-size:16px!important;line-height:1.4!important;color:#f4f4f1!important;caret-color:var(--p71-gold)!important}
+.composer textarea::placeholder{color:#6f767f!important}
+.round-btn,.send-btn{flex:0 0 42px!important;width:42px!important;height:42px!important;border:0!important;box-shadow:none!important;transition:transform .12s ease,opacity .15s ease,background .15s ease!important}
+.round-btn{background:transparent!important;color:#c6cbd0!important}.round-btn.mic{background:#20252b!important;font-size:17px!important}.send-btn{background:var(--p71-gold)!important;color:#15110a!important;font-size:18px!important}
+.round-btn:active,.send-btn:active{transform:scale(.91)!important}
+body.p71-input-has-text #micBtn{opacity:.18!important;transform:scale(.8)!important}
+body:not(.p71-input-has-text) #sendBtn{opacity:.42!important}
+.disclaimer{margin-top:6px!important;color:#525961!important;font-size:9.5px!important}
+
+/* Image cards match the conversation rather than looking like a separate dashboard. */
+.image-card{max-width:100%!important;border-radius:18px!important;background:#11151a!important;border:1px solid var(--p71-line)!important;box-shadow:none!important;overflow:hidden!important}
+.image-card>img{width:100%!important;display:block!important}.image-card-body{padding:11px 12px 12px!important}.image-card-title{font-size:12.5px!important;font-weight:680!important}.image-card-actions{gap:7px!important}.image-card-actions button{border-radius:11px!important;background:#1a1f25!important;border:1px solid rgba(255,255,255,.08)!important;color:#d9dde0!important}.image-card-actions .primary{background:var(--p71-gold)!important;color:#17130c!important;border-color:transparent!important}
+
+/* Drawer */
+.drawer{width:min(86vw,338px)!important;background:#101318!important;border-right:1px solid rgba(255,255,255,.065)!important;box-shadow:26px 0 68px rgba(0,0,0,.4)!important}
+.plan-card{display:none!important}.new-chat{background:#191e24!important;border:0!important;border-radius:13px!important;color:#eceeeb!important;box-shadow:none!important}.history-item{border-radius:10px!important}.history-item.active{background:#1b2026!important}
+.scrim{background:rgba(0,0,0,.48)!important;backdrop-filter:blur(7px)!important;-webkit-backdrop-filter:blur(7px)!important}
+
+#p7ScrollBottom{right:16px!important;bottom:105px!important}
+@keyframes p71Enter{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes p71Pulse{0%,100%{opacity:.48}50%{opacity:1}}
+
+@media (max-width:560px){
+  .messages{padding-left:15px!important;padding-right:15px!important}
+  .message.assistant{grid-template-columns:50px minmax(0,1fr)!important;column-gap:9px!important}
+  .message.assistant .assistant-avatar{width:50px!important;height:62px!important;min-width:50px!important}
+  .message.assistant .assistant-avatar>img,.message.assistant .assistant-avatar>img.tiko-original-chat,.message.assistant .assistant-avatar>img[src="tiko-original.svg"]{width:50px!important;height:62px!important;min-width:50px!important;max-width:50px!important;min-height:62px!important;max-height:62px!important}
+  .message.user .bubble{max-width:82%!important}
+  .welcome-copy h1{font-size:28px!important}
+}
+@media (max-width:390px){.messages{padding-left:13px!important;padding-right:13px!important}.message.assistant{grid-template-columns:46px minmax(0,1fr)!important}.message.assistant .assistant-avatar{width:46px!important;height:58px!important;min-width:46px!important}.message.assistant .assistant-avatar>img,.message.assistant .assistant-avatar>img.tiko-original-chat,.message.assistant .assistant-avatar>img[src="tiko-original.svg"]{width:46px!important;height:58px!important;min-width:46px!important;max-width:46px!important;min-height:58px!important;max-height:58px!important}.composer-wrap{padding-left:9px!important;padding-right:9px!important}}
+@media (prefers-reduced-motion:reduce){.message,.tiko-rive-canvas.ready,.chips button,.suggestions button,.round-btn,.send-btn{animation:none!important;transition:none!important}}
