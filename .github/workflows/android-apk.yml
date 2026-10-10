@@ -31,10 +31,10 @@ jobs:
           tar -xzf /tmp/rive.tar.gz -C /tmp
           chmod +x /tmp/rive
 
-      - name: Prepare Pratiko AI v5.8
+      - name: Prepare Pratiko AI v5.9
         env:
           RIVE_CLI: /tmp/rive
-        run: python android-app/prepare_v58.py
+        run: python android-app/prepare_v59.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -52,13 +52,13 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.8.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.9.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v5.8
-          path: PratikoAI-Android-v5.8.apk
+          name: PratikoAI-Android-v5.9
+          path: PratikoAI-Android-v5.9.apk
           if-no-files-found: error
           retention-days: 30
 
@@ -66,6 +66,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view pratiko-ai-v5.8 >/dev/null 2>&1 || \
-            gh release create pratiko-ai-v5.8 --title "Pratiko AI Android v5.8" --notes "Pratiko AI v5.8 — Tiko est maintenant réellement segmenté dans Rive : corps, bras qui pointe, tête et mâchoire bougent indépendamment. Les yeux, sourcils et bouche ont été recalibrés sur le vrai visage de Tiko. Idle, réflexion, parole, clignement et réaction joyeuse ont chacun leur propre mouvement, sans rectangles découpés sur le visage."
-          gh release upload pratiko-ai-v5.8 PratikoAI-Android-v5.8.apk --clobber
+          gh release view pratiko-ai-v5.9 >/dev/null 2>&1 || \
+            gh release create pratiko-ai-v5.9 --title "Pratiko AI Android v5.9" --notes "Pratiko AI v5.9 — Tiko est davantage humanisé : vraie mâchoire animée avec rythme de parole irrégulier, gestes plus naturels du bras et de la main, hochements de tête asynchrones, sourcils qui se froncent clairement lorsqu'il réfléchit, regard légèrement relevé, respiration plus subtile, réaction joyeuse plus naturelle et clignements moins mécaniques avec double-clignement occasionnel. Le design original de Tiko reste inchangé."
+          gh release upload pratiko-ai-v5.9 PratikoAI-Android-v5.9.apk --clobber
