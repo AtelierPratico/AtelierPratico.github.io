@@ -31,10 +31,10 @@ jobs:
           tar -xzf /tmp/rive.tar.gz -C /tmp
           chmod +x /tmp/rive
 
-      - name: Prepare Pratiko AI v6.0
+      - name: Prepare Pratiko AI v6.1
         env:
           RIVE_CLI: /tmp/rive
-        run: python android-app/prepare_v60.py
+        run: python android-app/prepare_v61.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -52,20 +52,20 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v6.0.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v6.1.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v6.0
-          path: PratikoAI-Android-v6.0.apk
+          name: PratikoAI-Android-v6.1
+          path: PratikoAI-Android-v6.1.apk
           if-no-files-found: error
           retention-days: 30
 
       - name: Publish public GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: pratiko-ai-v6.0
-          name: Pratiko AI Android v6.0
-          body: "Pratiko AI v6.0 — refonte du moteur d’orchestration. Tiko redirige automatiquement les demandes d’images vers le moteur média au lieu de répondre qu’il est seulement textuel, conserve le contexte de la dernière image, distingue clairement création et retouche, détecte les capacités disponibles côté serveur, protège le quota lors des erreurs et utilise une architecture de fournisseurs avec replis automatiques. Le moteur texte OpenAI/Gemini a aussi reçu de nouvelles règles de qualité et de routage d’outils."
-          files: PratikoAI-Android-v6.0.apk
+          tag_name: pratiko-ai-v6.1
+          name: Pratiko AI Android v6.1
+          body: "Pratiko AI v6.1 — workflow d’images renforcé. Chaque création conserve son identifiant serveur et sa lignée; les retouches ciblent exactement l’image source, les variantes réutilisent la vraie image précédente, le quota est protégé en cas d’erreur et le backend choisit automatiquement le meilleur moteur disponible. La génération gratuite conserve ses replis automatiques et la retouche exacte est prête pour un moteur d’édition authentifié sans nouvelle refonte de l’application."
+          files: PratikoAI-Android-v6.1.apk
