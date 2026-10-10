@@ -31,10 +31,10 @@ jobs:
           tar -xzf /tmp/rive.tar.gz -C /tmp
           chmod +x /tmp/rive
 
-      - name: Prepare Pratiko AI v5.10
+      - name: Prepare Pratiko AI v5.11
         env:
           RIVE_CLI: /tmp/rive
-        run: python android-app/prepare_v510.py
+        run: python android-app/prepare_v511.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -52,20 +52,20 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.10.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v5.11.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v5.10
-          path: PratikoAI-Android-v5.10.apk
+          name: PratikoAI-Android-v5.11
+          path: PratikoAI-Android-v5.11.apk
           if-no-files-found: error
           retention-days: 30
 
       - name: Publish public GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: pratiko-ai-v5.10
-          name: Pratiko AI Android v5.10
-          body: "Pratiko AI v5.10 — Tiko comprend maintenant les demandes de modification après une image. Par exemple : Ajoute des fleurs, enlève la voiture, change le ciel ou rends-la plus réaliste. L'image précédente est utilisée comme référence afin de conserver au maximum le sujet, le cadrage et le style."
-          files: PratikoAI-Android-v5.10.apk
+          tag_name: pratiko-ai-v5.11
+          name: Pratiko AI Android v5.11
+          body: "Pratiko AI v5.11 — correction du contexte de retouche d’image. Les commandes comme ‘Ajoute des fleurs’, ‘Enlève la voiture’ ou ‘Change le ciel’ continuent maintenant de cibler la dernière image générée même si un message texte ou un essai raté s’est glissé entre les deux."
+          files: PratikoAI-Android-v5.11.apk
