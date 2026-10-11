@@ -1,0 +1,62 @@
+/* Pratiko AI 7.2 — Tiko is visibly alive: larger avatar, Rive-driven head + arm movement. */
+
+/* Make Tiko large enough that independent head/hand motion is actually visible. */
+.message.assistant{
+  grid-template-columns:84px minmax(0,1fr)!important;
+  column-gap:12px!important;
+  min-height:102px!important;
+  padding:5px 0 24px!important;
+}
+.message.assistant .assistant-avatar{
+  width:78px!important;
+  height:96px!important;
+  min-width:78px!important;
+  overflow:visible!important;
+}
+.message.assistant .assistant-avatar>img,
+.message.assistant .assistant-avatar>img.tiko-original-chat,
+.message.assistant .assistant-avatar>img[src="tiko-original.svg"]{
+  width:78px!important;
+  height:96px!important;
+  min-width:78px!important;
+  max-width:78px!important;
+  min-height:96px!important;
+  max-height:96px!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 9px 16px rgba(0,0,0,.34))!important;
+}
+.message.assistant .bubble{
+  padding-top:8px!important;
+  font-size:16px!important;
+  line-height:1.6!important;
+}
+.message.assistant .assistant-avatar.tiko-rive-host .tiko-rive-canvas{
+  max-width:78px!important;
+  max-height:96px!important;
+  filter:drop-shadow(0 9px 16px rgba(0,0,0,.34))!important;
+}
+
+/* v7.1 added whole-canvas bobbing. v7.2 turns that off so users can clearly see
+   the independent Rive rig: head turns, arm/hand gestures and jaw movement. */
+.tiko-rive-host.tiko71-idle .tiko-rive-canvas.ready,
+.tiko-rive-host.tiko71-thinking .tiko-rive-canvas.ready,
+.tiko-rive-host.tiko71-talking .tiko-rive-canvas.ready,
+.tiko-rive-host.tiko71-happy .tiko-rive-canvas.ready{
+  animation:none!important;
+  transform:none!important;
+}
+
+/* Hero stays larger on the welcome screen so the same motion reads clearly. */
+.mascot-stage{width:184px!important;height:220px!important}
+#tikoHero.tiko-original-hero,.mascot-stage #tikoHero.tiko-original-hero{
+  width:184px!important;height:220px!important;max-width:184px!important;max-height:220px!important;
+}
+
+@media(max-width:390px){
+  .message.assistant{grid-template-columns:74px minmax(0,1fr)!important;column-gap:9px!important}
+  .message.assistant .assistant-avatar{width:70px!important;height:88px!important;min-width:70px!important}
+  .message.assistant .assistant-avatar>img,
+  .message.assistant .assistant-avatar>img.tiko-original-chat,
+  .message.assistant .assistant-avatar>img[src="tiko-original.svg"]{width:70px!important;height:88px!important;min-width:70px!important;max-width:70px!important;min-height:88px!important;max-height:88px!important}
+  .message.assistant .assistant-avatar.tiko-rive-host .tiko-rive-canvas{max-width:70px!important;max-height:88px!important}
+}
