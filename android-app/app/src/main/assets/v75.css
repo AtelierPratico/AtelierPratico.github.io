@@ -1,0 +1,81 @@
+/* Pratiko AI v7.5 — threaded conversation, compact premium bubbles */
+.messages{gap:0!important;padding-left:14px!important;padding-right:14px!important}
+.message{margin:0!important}
+.message.user{padding:7px 0 9px!important}
+.message.user .bubble{
+  max-width:80%!important;
+  padding:10px 14px!important;
+  border-radius:18px 18px 6px 18px!important;
+  background:#24282e!important;
+  border:1px solid rgba(255,255,255,.055)!important;
+  box-shadow:none!important;
+  font-size:15.5px!important;
+  line-height:1.45!important;
+}
+.message.assistant{
+  grid-template-columns:46px minmax(0,1fr)!important;
+  column-gap:9px!important;
+  padding:3px 0 11px!important;
+  min-height:54px!important;
+}
+.message.assistant .assistant-avatar{
+  width:46px!important;height:56px!important;min-width:46px!important;
+  align-self:start!important;margin-top:2px!important;
+}
+.message.assistant .assistant-avatar>img,
+.message.assistant .assistant-avatar>img.tiko-original-chat,
+.message.assistant .assistant-avatar>img[src="tiko-original.svg"]{
+  width:46px!important;height:56px!important;min-width:46px!important;max-width:46px!important;
+  min-height:56px!important;max-height:56px!important;
+}
+.message.assistant .assistant-avatar.tiko-rive-host .tiko-rive-canvas{
+  width:46px!important;height:56px!important;max-width:46px!important;max-height:56px!important;
+}
+.message.assistant .bubble{
+  grid-column:2!important;
+  width:fit-content!important;
+  max-width:min(620px,100%)!important;
+  min-width:88px!important;
+  padding:12px 14px 13px!important;
+  margin:0!important;
+  border-radius:8px 20px 20px 20px!important;
+  background:linear-gradient(180deg,#15191e 0%,#12161a 100%)!important;
+  border:1px solid rgba(255,255,255,.075)!important;
+  box-shadow:0 7px 22px rgba(0,0,0,.16)!important;
+  color:#f0f1ef!important;
+  font-size:15.4px!important;
+  line-height:1.5!important;
+  letter-spacing:-.006em!important;
+  white-space:pre-wrap!important;
+  overflow-wrap:anywhere!important;
+}
+.message.assistant .bubble:not(.image-loading)::before{
+  content:'Tiko';display:block;margin:0 0 5px;color:#e6bb62;
+  font-size:11px;line-height:1;font-weight:760;letter-spacing:.035em;
+}
+.message.assistant .bubble:empty{min-height:43px!important}
+.message.assistant .typing-cursor:empty::before{content:'Tiko réfléchit…'!important;margin:0!important;color:#808791!important;font-size:13px!important;letter-spacing:0!important}
+.message.assistant .typing-cursor:not(:empty)::after{vertical-align:-3px!important}
+
+/* Keep replies visually continuous rather than document-like. */
+.message.assistant + .message.user{padding-top:4px!important}
+.message.user + .message.assistant{padding-top:1px!important}
+.message.assistant + .message.assistant{padding-top:0!important}
+
+/* Markdown cleanup helper classes if richer rendering is added later. */
+.message.assistant .bubble p{margin:0 0 8px!important}
+.message.assistant .bubble p:last-child{margin-bottom:0!important}
+.message.assistant .bubble ul,.message.assistant .bubble ol{margin:5px 0 3px 18px!important;padding:0!important}
+.message.assistant .bubble li{margin:3px 0!important}
+.message.assistant .bubble strong{font-weight:720!important;color:#fff!important}
+
+@media(max-width:520px){
+  .messages{padding-left:11px!important;padding-right:11px!important}
+  .message.assistant{grid-template-columns:42px minmax(0,1fr)!important;column-gap:8px!important}
+  .message.assistant .assistant-avatar,
+  .message.assistant .assistant-avatar>img,
+  .message.assistant .assistant-avatar.tiko-rive-host .tiko-rive-canvas{
+    width:42px!important;height:52px!important;min-width:42px!important;max-width:42px!important;min-height:52px!important;max-height:52px!important
+  }
+  .message.assistant .bubble{font-size:15.2px!important;padding:11px 13px 12px!important}
+}
