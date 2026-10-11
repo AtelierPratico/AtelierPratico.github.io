@@ -11,6 +11,7 @@
   function cleanMarkdown(text){
     let out = String(text || '');
     for(const [rx,repl] of MARKDOWN_PATTERNS) out = out.replace(rx,repl);
+    out = out.replace(/\*\*/g,'').replace(/__/g,'');
     out = out.replace(/(^|\s)\*([^*\n]+)\*(?=\s|$|[.,!?;:])/g,'$1$2');
     out = out.replace(/(^|\s)_([^_\n]+)_(?=\s|$|[.,!?;:])/g,'$1$2');
     out = out.replace(/\n{3,}/g,'\n\n');
