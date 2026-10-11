@@ -8,7 +8,7 @@ on:
       - '.github/workflows/android-apk.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: pratiko-android-build
@@ -54,18 +54,10 @@ jobs:
       - name: Rename APK
         run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v7.6.apk
 
-      - name: Upload APK artifact
+      - name: Upload private test artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v7.6
+          name: PratikoAI-Android-v7.6-private-test
           path: PratikoAI-Android-v7.6.apk
           if-no-files-found: error
           retention-days: 30
-
-      - name: Publish public GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: pratiko-ai-v7.6
-          name: Pratiko AI Android v7.6
-          body: "Pratiko AI v7.6 — les réponses de Tiko n’utilisent plus de bulle. Le texte apparaît directement dans le fil, mot par mot pendant le streaming, avec une largeur, un interligne et des espacements retravaillés pour une lecture fluide et premium. Les marqueurs Markdown visibles restent nettoyés automatiquement. Les messages utilisateur conservent une petite bulle discrète afin de distinguer clairement les deux côtés de la conversation."
-          files: PratikoAI-Android-v7.6.apk
