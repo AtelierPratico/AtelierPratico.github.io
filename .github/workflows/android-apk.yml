@@ -31,10 +31,10 @@ jobs:
           tar -xzf /tmp/rive.tar.gz -C /tmp
           chmod +x /tmp/rive
 
-      - name: Prepare Pratiko AI v7.5
+      - name: Prepare Pratiko AI v7.6
         env:
           RIVE_CLI: /tmp/rive
-        run: python android-app/prepare_v75.py
+        run: python android-app/prepare_v76.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -52,20 +52,20 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v7.5.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v7.6.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v7.5
-          path: PratikoAI-Android-v7.5.apk
+          name: PratikoAI-Android-v7.6
+          path: PratikoAI-Android-v7.6.apk
           if-no-files-found: error
           retention-days: 30
 
       - name: Publish public GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: pratiko-ai-v7.5
-          name: Pratiko AI Android v7.5
-          body: "Pratiko AI v7.5 — les réponses de Tiko sont maintenant présentées comme un vrai fil de discussion continu avec bulles premium, meilleur espacement et avatar mieux intégré. Les marqueurs Markdown visibles comme **, ## et les tirets techniques sont nettoyés automatiquement pendant la réponse afin qu’ils ne s’affichent plus comme du texte brut. La voix native fiable, Tiko Rive animé, les images et le moteur IA de v7.4 sont conservés."
-          files: PratikoAI-Android-v7.5.apk
+          tag_name: pratiko-ai-v7.6
+          name: Pratiko AI Android v7.6
+          body: "Pratiko AI v7.6 — les réponses de Tiko n’utilisent plus de bulle. Le texte apparaît directement dans le fil, mot par mot pendant le streaming, avec une largeur, un interligne et des espacements retravaillés pour une lecture fluide et premium. Les marqueurs Markdown visibles restent nettoyés automatiquement. Les messages utilisateur conservent une petite bulle discrète afin de distinguer clairement les deux côtés de la conversation."
+          files: PratikoAI-Android-v7.6.apk
