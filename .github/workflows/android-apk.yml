@@ -31,10 +31,10 @@ jobs:
           tar -xzf /tmp/rive.tar.gz -C /tmp
           chmod +x /tmp/rive
 
-      - name: Prepare Pratiko AI v7.3
+      - name: Prepare Pratiko AI v7.4
         env:
           RIVE_CLI: /tmp/rive
-        run: python android-app/prepare_v73.py
+        run: python android-app/prepare_v74.py
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -52,20 +52,20 @@ jobs:
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v7.3.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk PratikoAI-Android-v7.4.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PratikoAI-Android-v7.3
-          path: PratikoAI-Android-v7.3.apk
+          name: PratikoAI-Android-v7.4
+          path: PratikoAI-Android-v7.4.apk
           if-no-files-found: error
           retention-days: 30
 
       - name: Publish public GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: pratiko-ai-v7.3
-          name: Pratiko AI Android v7.3
-          body: "Pratiko AI v7.3 — correction du mode vocal Gemini Live. Normalisation du nom du modèle, gestion explicite des erreurs renvoyées dans le WebSocket et délai maximal de connexion pour empêcher Tiko de rester bloqué sur « se prépare ». Le service voice-token a aussi été durci côté Supabase. L’interface premium, Tiko Rive animé, l’IA texte et les images de v7.2 sont conservés."
-          files: PratikoAI-Android-v7.3.apk
+          tag_name: pratiko-ai-v7.4
+          name: Pratiko AI Android v7.4
+          body: "Pratiko AI v7.4 — le bouton micro utilise maintenant la reconnaissance vocale native Android comme voie principale fiable. La commande parlée est transcrite, envoyée au même moteur IA que le clavier, puis la réponse de Tiko est lue à voix haute avec la synthèse vocale Android. Cela évite le blocage WebSocket Gemini Live observé sur certains téléphones. Le moteur Gemini Live reste présent comme pile secondaire, et toute l’interface premium, les images et Tiko Rive animé de v7.3 sont conservés."
+          files: PratikoAI-Android-v7.4.apk
