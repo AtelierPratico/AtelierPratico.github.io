@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./clicia-v9.css?v=1">
+  <link rel="stylesheet" href="./auth-v1.css?v=1">
 </head>
 <body>
   <header class="site-header">
@@ -17,76 +18,51 @@
       <span class="brand-bulb" aria-hidden="true">
         <svg viewBox="0 0 60 78">
           <path d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/>
-          <ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/>
-          <ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/>
-          <circle cx="25" cy="32" r="3" fill="#17181a"/>
-          <circle cx="39" cy="32" r="3" fill="#17181a"/>
-          <rect x="19" y="64" width="22" height="7" rx="3.5" fill="#17181a"/>
-          <rect x="22" y="72" width="16" height="4" rx="2" fill="#17181a"/>
+          <ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/>
+          <circle cx="25" cy="32" r="3" fill="#17181a"/><circle cx="39" cy="32" r="3" fill="#17181a"/>
+          <rect x="19" y="64" width="22" height="7" rx="3.5" fill="#17181a"/><rect x="22" y="72" width="16" height="4" rx="2" fill="#17181a"/>
         </svg>
       </span>
       <span class="brand-clic">CLIC</span><span class="brand-ia">IA</span>
     </a>
 
     <nav class="main-nav" aria-label="Navigation principale">
-      <a class="active" href="#accueil">Accueil</a>
-      <a href="#boutique">Boutique</a>
-      <a href="#journal">Journal</a>
-      <a href="#guides">Guides</a>
-      <a href="#hero-chat">Clic IA</a>
+      <a class="active" href="#accueil">Accueil</a><a href="#boutique">Boutique</a><a href="#journal">Journal</a><a href="#guides">Guides</a><a href="#hero-chat">Clic IA</a>
     </nav>
 
     <div class="header-actions">
-      <button class="circle-action" aria-label="Rechercher">
-        <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 5 5"/></svg>
-      </button>
-      <a class="circle-action" href="#boutique" aria-label="Panier">
-        <svg viewBox="0 0 24 24"><path d="M4 5h2l2 10h9l2-7H7"/><circle cx="10" cy="19" r="1"/><circle cx="17" cy="19" r="1"/></svg>
-      </a>
-      <a class="account-btn" href="#hero-chat">Mon compte</a>
+      <button class="circle-action" aria-label="Rechercher"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 5 5"/></svg></button>
+      <a class="circle-action" href="#boutique" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M4 5h2l2 10h9l2-7H7"/><circle cx="10" cy="19" r="1"/><circle cx="17" cy="19" r="1"/></svg></a>
+      <button class="account-btn" id="accountBtn" type="button">Mon compte</button>
     </div>
   </header>
 
   <main>
     <section id="accueil" class="hero-v9">
       <div class="hero-atmosphere" aria-hidden="true">
-        <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span><span class="orb o4"></span>
-        <span class="orb o5"></span><span class="orb o6"></span><span class="orb o7"></span><span class="orb o8"></span>
-        <span class="orb o9"></span><span class="orb o10"></span><span class="orb o11"></span><span class="orb o12"></span>
+        <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span><span class="orb o4"></span><span class="orb o5"></span><span class="orb o6"></span><span class="orb o7"></span><span class="orb o8"></span><span class="orb o9"></span><span class="orb o10"></span><span class="orb o11"></span><span class="orb o12"></span>
       </div>
 
       <div class="hero-copy-v9">
         <div class="eyebrow"><span></span> VOS IDÉES. NOTRE ASSISTANT</div>
         <h1><strong>CLIC</strong><em>IA</em></h1>
         <p>Des produits, des idées, des guides et un assistant pratique réunis dans une expérience simple, rapide et utile. Clic vous aide à passer de la question à l’action.</p>
-        <div class="hero-ctas">
-          <a class="btn-primary" href="#boutique">Explorer Clicia <span>→</span></a>
-          <a class="btn-secondary" href="#hero-chat">Parler à Clic <span>→</span></a>
-        </div>
+        <div class="hero-ctas"><a class="btn-primary" href="#boutique">Explorer Clicia <span>→</span></a><a class="btn-secondary" href="#hero-chat">Parler à Clic <span>→</span></a></div>
       </div>
 
       <section class="hero-chat-panel" id="hero-chat" aria-label="Conversation avec Clic IA">
         <div class="chat-topbar">
           <div class="chat-id">
             <span class="chat-avatar"><svg viewBox="0 0 60 78"><path d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/><ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/><circle cx="25" cy="32" r="3" fill="#17181a"/><circle cx="39" cy="32" r="3" fill="#17181a"/></svg></span>
-            <div><strong>Clic IA</strong><small><i></i><span id="engineState">Clic IA prêt</span></small></div>
+            <div><strong>Clic IA</strong><small><i></i><span id="engineState">Connexion requise</span></small></div>
           </div>
-          <span class="ai-pill">⚡ Assistant IA</span>
+          <span class="usage-pill" id="usageState">30 restantes aujourd’hui</span>
         </div>
 
         <div id="messages" class="hero-messages">
-          <div class="welcome msg assistant">
-            <div class="bubbleav"></div>
-            <div class="content">Bonjour ! 👋<br>Je suis Clic, votre assistant IA.<br>Posez-moi une question, cherchez un produit, une idée ou un guide. Je suis là pour vous aider !</div>
-          </div>
+          <div class="welcome msg assistant"><div class="bubbleav"></div><div class="content">Bonjour ! 👋<br>Je suis Clic, votre assistant IA.<br>Créez un compte gratuit et posez-moi vos questions.</div></div>
           <div class="demo-user">Peux-tu me donner des idées cadeaux<br>pour un passionné de technologie ?</div>
-          <div class="demo-answer">
-            <div class="bubbleav"></div>
-            <div class="demo-answer-body"><strong>Excellente idée ! Voici quelques suggestions :</strong>
-              <ol><li>Des gadgets utiles pour le quotidien</li><li>Des accessoires pour le télétravail</li><li>Des idées de livres et formations</li><li>Des produits incontournables sur notre boutique</li></ol>
-              <a href="#boutique">🛒 Voir tous les produits tech <span>›</span></a>
-            </div>
-          </div>
+          <div class="demo-answer"><div class="bubbleav"></div><div class="demo-answer-body"><strong>Excellente idée ! Voici quelques suggestions :</strong><ol><li>Des gadgets utiles pour le quotidien</li><li>Des accessoires pour le télétravail</li><li>Des idées de livres et formations</li><li>Des produits incontournables sur notre boutique</li></ol><a href="#boutique">🛒 Voir tous les produits tech <span>›</span></a></div></div>
         </div>
 
         <div class="quick-prompts">
@@ -95,18 +71,19 @@
           <button type="button" data-prompt="Comment retirer une tique sur un chien correctement?">Tique sur un chien</button>
         </div>
 
-        <form id="chatForm" class="hero-composer">
-          <span class="paperclip">⌕</span>
-          <textarea id="chatInput" rows="1" placeholder="Écris ta question ici…"></textarea>
-          <button id="sendBtn" aria-label="Envoyer">↑</button>
+        <div class="auth-gate" id="authGate">
+          <div class="auth-gate-text"><strong>Connecte-toi pour parler à Clic</strong><span>Compte gratuit · 30 questions par jour</span></div>
+          <button id="authGateBtn" type="button">Créer un compte</button>
+        </div>
+
+        <form id="chatForm" class="hero-composer locked">
+          <span class="paperclip">⌕</span><textarea id="chatInput" rows="1" placeholder="Connecte-toi pour utiliser Clic IA" disabled></textarea><button id="sendBtn" aria-label="Envoyer" disabled>↑</button>
         </form>
         <form id="heroAsk" class="hidden-hero-ask"><input id="heroInput" aria-label="Question rapide"></form>
       </section>
 
       <div class="character-zone" id="stage">
-        <div class="character-ring" aria-hidden="true"></div>
-        <div class="character" id="tikoCharacter" aria-label="Clic, personnage ampoule de Clicia"></div>
-        <span class="idea-ray r1"></span><span class="idea-ray r2"></span><span class="idea-ray r3"></span>
+        <div class="character-ring" aria-hidden="true"></div><div class="character" id="tikoCharacter" aria-label="Clic, personnage ampoule de Clicia"></div><span class="idea-ray r1"></span><span class="idea-ray r2"></span><span class="idea-ray r3"></span>
       </div>
 
       <div class="feature-strip" aria-label="Explorer Clicia">
@@ -117,37 +94,50 @@
       </div>
     </section>
 
-    <section class="content-section" id="boutique">
-      <div class="section-heading"><span>01</span><div><small>BOUTIQUE</small><h2>Des produits utiles.<br>Rien de superflu.</h2></div></div>
-      <div class="product-grid">
-        <article class="product-card"><div class="product-art"></div><b>Réparations simples à la maison</b><span>14,95 $</span></article>
-        <article class="product-card"><div class="product-art"></div><b>Premiers soins pour chien</b><span>19,95 $</span></article>
-        <article class="product-card"><div class="product-art"></div><b>Recettes faciles</b><span>12,95 $</span></article>
-      </div>
-    </section>
+    <section class="content-section" id="boutique"><div class="section-heading"><span>01</span><div><small>BOUTIQUE</small><h2>Des produits utiles.<br>Rien de superflu.</h2></div></div><div class="product-grid"><article class="product-card"><div class="product-art"></div><b>Réparations simples à la maison</b><span>14,95 $</span></article><article class="product-card"><div class="product-art"></div><b>Premiers soins pour chien</b><span>19,95 $</span></article><article class="product-card"><div class="product-art"></div><b>Recettes faciles</b><span>12,95 $</span></article></div></section>
 
-    <section class="content-section split" id="journal">
-      <div class="section-heading"><span>02</span><div><small>JOURNAL</small><h2>Lire vite.<br>Retenir l’essentiel.</h2></div></div>
-      <div class="article-stack">
-        <a href="#"><b>5 astuces pour une maison toujours rangée</b><small>MAISON · 6 MIN</small><span>→</span></a>
-        <a href="#"><b>Que mettre dans une trousse de premiers soins pour chien?</b><small>ANIMAUX · 4 MIN</small><span>→</span></a>
-        <a href="#"><b>Pourquoi ton Wi-Fi ralentit</b><small>TECH · 5 MIN</small><span>→</span></a>
-      </div>
-    </section>
+    <section class="content-section split" id="journal"><div class="section-heading"><span>02</span><div><small>JOURNAL</small><h2>Lire vite.<br>Retenir l’essentiel.</h2></div></div><div class="article-stack"><a href="#"><b>5 astuces pour une maison toujours rangée</b><small>MAISON · 6 MIN</small><span>→</span></a><a href="#"><b>Que mettre dans une trousse de premiers soins pour chien?</b><small>ANIMAUX · 4 MIN</small><span>→</span></a><a href="#"><b>Pourquoi ton Wi-Fi ralentit</b><small>TECH · 5 MIN</small><span>→</span></a></div></section>
 
-    <section class="content-section split" id="guides">
-      <div class="section-heading"><span>03</span><div><small>GUIDES</small><h2>Choisir un sujet.<br>Passer à l’action.</h2></div></div>
-      <div class="article-stack">
-        <a href="#"><b>Maison & bricolage</b><small>Réparer, ajuster, installer</small><span>→</span></a>
-        <a href="#"><b>Animaux</b><small>Premiers soins et prévention</small><span>→</span></a>
-        <a href="#"><b>Tech</b><small>Comprendre sans jargon</small><span>→</span></a>
-      </div>
-    </section>
+    <section class="content-section split" id="guides"><div class="section-heading"><span>03</span><div><small>GUIDES</small><h2>Choisir un sujet.<br>Passer à l’action.</h2></div></div><div class="article-stack"><a href="#"><b>Maison & bricolage</b><small>Réparer, ajuster, installer</small><span>→</span></a><a href="#"><b>Animaux</b><small>Premiers soins et prévention</small><span>→</span></a><a href="#"><b>Tech</b><small>Comprendre sans jargon</small><span>→</span></a></div></section>
   </main>
 
   <footer class="site-footer"><span>CLICIA · L’ATELIER DU QUOTIDIEN</span><span>© 2026</span></footer>
 
+  <div class="auth-modal" id="authModal" aria-hidden="true">
+    <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <button class="auth-close" id="authClose" type="button" aria-label="Fermer">×</button>
+      <div class="auth-brand">
+        <span class="auth-brand-bulb"><svg viewBox="0 0 60 78"><path d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/><ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/><circle cx="25" cy="32" r="3" fill="#17181a"/><circle cx="39" cy="32" r="3" fill="#17181a"/></svg></span>
+        <strong>CLIC IA</strong><em>par Clicia</em>
+      </div>
+
+      <div id="authFormView">
+        <h2 class="auth-title" id="authTitle">Bienvenue chez Clicia</h2>
+        <p class="auth-subtitle">Crée ton compte gratuit pour utiliser Clic IA et retrouver tes conversations.</p>
+        <div class="auth-tabs"><button class="active" id="authLoginTab" type="button">Connexion</button><button id="authSignupTab" type="button">Créer un compte</button></div>
+        <form id="authForm">
+          <label class="auth-field auth-name-wrap hidden" id="authNameWrap"><span>Ton nom</span><input id="authName" type="text" autocomplete="name" placeholder="Prénom ou nom"></label>
+          <label class="auth-field"><span>Courriel</span><input id="authEmail" type="email" autocomplete="email" placeholder="nom@exemple.com" required></label>
+          <label class="auth-field"><span>Mot de passe</span><input id="authPassword" type="password" autocomplete="current-password" placeholder="6 caractères minimum" minlength="6" required></label>
+          <button class="auth-submit" id="authSubmit" type="submit">Se connecter</button>
+          <div class="auth-message" id="authMessage"></div>
+          <p class="auth-note">Clic IA utilise Gemini 3.8 Flash. Le compte gratuit est limité à 30 questions par jour afin de protéger le service.</p>
+        </form>
+      </div>
+
+      <div class="account-view" id="accountView">
+        <h2 class="auth-title">Mon compte</h2>
+        <p class="auth-subtitle">Ton accès personnel à Clic IA.</p>
+        <div class="account-email" id="accountEmail"></div>
+        <div class="account-meta"><div><strong>Gratuit</strong><span>Forfait actuel</span></div><div><strong id="accountUsage">30</strong><span>Questions restantes</span></div></div>
+        <button class="signout-btn" id="signOutBtn" type="button">Se déconnecter</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./tiko-v3.js?v=9"></script>
-  <script src="./app-v2.js?v=4"></script>
+  <script src="./auth-v1.js?v=1"></script>
+  <script src="./app-v2.js?v=5"></script>
 </body>
 </html>
