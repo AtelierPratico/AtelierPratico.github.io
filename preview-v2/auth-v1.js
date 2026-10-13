@@ -1,92 +1,109 @@
 (()=>{
-  const SUPABASE_URL='https://ibrtukocutdaxyltrmhk.supabase.co';
   const SUPABASE_KEY='sb_publishable_r5V4Ho47PYYK02Pw-MQotg_ySxoBS3p';
-  const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-  let session=null;
+  const ACCESS_URL='https://ibrtukocutdaxyltrmhk.supabase.co/functions/v1/premium-access';
+  const STORAGE_KEY='clicia_plus_code';
+  const state={active:false,code:'',accountId:'',imageDeviceId:'',expiresAt:null};
   const $=s=>document.querySelector(s);
-  const modal=$('#authModal'),accountBtn=$('#accountBtn'),gate=$('#authGate'),form=$('#authForm'),message=$('#authMessage');
-  const loginTab=$('#authLoginTab'),signupTab=$('#authSignupTab'),nameWrap=$('#authNameWrap'),submit=$('#authSubmit');
-  const authFormView=$('#authFormView'),accountView=$('#accountView'),accountEmail=$('#accountEmail'),accountUsage=$('#accountUsage');
-  const chatInput=$('#chatInput'),sendBtn=$('#sendBtn'),composer=$('.hero-composer');
-  let mode='login';
+  const modal=$('#authModal');
+  const accountBtn=$('#accountBtn');
 
-  function setMessage(text='',type=''){
-    if(!message)return;
-    message.textContent=text;message.className='auth-message'+(type?' '+type:'');
+  function normalized(v=''){return String(v).toUpperCase().trim().replace(/\s+/g,'')}
+  function currentCode(){return state.active?state.code:''}
+  function isActive(){return state.active}
+  function imageDeviceId(){return state.active?state.imageDeviceId:''}
+  function dispatch(){window.dispatchEvent(new CustomEvent('clicia-premium-change',{detail:{active:state.active,plan:state.active?'plus':'free'}}))}
+
+  function unlockFreeChat(){
+    $('#authGate')?.classList.add('hidden');
+    const composer=$('.hero-composer');composer?.classList.remove('locked');
+    const input=$('#chatInput');if(input){input.disabled=false;input.placeholder='Écris ta question ici…';}
+    const send=$('#sendBtn');if(send)send.disabled=false;
+    document.querySelectorAll('[data-prompt]').forEach(b=>b.disabled=false);
   }
-  function setMode(next){
-    mode=next;
-    loginTab?.classList.toggle('active',mode==='login');
-    signupTab?.classList.toggle('active',mode==='signup');
-    nameWrap?.classList.toggle('hidden',mode!=='signup');
-    if(submit)submit.textContent=mode==='signup'?'Créer mon compte':'Se connecter';
-    setMessage('');
-  }
-  function open(next){
-    if(next)setMode(next);
-    modal?.classList.add('open');
-    modal?.setAttribute('aria-hidden','false');
-  }
-  function close(){modal?.classList.remove('open');modal?.setAttribute('aria-hidden','true')}
-  function currentSession(){return session}
-  async function getSession(){
-    const {data}=await client.auth.getSession();session=data.session||null;return session;
-  }
-  function dispatch(){window.dispatchEvent(new CustomEvent('clicia-auth-change',{detail:{session}}))}
+
   function render(){
-    const logged=!!session;
+    unlockFreeChat();
     if(accountBtn){
-      accountBtn.textContent=logged?(session.user.email?.split('@')[0]||'Mon compte'):'Mon compte';
-      accountBtn.classList.toggle('logged-in',logged);
+      accountBtn.textContent=state.active?'Clicia+ actif':'Activer Clicia+';
+      accountBtn.classList.toggle('logged-in',state.active);
     }
-    gate?.classList.toggle('hidden',logged);
-    composer?.classList.toggle('locked',!logged);
-    if(chatInput){chatInput.disabled=!logged;chatInput.placeholder=logged?'Écris ta question ici…':'Connecte-toi pour utiliser Clic IA';}
-    if(sendBtn)sendBtn.disabled=!logged;
-    document.querySelectorAll('[data-prompt]').forEach(b=>b.disabled=!logged);
-    if(authFormView)authFormView.style.display=logged?'none':'block';
-    accountView?.classList.toggle('visible',logged);
-    if(accountEmail)accountEmail.textContent=session?.user?.email||'';
-    if(accountUsage)accountUsage.textContent=logged?'30':'—';
-    const engine=$('#engineState');if(engine&&!window.__clicThinking)engine.textContent=logged?'Clic IA prêt':'Connexion requise';
+    const usage=$('#usageState');if(usage)usage.textContent=state.active?'Clicia+ actif':'Texte illimité · Sans compte';
+    const engine=$('#engineState');if(engine&&!window.__clicThinking)engine.textContent='Clic IA prêt';
     dispatch();
   }
 
-  loginTab?.addEventListener('click',()=>setMode('login'));
-  signupTab?.addEventListener('click',()=>setMode('signup'));
-  $('#authClose')?.addEventListener('click',close);
+  function buildModal(){
+    const card=modal?.querySelector('.auth-card');if(!card)return;
+    card.innerHTML=`
+      <button class="auth-close" id="authClose" type="button" aria-label="Fermer">×</button>
+      <div class="auth-brand">
+        <span class="auth-brand-bulb"><svg viewBox="0 0 60 78"><path d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/><ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/><circle cx="25" cy="32" r="3" fill="#17181a"/><circle cx="39" cy="32" r="3" fill="#17181a"/></svg></span>
+        <strong>CLIC IA</strong><em>par Clicia</em>
+      </div>
+      <div id="premiumInactive">
+        <h2 class="auth-title">Activer Clicia+</h2>
+        <p class="auth-subtitle">Le chat texte est gratuit et sans compte. Avec Clicia+, ton code d’abonnement devient ton compte et débloque les fonctions premium, dont les images.</p>
+        <form id="premiumForm">
+          <label class="auth-field"><span>Code Clicia+</span><input id="premiumCode" type="text" autocomplete="off" placeholder="CLICIA-XXXX-XXXX" spellcheck="false" required></label>
+          <button class="auth-submit" id="premiumSubmit" type="submit">Activer mon abonnement</button>
+          <div class="auth-message" id="premiumMessage"></div>
+          <p class="auth-note">Aucun courriel ni mot de passe requis. Garde ton code : c’est ta clé de compte Clicia+.</p>
+        </form>
+      </div>
+      <div class="account-view" id="premiumActive">
+        <h2 class="auth-title">Clicia+ est actif</h2>
+        <p class="auth-subtitle">Ton code est reconnu sur cet appareil. Tu peux le réutiliser sur un autre appareil pour retrouver ton accès Clicia+.</p>
+        <div class="account-meta"><div><strong>Clicia+</strong><span>Forfait actuel</span></div><div><strong>✓</strong><span>Images débloquées</span></div></div>
+        <button class="signout-btn" id="premiumForget" type="button">Retirer le code de cet appareil</button>
+      </div>`;
+
+    $('#authClose')?.addEventListener('click',close);
+    $('#premiumForm')?.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const input=$('#premiumCode');const code=normalized(input?.value||'');
+      const msg=$('#premiumMessage'),btn=$('#premiumSubmit');
+      if(code.length<10){if(msg){msg.textContent='Entre ton code Clicia+.';msg.className='auth-message error';}return;}
+      if(btn)btn.disabled=true;if(msg){msg.textContent='Vérification…';msg.className='auth-message';}
+      const ok=await validate(code,true);
+      if(btn)btn.disabled=false;
+      if(ok){if(msg){msg.textContent='Clicia+ activé.';msg.className='auth-message success';}setTimeout(close,500)}
+    });
+    $('#premiumForget')?.addEventListener('click',()=>{
+      localStorage.removeItem(STORAGE_KEY);state.active=false;state.code='';state.accountId='';state.imageDeviceId='';state.expiresAt=null;render();showMode();
+    });
+    showMode();
+  }
+
+  function showMode(){
+    const a=$('#premiumInactive'),b=$('#premiumActive');
+    if(a)a.style.display=state.active?'none':'block';
+    b?.classList.toggle('visible',state.active);
+  }
+  function open(){buildModal();showMode();modal?.classList.add('open');modal?.setAttribute('aria-hidden','false')}
+  function close(){modal?.classList.remove('open');modal?.setAttribute('aria-hidden','true')}
+
+  async function validate(raw,surfaceError=false){
+    const code=normalized(raw);if(!code)return false;
+    try{
+      const r=await fetch(ACCESS_URL,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY},body:JSON.stringify({code})});
+      const d=await r.json().catch(()=>({}));
+      if(!r.ok||!d.valid)throw new Error(d.message||'Code invalide.');
+      state.active=true;state.code=code;state.accountId=d.account_id||'';state.imageDeviceId=d.image_device_id||'';state.expiresAt=d.expires_at||null;
+      localStorage.setItem(STORAGE_KEY,code);render();showMode();return true;
+    }catch(err){
+      state.active=false;state.code='';state.accountId='';state.imageDeviceId='';state.expiresAt=null;localStorage.removeItem(STORAGE_KEY);render();showMode();
+      if(surfaceError){const msg=$('#premiumMessage');if(msg){msg.textContent=err?.message||'Ce code Clicia+ n’est pas valide.';msg.className='auth-message error';}}
+      return false;
+    }
+  }
+
+  accountBtn?.addEventListener('click',open);
   modal?.addEventListener('click',e=>{if(e.target===modal)close()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-  accountBtn?.addEventListener('click',()=>open(session?'account':'login'));
-  $('#authGateBtn')?.addEventListener('click',()=>open('signup'));
 
-  form?.addEventListener('submit',async e=>{
-    e.preventDefault();setMessage('');
-    const email=$('#authEmail')?.value.trim()||'';
-    const password=$('#authPassword')?.value||'';
-    const displayName=$('#authName')?.value.trim()||'';
-    if(!email||password.length<6){setMessage('Entre un courriel valide et un mot de passe d’au moins 6 caractères.','error');return}
-    submit.disabled=true;
-    try{
-      if(mode==='signup'){
-        const {data,error}=await client.auth.signUp({email,password,options:{data:{display_name:displayName||email.split('@')[0]},emailRedirectTo:location.origin+location.pathname}});
-        if(error)throw error;
-        session=data.session||null;
-        if(session){setMessage('Compte créé. Tu es maintenant connecté.','success');render();setTimeout(close,500)}
-        else setMessage('Compte créé. Vérifie ton courriel pour confirmer ton adresse, puis reviens te connecter.','success');
-      }else{
-        const {data,error}=await client.auth.signInWithPassword({email,password});
-        if(error)throw error;
-        session=data.session||null;render();setMessage('Connexion réussie.','success');setTimeout(close,400);
-      }
-    }catch(err){setMessage(err?.message||'Impossible de terminer la connexion.','error')}
-    finally{submit.disabled=false}
-  });
+  const welcome=$('#messages .welcome .content');if(welcome)welcome.innerHTML='Bonjour ! 👋<br>Je suis Clic, votre assistant IA.<br>Posez-moi vos questions gratuitement, sans compte.';
+  unlockFreeChat();render();
+  const stored=localStorage.getItem(STORAGE_KEY);if(stored)validate(stored,false);
 
-  $('#signOutBtn')?.addEventListener('click',async()=>{await client.auth.signOut();session=null;render();close()});
-
-  client.auth.onAuthStateChange((_event,newSession)=>{session=newSession;render()});
-  getSession().then(render);
-
-  window.CliciaAuth={client,getSession,currentSession,open,close,SUPABASE_KEY};
+  window.CliciaPremium={isActive,currentCode,imageDeviceId,open,close,validate,SUPABASE_KEY};
 })();
