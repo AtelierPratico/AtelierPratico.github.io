@@ -49,7 +49,7 @@ function setPlan(plan='free'){
 function status(v){
   state.generating=v;window.__clicThinking=v;
   if($('#sendBtn'))$('#sendBtn').textContent=v?'■':'↑';
-  if($('#engineState'))$('#engineState').textContent=v?'Clic réfléchit…':'Clic IA prêt';
+  if($('#engineState'))$('#engineState').textContent=v?'Clic réfléchit…':'';
 }
 function quick(t){
   t=t.toLowerCase().trim().replace(/[!?.,]/g,'');
