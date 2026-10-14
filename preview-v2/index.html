@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="./wordmark-unified-v1.css?v=2">
   <link rel="stylesheet" href="./community-coming-v1.css?v=1">
   <link rel="stylesheet" href="./community-categories-v1.css?v=1">
+  <link rel="stylesheet" href="./store-search-v1.css?v=1">
 </head>
 <body>
   <header class="site-header">
@@ -36,7 +37,7 @@
     </nav>
 
     <div class="header-actions">
-      <button class="circle-action" aria-label="Rechercher"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 5 5"/></svg></button>
+      <button class="circle-action" id="headerSearchBtn" type="button" aria-label="Rechercher"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 5 5"/></svg></button>
       <a class="circle-action" href="#boutique" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M4 5h2l2 10h9l2-7H7"/><circle cx="10" cy="19" r="1"/><circle cx="17" cy="19" r="1"/></svg></a>
       <button class="account-btn" id="accountBtn" type="button">Activer ClicIA+</button>
     </div>
@@ -94,7 +95,40 @@
       </div>
     </section>
 
-    <section class="content-section" id="boutique"><div class="section-heading"><span>01</span><div><small>BOUTIQUE</small><h2>Des produits utiles.<br>Rien de superflu.</h2></div></div><div class="product-grid"><article class="product-card"><div class="product-art"></div><b>Réparations simples à la maison</b><span>14,95 $</span></article><article class="product-card"><div class="product-art"></div><b>Premiers soins pour chien</b><span>19,95 $</span></article><article class="product-card"><div class="product-art"></div><b>Recettes faciles</b><span>12,95 $</span></article></div></section>
+    <section class="content-section" id="boutique">
+      <div class="section-heading"><span>01</span><div><small>BOUTIQUE</small><h2>Des produits utiles.<br>Rien de superflu.</h2></div></div>
+
+      <div class="store-toolbar" id="storeToolbar">
+        <label class="store-search-box" for="storeSearch">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+          <input id="storeSearch" type="search" placeholder="Rechercher des produits" autocomplete="off" aria-label="Rechercher des produits">
+        </label>
+        <button class="store-filter-btn" id="storeFilterBtn" type="button" aria-label="Afficher les catégories" aria-expanded="false" aria-controls="storeFilterPanel">
+          <span class="store-filter-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
+        <div class="store-filter-panel" id="storeFilterPanel" hidden>
+          <div class="store-filter-title"><b>Catégories</b><span>Filtrer</span></div>
+          <div class="store-filter-options">
+            <button class="store-filter-option active" type="button" data-store-category="all"><span>Tous les produits</span><span>›</span></button>
+            <button class="store-filter-option" type="button" data-store-category="maison"><span>Maison & bricolage</span><span>›</span></button>
+            <button class="store-filter-option" type="button" data-store-category="animaux"><span>Animaux</span><span>›</span></button>
+            <button class="store-filter-option" type="button" data-store-category="cuisine"><span>Cuisine & recettes</span><span>›</span></button>
+            <button class="store-filter-option" type="button" data-store-category="technologie"><span>Technologie</span><span>›</span></button>
+            <button class="store-filter-option" type="button" data-store-category="education"><span>Éducation & formation</span><span>›</span></button>
+            <button class="store-filter-option" type="button" data-store-category="business"><span>Business & finances</span><span>›</span></button>
+            <button class="store-filter-option" type="button" data-store-category="bienetre"><span>Santé & bien-être</span><span>›</span></button>
+            <button class="store-filter-option" type="button" data-store-category="creativite"><span>Créativité & design</span><span>›</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <article class="product-card" data-category="maison"><div class="product-art"></div><b>Réparations simples à la maison</b><span>14,95 $</span></article>
+        <article class="product-card" data-category="animaux"><div class="product-art"></div><b>Premiers soins pour chien</b><span>19,95 $</span></article>
+        <article class="product-card" data-category="cuisine"><div class="product-art"></div><b>Recettes faciles</b><span>12,95 $</span></article>
+        <div class="store-empty" id="storeSearchEmpty" hidden>Aucun produit ne correspond à ta recherche.</div>
+      </div>
+    </section>
 
     <section class="community-section" id="communaute" aria-labelledby="communityTitle">
       <div class="community-shell">
@@ -151,5 +185,6 @@
   <script src="./tiko-v3.js?v=9"></script>
   <script src="./auth-v1.js?v=8"></script>
   <script src="./app-v2.js?v=11"></script>
+  <script src="./store-search-v1.js?v=1"></script>
 </body>
 </html>
