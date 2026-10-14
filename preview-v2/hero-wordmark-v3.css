@@ -1,0 +1,20 @@
+.hero-copy-v9 h1{
+  align-items:baseline;
+  gap:8px;
+}
+.hero-copy-v9 h1 em{
+  font:inherit;
+  font-size:.72em;
+  font-style:normal;
+  color:transparent;
+  -webkit-text-stroke:1.4px rgba(229,239,255,.72);
+  text-stroke:1.4px rgba(229,239,255,.72);
+  letter-spacing:-.05em;
+  margin-left:1px;
+}
+@media(max-width:820px){
+  .hero-copy-v9 h1 em{font-size:.70em}
+}
+@media(max-width:520px){
+  .hero-copy-v9 h1 em{font-size:.68em}
+}
