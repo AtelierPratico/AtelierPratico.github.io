@@ -18,18 +18,23 @@ function mascotState(el,next){
   el.classList.remove('is-idle','is-thinking','is-speaking','is-success','is-error');
   el.classList.add('is-'+next)
 }
+function bigMascotState(next){
+  const el=$('#tikoCharacter');if(!el)return;
+  el.classList.remove('speaking','success','error');
+  if(next==='thinking'){window.TikoV3?.thinking?.(true);return}
+  window.TikoV3?.thinking?.(false);
+  if(next==='speaking')el.classList.add('speaking');
+  if(next==='success'){el.classList.add('success');setTimeout(()=>el.classList.remove('success'),900)}
+  if(next==='error'){el.classList.add('error');setTimeout(()=>el.classList.remove('error'),650)}
+}
 function avatarForContent(content){return content?.parentElement?.querySelector('.bubbleav')||null}
 function conversationState(next,avatar=null){
   mascotState($('.chat-avatar'),next);
   if(avatar)mascotState(avatar,next);
-  if(next==='thinking')window.TikoV3?.thinking?.(true);
-  if(next==='speaking'){window.TikoV3?.thinking?.(false);window.TikoV3?.speaking?.(true)}
-  if(next==='success'){window.TikoV3?.speaking?.(false);window.TikoV3?.success?.()}
-  if(next==='error'){window.TikoV3?.speaking?.(false);window.TikoV3?.thinking?.(false);window.TikoV3?.error?.()}
-  if(next==='idle'){window.TikoV3?.speaking?.(false);window.TikoV3?.thinking?.(false)}
+  bigMascotState(next)
 }
 function settleMascot(avatar=null,delay=900){
-  setTimeout(()=>{mascotState($('.chat-avatar'),'idle');if(avatar)mascotState(avatar,'idle')},delay)
+  setTimeout(()=>{mascotState($('.chat-avatar'),'idle');if(avatar)mascotState(avatar,'idle');bigMascotState('idle')},delay)
 }
 function add(role,text=''){
   const r=document.createElement('div');r.className='msg '+role;
