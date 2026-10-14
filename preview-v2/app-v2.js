@@ -43,8 +43,9 @@ function add(role,text=''){
   $('#messages').appendChild(r);r.scrollIntoView({behavior:'smooth',block:'nearest'});return c
 }
 function setPlan(plan='free'){
-  const u=$('#usageState');if(u)u.textContent=plan==='plus'?'ClicIA+ actif':'Texte illimité · Sans compte';
-  if($('#accountBtn'))$('#accountBtn').textContent=plan==='plus'?'ClicIA+ actif':'Activer ClicIA+'
+  const isPlus=plan==='plus';
+  const plus=$('#chatPremiumPlus');if(plus){plus.hidden=!isPlus;plus.setAttribute('aria-hidden',isPlus?'false':'true')}
+  if($('#accountBtn'))$('#accountBtn').textContent=isPlus?'ClicIA+ actif':'Activer ClicIA+'
 }
 function status(v){
   state.generating=v;window.__clicThinking=v;
