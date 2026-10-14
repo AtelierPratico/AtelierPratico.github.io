@@ -1,6 +1,7 @@
 const API_URL='https://ibrtukocutdaxyltrmhk.supabase.co/functions/v1/chat';
 const SUPABASE_KEY='sb_publishable_r5V4Ho47PYYK02Pw-MQotg_ySxoBS3p';
 const DEVICE_KEY='clicia_device_id';
+const BULB_AVATAR_SVG=`<svg viewBox="0 0 60 78" aria-hidden="true"><path d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/><ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/><circle cx="25" cy="32" r="3" fill="#17181a"/><circle cx="39" cy="32" r="3" fill="#17181a"/><rect x="19" y="64" width="22" height="7" rx="3.5" fill="#17181a"/><rect x="22" y="72" width="16" height="4" rx="2" fill="#17181a"/></svg>`;
 const state={messages:[],generating:false,controller:null,conversationId:null};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 
@@ -9,9 +10,12 @@ function deviceId(){
   if(!id){id=(crypto.randomUUID?.()||('clicia-'+Date.now()+'-'+Math.random().toString(36).slice(2)));localStorage.setItem(DEVICE_KEY,id)}
   return id
 }
+function hydrateAvatars(){
+  $$('.bubbleav').forEach(a=>{if(!a.querySelector('svg'))a.innerHTML=BULB_AVATAR_SVG});
+}
 function add(role,text=''){
   const r=document.createElement('div');r.className='msg '+role;
-  if(role==='assistant'){const a=document.createElement('div');a.className='bubbleav';r.appendChild(a)}
+  if(role==='assistant'){const a=document.createElement('div');a.className='bubbleav';a.innerHTML=BULB_AVATAR_SVG;r.appendChild(a)}
   const c=document.createElement('div');c.className='content';c.textContent=text;r.appendChild(c);
   $('#messages').appendChild(r);r.scrollIntoView({behavior:'smooth',block:'nearest'});return c
 }
@@ -80,4 +84,5 @@ $('#chatForm')?.addEventListener('submit',e=>{e.preventDefault();send()});
 $('#chatInput')?.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}});
 $$('[data-prompt]').forEach(b=>b.addEventListener('click',()=>send(b.dataset.prompt)));
 window.addEventListener('clicia-premium-change',e=>setPlan(e.detail?.active?'plus':'free'));
+hydrateAvatars();
 setPlan(window.CliciaPremium?.isActive?.()?'plus':'free');status(false);
