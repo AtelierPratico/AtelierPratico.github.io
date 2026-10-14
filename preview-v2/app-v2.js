@@ -43,7 +43,7 @@ function setPlan(plan='free'){
 }
 function status(v){
   state.generating=v;window.__clicThinking=v;
-  if($('#sendBtn'))$('#sendBtn'].textContent=v?'■':'↑';
+  if($('#sendBtn'))$('#sendBtn').textContent=v?'■':'↑';
   if($('#engineState'))$('#engineState').textContent=v?'Clic réfléchit…':'Clic IA prêt';
 }
 function quick(t){
