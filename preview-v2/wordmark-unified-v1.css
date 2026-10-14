@@ -1,0 +1,83 @@
+/* Unified CLIC IA wordmark proportions: IA = 60% of CLIC, outlined, baseline aligned. */
+.brand-clic,
+.chat-wordmark-clic,
+.hero-copy-v9 h1 strong,
+.auth-wordmark-clic,
+.feature-wordmark-clic{
+  font-family:Manrope,Inter,sans-serif;
+  font-weight:800;
+  color:#f6f8fc;
+}
+
+/* Header brand */
+.brand{align-items:center}
+.brand-clic{font-size:30px;line-height:1;letter-spacing:-.06em}
+.brand-ia{
+  font:800 18px/1 Manrope,Inter,sans-serif!important;
+  color:transparent!important;
+  -webkit-text-stroke:1px rgba(214,224,244,.78)!important;
+  text-stroke:1px rgba(214,224,244,.78)!important;
+  letter-spacing:-.05em!important;
+  margin-left:1px!important;
+  transform:translateY(2px);
+}
+
+/* Main hero */
+.hero-copy-v9 h1{align-items:baseline!important;gap:8px!important}
+.hero-copy-v9 h1 em{
+  font-size:.60em!important;
+  font-style:normal!important;
+  color:transparent!important;
+  -webkit-text-stroke:1.4px rgba(214,224,244,.78)!important;
+  text-stroke:1.4px rgba(214,224,244,.78)!important;
+  letter-spacing:-.05em!important;
+  margin-left:1px!important;
+}
+
+/* Chat header */
+.chat-wordmark{align-items:baseline!important;gap:7px!important}
+.chat-wordmark-clic{font-size:clamp(34px,4vw,52px)!important;line-height:.9!important;letter-spacing:-.075em!important}
+.chat-wordmark-ia{
+  font-size:clamp(20px,2.4vw,31px)!important;
+  line-height:.9!important;
+  letter-spacing:-.06em!important;
+  color:transparent!important;
+  -webkit-text-stroke:1.4px rgba(214,224,244,.78)!important;
+  text-stroke:1.4px rgba(214,224,244,.78)!important;
+  margin:0 0 2px 0!important;
+}
+
+/* Premium modal */
+.auth-wordmark{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap}
+.auth-wordmark-clic{font-size:25px;line-height:1;letter-spacing:-.05em}
+.auth-wordmark-ia{
+  font:800 15px/1 Manrope,Inter,sans-serif;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(214,224,244,.78);
+  text-stroke:1px rgba(214,224,244,.78);
+  letter-spacing:-.04em;
+  transform:translateY(-1px);
+}
+
+/* Clic IA module card */
+.feature-wordmark{display:inline-flex;align-items:baseline;gap:3px}
+.feature-wordmark-clic{font-size:inherit;letter-spacing:.02em}
+.feature-wordmark-ia{
+  font:800 .60em/1 Manrope,Inter,sans-serif;
+  color:transparent;
+  -webkit-text-stroke:.75px rgba(214,224,244,.78);
+  text-stroke:.75px rgba(214,224,244,.78);
+  letter-spacing:-.02em;
+}
+
+@media(max-width:820px){
+  .brand-clic{font-size:25px}
+  .brand-ia{font-size:15px!important;transform:translateY(1px)}
+}
+@media(max-width:720px){
+  .chat-wordmark-clic{font-size:32px!important}
+  .chat-wordmark-ia{font-size:19px!important;-webkit-text-stroke:1.2px rgba(214,224,244,.78)!important;text-stroke:1.2px rgba(214,224,244,.78)!important}
+}
+@media(max-width:520px){
+  .hero-copy-v9 h1 em{font-size:.60em!important}
+}
