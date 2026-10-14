@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./clicia-v9.css?v=1">
   <link rel="stylesheet" href="./auth-v1.css?v=2">
+  <link rel="stylesheet" href="./chat-wordmark-v1.css?v=1">
 </head>
 <body>
   <header class="site-header">
@@ -52,9 +53,11 @@
 
       <section class="hero-chat-panel" id="hero-chat" aria-label="Conversation avec Clic IA">
         <div class="chat-topbar">
-          <div class="chat-id">
-            <span class="chat-avatar"><svg viewBox="0 0 60 78"><path d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/><ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/><circle cx="25" cy="32" r="3" fill="#17181a"/><circle cx="39" cy="32" r="3" fill="#17181a"/></svg></span>
-            <div><strong>Clic IA</strong><small><i></i><span id="engineState"></span></small></div>
+          <div class="chat-id chat-id-wordmark">
+            <div class="chat-wordmark" aria-label="CLICIA">
+              <span class="chat-wordmark-clic">CLIC</span><span class="chat-wordmark-ia">IA</span>
+            </div>
+            <small class="chat-status-line"><i></i><span id="engineState"></span></small>
           </div>
           <span class="usage-pill" id="usageState">Texte illimité · Sans compte</span>
         </div>
