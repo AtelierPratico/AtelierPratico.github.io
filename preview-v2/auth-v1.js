@@ -101,7 +101,7 @@
   modal?.addEventListener('click',e=>{if(e.target===modal)close()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 
-  const welcome=$('#messages .welcome .content');if(welcome)welcome.innerHTML='Bonjour ! 👋<br>Je suis Clic, votre assistant IA.<br>Posez-moi vos questions gratuitement, sans compte.';
+  const welcome=$('#messages .welcome .content');if(welcome)welcome.innerHTML='Salut ! 👋<br>Moi c\'est Clic, ton assistant IA.<br>Pose-moi tes questions!';
   unlockFreeChat();render();
   const stored=localStorage.getItem(STORAGE_KEY);if(stored)validate(stored,false);
 
