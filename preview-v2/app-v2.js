@@ -1,7 +1,7 @@
 const API_URL='https://ibrtukocutdaxyltrmhk.supabase.co/functions/v1/chat';
 const SUPABASE_KEY='sb_publishable_r5V4Ho47PYYK02Pw-MQotg_ySxoBS3p';
 const DEVICE_KEY='clicia_device_id';
-const BULB_AVATAR_SVG=`<svg viewBox="0 0 60 78" aria-hidden="true"><path d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/><ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/><circle cx="25" cy="32" r="3" fill="#17181a"/><circle cx="39" cy="32" r="3" fill="#17181a"/><rect x="19" y="64" width="22" height="7" rx="3.5" fill="#17181a"/><rect x="22" y="72" width="16" height="4" rx="2" fill="#17181a"/></svg>`;
+const BULB_AVATAR_SVG=`<svg viewBox="0 0 60 78" aria-hidden="true"><path class="clic-shell" d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/><ellipse class="clic-eye clic-eye-l" cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse class="clic-eye clic-eye-r" cx="37" cy="30" rx="6" ry="11" fill="#fff"/><circle class="clic-pupil clic-pupil-l" cx="25" cy="32" r="3" fill="#17181a"/><circle class="clic-pupil clic-pupil-r" cx="39" cy="32" r="3" fill="#17181a"/><rect class="clic-base" x="19" y="64" width="22" height="7" rx="3.5" fill="#17181a"/><rect class="clic-base" x="22" y="72" width="16" height="4" rx="2" fill="#17181a"/></svg>`;
 const state={messages:[],generating:false,controller:null,conversationId:null};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 
@@ -11,11 +11,29 @@ function deviceId(){
   return id
 }
 function hydrateAvatars(){
-  $$('.bubbleav').forEach(a=>{if(!a.querySelector('svg'))a.innerHTML=BULB_AVATAR_SVG});
+  $$('.bubbleav,.chat-avatar').forEach(a=>{a.innerHTML=BULB_AVATAR_SVG;a.classList.add('is-idle')});
+}
+function mascotState(el,next){
+  if(!el)return;
+  el.classList.remove('is-idle','is-thinking','is-speaking','is-success','is-error');
+  el.classList.add('is-'+next)
+}
+function avatarForContent(content){return content?.parentElement?.querySelector('.bubbleav')||null}
+function conversationState(next,avatar=null){
+  mascotState($('.chat-avatar'),next);
+  if(avatar)mascotState(avatar,next);
+  if(next==='thinking')window.TikoV3?.thinking?.(true);
+  if(next==='speaking'){window.TikoV3?.thinking?.(false);window.TikoV3?.speaking?.(true)}
+  if(next==='success'){window.TikoV3?.speaking?.(false);window.TikoV3?.success?.()}
+  if(next==='error'){window.TikoV3?.speaking?.(false);window.TikoV3?.thinking?.(false);window.TikoV3?.error?.()}
+  if(next==='idle'){window.TikoV3?.speaking?.(false);window.TikoV3?.thinking?.(false)}
+}
+function settleMascot(avatar=null,delay=900){
+  setTimeout(()=>{mascotState($('.chat-avatar'),'idle');if(avatar)mascotState(avatar,'idle')},delay)
 }
 function add(role,text=''){
   const r=document.createElement('div');r.className='msg '+role;
-  if(role==='assistant'){const a=document.createElement('div');a.className='bubbleav';a.innerHTML=BULB_AVATAR_SVG;r.appendChild(a)}
+  if(role==='assistant'){const a=document.createElement('div');a.className='bubbleav is-idle';a.innerHTML=BULB_AVATAR_SVG;r.appendChild(a)}
   const c=document.createElement('div');c.className='content';c.textContent=text;r.appendChild(c);
   $('#messages').appendChild(r);r.scrollIntoView({behavior:'smooth',block:'nearest'});return c
 }
@@ -25,9 +43,8 @@ function setPlan(plan='free'){
 }
 function status(v){
   state.generating=v;window.__clicThinking=v;
-  if($('#sendBtn'))$('#sendBtn').textContent=v?'■':'↑';
+  if($('#sendBtn'))$('#sendBtn'].textContent=v?'■':'↑';
   if($('#engineState'))$('#engineState').textContent=v?'Clic réfléchit…':'Clic IA prêt';
-  window.TikoV2?.thinking(v)
 }
 function quick(t){
   t=t.toLowerCase().trim().replace(/[!?.,]/g,'');
@@ -38,14 +55,22 @@ function quick(t){
 }
 function clearDemo(){document.querySelector('.demo-user')?.remove();document.querySelector('.demo-answer')?.remove()}
 
+async function quickReply(text){
+  const c=add('assistant','');const a=avatarForContent(c);conversationState('thinking',a);
+  await new Promise(r=>setTimeout(r,260));conversationState('speaking',a);
+  c.textContent=text;state.messages.push({role:'assistant',content:text});
+  await new Promise(r=>setTimeout(r,420));conversationState('success',a);settleMascot(a)
+}
+
 async function send(raw){
   const inp=$('#chatInput'),text=(raw??inp?.value??'').trim();if(!text)return;
   if(state.generating){state.controller?.abort();return}
   clearDemo();
   add('user',text);state.messages.push({role:'user',content:text});if(inp)inp.value='';
   $('#hero-chat')?.scrollIntoView({behavior:'smooth',block:'center'});
-  const q=quick(text);if(q){setTimeout(()=>{add('assistant',q);state.messages.push({role:'assistant',content:q})},120);return}
-  const b=add('assistant','');b.classList.add('typing');status(true);state.controller=new AbortController();
+  const q=quick(text);if(q){quickReply(q);return}
+  const b=add('assistant','');const avatar=avatarForContent(b);b.classList.add('typing');status(true);conversationState('thinking',avatar);state.controller=new AbortController();
+  let startedSpeaking=false;
   try{
     const headers={
       'Content-Type':'application/json',
@@ -66,16 +91,16 @@ async function send(raw){
         buf+=dec.decode(value,{stream:true});const lines=buf.split('\n');buf=lines.pop()||'';
         for(const line of lines){
           if(!line.startsWith('data:'))continue;const data=line.slice(5).trim();if(!data||data==='[DONE]')continue;
-          try{const o=JSON.parse(data);if(o.plan)setPlan(o.plan);const d=o.delta??o.text??'';if(d){full+=d;b.textContent=full}}catch{}
+          try{const o=JSON.parse(data);if(o.plan)setPlan(o.plan);const d=o.delta??o.text??'';if(d){if(!startedSpeaking){startedSpeaking=true;conversationState('speaking',avatar)}full+=d;b.textContent=full}}catch{}
         }
       }
     }else{
-      const d=await r.json().catch(async()=>({text:await r.text()}));full=d.text||d.output_text||'Réponse reçue.';b.textContent=full
+      const d=await r.json().catch(async()=>({text:await r.text()}));full=d.text||d.output_text||'Réponse reçue.';if(!startedSpeaking){startedSpeaking=true;conversationState('speaking',avatar)}b.textContent=full
     }
-    b.classList.remove('typing');if(full)state.messages.push({role:'assistant',content:full})
+    b.classList.remove('typing');if(full)state.messages.push({role:'assistant',content:full});conversationState('success',avatar);settleMascot(avatar)
   }catch(e){
     b.classList.remove('typing');
-    b.textContent=e.name==='AbortError'?'Réponse interrompue.':(e.message||'Clic n’a pas réussi à se connecter pour le moment.')
+    b.textContent=e.name==='AbortError'?'Réponse interrompue.':(e.message||'Clic n’a pas réussi à se connecter pour le moment.');conversationState(e.name==='AbortError'?'idle':'error',avatar);settleMascot(avatar,800)
   }finally{status(false);state.controller=null}
 }
 
@@ -85,4 +110,4 @@ $('#chatInput')?.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey)
 $$('[data-prompt]').forEach(b=>b.addEventListener('click',()=>send(b.dataset.prompt)));
 window.addEventListener('clicia-premium-change',e=>setPlan(e.detail?.active?'plus':'free'));
 hydrateAvatars();
-setPlan(window.CliciaPremium?.isActive?.()?'plus':'free');status(false);
+setPlan(window.CliciaPremium?.isActive?.()?'plus':'free');conversationState('idle');status(false);
