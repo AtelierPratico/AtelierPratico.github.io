@@ -28,7 +28,7 @@
       accountBtn.classList.toggle('logged-in',state.active);
     }
     const usage=$('#usageState');if(usage)usage.textContent=state.active?'ClicIA+ actif':'Texte illimité · Sans compte';
-    const engine=$('#engineState');if(engine&&!window.__clicThinking)engine.textContent='Clic IA prêt';
+    const engine=$('#engineState');if(engine&&!window.__clicThinking)engine.textContent='';
     dispatch();
   }
 
