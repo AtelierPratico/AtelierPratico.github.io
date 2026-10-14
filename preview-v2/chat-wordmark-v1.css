@@ -40,6 +40,18 @@
   opacity:.96;
   margin-bottom:1px;
 }
+.chat-premium-plus{
+  font-family:Manrope,Inter,sans-serif;
+  font-size:clamp(25px,2.8vw,36px);
+  font-weight:800;
+  line-height:.9;
+  color:#f6f8fc;
+  margin-left:-3px;
+  margin-bottom:2px;
+  opacity:.96;
+  text-shadow:0 0 14px rgba(39,215,243,.2);
+}
+.chat-premium-plus[hidden]{display:none!important}
 .chat-status-line{
   min-height:14px;
   display:flex;
@@ -64,4 +76,5 @@
   .chat-wordmark{gap:6px}
   .chat-wordmark-clic{font-size:32px}
   .chat-wordmark-ia{font-size:29px;-webkit-text-stroke:1.6px rgba(196,210,238,.78)}
+  .chat-premium-plus{font-size:23px;margin-left:-2px;margin-bottom:1px}
 }
