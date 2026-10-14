@@ -24,4 +24,9 @@
 .auth-brand-bulb:before{content:"";position:absolute;left:50%;bottom:3px;transform:translateX(-50%);width:13px;height:5px;border-radius:3px;background:#17181a}
 .auth-brand-bulb:after{content:"";position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);width:9px;height:3px;border-radius:2px;background:#17181a}
 
+/* Exact same Clic bulb inside assistant messages. The SVG is injected by app-v2.js. */
+.bubbleav{width:30px!important;height:39px!important;flex:0 0 30px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;filter:none!important;overflow:visible!important;margin:0!important;display:grid!important;place-items:center!important}
+.bubbleav:before,.bubbleav:after{content:none!important;display:none!important}
+.bubbleav svg{width:30px!important;height:39px!important;display:block!important;overflow:visible!important;filter:drop-shadow(0 0 4px rgba(255,212,76,.25))}
+
 @media(max-width:760px){.auth-gate{align-items:flex-start;flex-direction:column}.auth-gate button{width:100%}.usage-pill{display:none}.auth-card{padding:24px 20px}.auth-modal{padding:14px}}
