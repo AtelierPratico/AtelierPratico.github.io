@@ -13,14 +13,10 @@
 .account-view{display:none}.account-view.visible{display:block}.account-email{padding:13px 14px;margin:16px 0;border:1px solid rgba(119,184,255,.22);border-radius:14px;background:rgba(5,28,72,.55);font-size:13px;color:#d7e5fb}.account-meta{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}.account-meta div{padding:12px;border:1px solid rgba(119,184,255,.18);border-radius:13px;background:rgba(5,28,72,.40)}.account-meta strong{display:block;font-size:18px}.account-meta span{font-size:10px;color:#91a9d0}.signout-btn{width:100%;height:46px;border:1px solid rgba(255,255,255,.15);border-radius:13px;background:rgba(255,255,255,.035);color:#fff;font-weight:800;cursor:pointer}
 
 /* Clic mascot: keep the original lightbulb silhouette everywhere, never a rounded-square avatar. */
-.chat-avatar{width:38px!important;height:48px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;filter:drop-shadow(0 0 6px rgba(255,212,76,.34)) drop-shadow(0 0 14px rgba(255,212,76,.14))!important;position:relative!important;overflow:visible!important;display:grid!important;place-items:start center!important}
+.chat-avatar{width:38px!important;height:48px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;filter:drop-shadow(0 0 6px rgba(255,212,76,.34)) drop-shadow(0 0 14px rgba(255,212,76,.14))!important;position:relative!important;overflow:visible!important;display:grid!important;place-items:center!important}
 .chat-avatar svg{width:36px!important;height:47px!important;display:block!important;overflow:visible!important}
-.chat-avatar:before{content:"";position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:14px;height:5px;border-radius:3px;background:#17181a}
-.chat-avatar:after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:10px;height:3px;border-radius:2px;background:#17181a}
-.bubbleav{width:26px!important;height:31px!important;flex:0 0 26px!important;border:0!important;border-radius:48% 48% 40% 40%/44% 44% 58% 58%!important;background:#17181a!important;box-shadow:none!important;filter:drop-shadow(0 0 4px rgba(255,212,76,.22));position:relative!important;overflow:visible!important;margin-bottom:7px}
-.bubbleav:before{content:""!important;position:absolute!important;top:7px!important;left:6px!important;width:5px!important;height:9px!important;border-radius:50%!important;background:#fff!important;box-shadow:9px 0 0 #fff!important}
-.bubbleav:after{content:""!important;position:absolute!important;left:7px!important;bottom:-6px!important;width:12px!important;height:7px!important;border-radius:2px 2px 4px 4px!important;background:linear-gradient(180deg,#24262b,#17181a)!important;box-shadow:0 3px 0 -1px #17181a!important}
-.auth-brand-bulb{position:relative;display:grid;place-items:start center;filter:drop-shadow(0 0 6px rgba(255,212,76,.28));overflow:visible}
+.chat-avatar:before,.chat-avatar:after{content:none!important;display:none!important}
+.auth-brand-bulb{position:relative;display:grid;place-items:center;filter:drop-shadow(0 0 6px rgba(255,212,76,.28));overflow:visible}
 .auth-brand-bulb:before{content:"";position:absolute;left:50%;bottom:3px;transform:translateX(-50%);width:13px;height:5px;border-radius:3px;background:#17181a}
 .auth-brand-bulb:after{content:"";position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);width:9px;height:3px;border-radius:2px;background:#17181a}
 
@@ -29,4 +25,38 @@
 .bubbleav:before,.bubbleav:after{content:none!important;display:none!important}
 .bubbleav svg{width:30px!important;height:39px!important;display:block!important;overflow:visible!important;filter:drop-shadow(0 0 4px rgba(255,212,76,.25))}
 
+/* Conversation-aware animation states for Clic. */
+.chat-avatar svg,.bubbleav svg{transform-origin:50% 88%;will-change:transform,filter}
+.chat-avatar .clic-eye,.bubbleav .clic-eye{transform-box:fill-box;transform-origin:center;animation:clicBlink 5.6s ease-in-out infinite}
+.chat-avatar .clic-eye-r,.bubbleav .clic-eye-r{animation-delay:.04s}
+.chat-avatar .clic-pupil,.bubbleav .clic-pupil{transform-box:fill-box;transform-origin:center;animation:clicLook 6.8s ease-in-out infinite}
+.chat-avatar.is-idle svg{animation:clicIdleFloat 4.6s ease-in-out infinite}
+.bubbleav.is-idle svg{animation:clicMessageIdle 5.4s ease-in-out infinite}
+.chat-avatar.is-thinking svg,.bubbleav.is-thinking svg{animation:clicThink 1.25s ease-in-out infinite;filter:drop-shadow(0 0 7px rgba(255,212,76,.34)) drop-shadow(0 0 15px rgba(255,212,76,.16))!important}
+.chat-avatar.is-thinking .clic-pupil,.bubbleav.is-thinking .clic-pupil{animation:clicScan .85s ease-in-out infinite}
+.chat-avatar.is-speaking svg,.bubbleav.is-speaking svg{animation:clicSpeak .68s ease-in-out infinite;filter:drop-shadow(0 0 8px rgba(255,212,76,.42)) drop-shadow(0 0 18px rgba(255,212,76,.18))!important}
+.chat-avatar.is-speaking .clic-pupil,.bubbleav.is-speaking .clic-pupil{animation:clicTalkEyes 1s ease-in-out infinite}
+.chat-avatar.is-success svg,.bubbleav.is-success svg{animation:clicSuccess .82s ease-out 1;filter:drop-shadow(0 0 11px rgba(255,212,76,.48)) drop-shadow(0 0 22px rgba(255,212,76,.2))!important}
+.chat-avatar.is-error svg,.bubbleav.is-error svg{animation:clicError .48s ease-in-out 1;filter:drop-shadow(0 0 7px rgba(255,122,122,.24))!important}
+
+.character.speaking{animation:characterSpeaking .72s ease-in-out infinite!important}
+.character.speaking .spark{opacity:.85!important;animation:sparkPulse .55s ease-in-out infinite alternate!important}
+.character.success{animation:characterSuccess .85s ease-out 1!important}
+.character.error{animation:characterError .48s ease-in-out 1!important}
+
+@keyframes clicIdleFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(.8deg)}}
+@keyframes clicMessageIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
+@keyframes clicThink{0%,100%{transform:translateY(0) rotate(-1deg) scale(1)}50%{transform:translateY(-3px) rotate(1deg) scale(1.025)}}
+@keyframes clicSpeak{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-2px) scale(1.035)}}
+@keyframes clicSuccess{0%{transform:scale(1)}42%{transform:scale(1.12) translateY(-2px)}100%{transform:scale(1)}}
+@keyframes clicError{0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}50%{transform:translateX(2px)}75%{transform:translateX(-1px)}}
+@keyframes clicBlink{0%,45%,48%,100%{transform:scaleY(1)}46.5%{transform:scaleY(.08)}}
+@keyframes clicLook{0%,100%{transform:translate(0,0)}22%{transform:translate(-1px,0)}45%{transform:translate(1px,.3px)}68%{transform:translate(.2px,1px)}84%{transform:translate(0,0)}}
+@keyframes clicScan{0%,100%{transform:translate(-1.7px,-.5px)}50%{transform:translate(1.7px,-.5px)}}
+@keyframes clicTalkEyes{0%,100%{transform:translate(0,0)}25%{transform:translate(.8px,-.4px)}50%{transform:translate(0,.8px)}75%{transform:translate(-.8px,-.2px)}}
+@keyframes characterSpeaking{0%,100%{transform:translate(var(--tx,0),var(--ty,0)) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(0) scale(1)}50%{transform:translate(var(--tx,0),var(--ty,0)) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-5px) scale(1.008)}}
+@keyframes characterSuccess{0%{transform:translate(var(--tx,0),var(--ty,0)) scale(1)}45%{transform:translate(var(--tx,0),calc(var(--ty,0) - 8px)) scale(1.035)}100%{transform:translate(var(--tx,0),var(--ty,0)) scale(1)}}
+@keyframes characterError{0%,100%{transform:translate(var(--tx,0),var(--ty,0))}25%{transform:translate(calc(var(--tx,0) - 5px),var(--ty,0))}50%{transform:translate(calc(var(--tx,0) + 5px),var(--ty,0))}75%{transform:translate(calc(var(--tx,0) - 2px),var(--ty,0))}}
+
+@media (prefers-reduced-motion:reduce){.chat-avatar svg,.bubbleav svg,.chat-avatar .clic-eye,.bubbleav .clic-eye,.chat-avatar .clic-pupil,.bubbleav .clic-pupil,.character{animation:none!important}}
 @media(max-width:760px){.auth-gate{align-items:flex-start;flex-direction:column}.auth-gate button{width:100%}.usage-pill{display:none}.auth-card{padding:24px 20px}.auth-modal{padding:14px}}
