@@ -24,10 +24,10 @@
   function render(){
     unlockFreeChat();
     if(accountBtn){
-      accountBtn.textContent=state.active?'Clicia+ actif':'Activer Clicia+';
+      accountBtn.textContent=state.active?'ClicIA+ actif':'Activer ClicIA+';
       accountBtn.classList.toggle('logged-in',state.active);
     }
-    const usage=$('#usageState');if(usage)usage.textContent=state.active?'Clicia+ actif':'Texte illimité · Sans compte';
+    const usage=$('#usageState');if(usage)usage.textContent=state.active?'ClicIA+ actif':'Texte illimité · Sans compte';
     const engine=$('#engineState');if(engine&&!window.__clicThinking)engine.textContent='Clic IA prêt';
     dispatch();
   }
@@ -41,19 +41,19 @@
         <strong>CLIC IA</strong><em>par Clicia</em>
       </div>
       <div id="premiumInactive">
-        <h2 class="auth-title">Activer Clicia+</h2>
-        <p class="auth-subtitle">Le chat texte est gratuit et sans compte. Avec Clicia+, ton code d’abonnement devient ton compte et débloque les fonctions premium, dont les images.</p>
+        <h2 class="auth-title">Activer ClicIA+</h2>
+        <p class="auth-subtitle">Le chat texte est gratuit et sans compte. Avec ClicIA+, ton code d’abonnement devient ton compte et débloque les fonctions premium, dont les images.</p>
         <form id="premiumForm">
-          <label class="auth-field"><span>Code Clicia+</span><input id="premiumCode" type="text" autocomplete="off" placeholder="CLICIA-XXXX-XXXX" spellcheck="false" required></label>
+          <label class="auth-field"><span>Code ClicIA+</span><input id="premiumCode" type="text" autocomplete="off" placeholder="CLICIA-XXXX-XXXX" spellcheck="false" required></label>
           <button class="auth-submit" id="premiumSubmit" type="submit">Activer mon abonnement</button>
           <div class="auth-message" id="premiumMessage"></div>
-          <p class="auth-note">Aucun courriel ni mot de passe requis. Garde ton code : c’est ta clé de compte Clicia+.</p>
+          <p class="auth-note">Aucun courriel ni mot de passe requis. Garde ton code : c’est ta clé de compte ClicIA+.</p>
         </form>
       </div>
       <div class="account-view" id="premiumActive">
-        <h2 class="auth-title">Clicia+ est actif</h2>
-        <p class="auth-subtitle">Ton code est reconnu sur cet appareil. Tu peux le réutiliser sur un autre appareil pour retrouver ton accès Clicia+.</p>
-        <div class="account-meta"><div><strong>Clicia+</strong><span>Forfait actuel</span></div><div><strong>✓</strong><span>Images débloquées</span></div></div>
+        <h2 class="auth-title">ClicIA+ est actif</h2>
+        <p class="auth-subtitle">Ton code est reconnu sur cet appareil. Tu peux le réutiliser sur un autre appareil pour retrouver ton accès ClicIA+.</p>
+        <div class="account-meta"><div><strong>ClicIA+</strong><span>Forfait actuel</span></div><div><strong>✓</strong><span>Images débloquées</span></div></div>
         <button class="signout-btn" id="premiumForget" type="button">Retirer le code de cet appareil</button>
       </div>`;
 
@@ -62,11 +62,11 @@
       e.preventDefault();
       const input=$('#premiumCode');const code=normalized(input?.value||'');
       const msg=$('#premiumMessage'),btn=$('#premiumSubmit');
-      if(code.length<10){if(msg){msg.textContent='Entre ton code Clicia+.';msg.className='auth-message error';}return;}
+      if(code.length<10){if(msg){msg.textContent='Entre ton code ClicIA+.';msg.className='auth-message error';}return;}
       if(btn)btn.disabled=true;if(msg){msg.textContent='Vérification…';msg.className='auth-message';}
       const ok=await validate(code,true);
       if(btn)btn.disabled=false;
-      if(ok){if(msg){msg.textContent='Clicia+ activé.';msg.className='auth-message success';}setTimeout(close,500)}
+      if(ok){if(msg){msg.textContent='ClicIA+ activé.';msg.className='auth-message success';}setTimeout(close,500)}
     });
     $('#premiumForget')?.addEventListener('click',()=>{
       localStorage.removeItem(STORAGE_KEY);state.active=false;state.code='';state.accountId='';state.imageDeviceId='';state.expiresAt=null;render();showMode();
@@ -92,7 +92,7 @@
       localStorage.setItem(STORAGE_KEY,code);render();showMode();return true;
     }catch(err){
       state.active=false;state.code='';state.accountId='';state.imageDeviceId='';state.expiresAt=null;localStorage.removeItem(STORAGE_KEY);render();showMode();
-      if(surfaceError){const msg=$('#premiumMessage');if(msg){msg.textContent=err?.message||'Ce code Clicia+ n’est pas valide.';msg.className='auth-message error';}}
+      if(surfaceError){const msg=$('#premiumMessage');if(msg){msg.textContent=err?.message||'Ce code ClicIA+ n’est pas valide.';msg.className='auth-message error';}}
       return false;
     }
   }
