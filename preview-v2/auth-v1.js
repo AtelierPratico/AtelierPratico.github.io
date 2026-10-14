@@ -38,7 +38,7 @@
       <button class="auth-close" id="authClose" type="button" aria-label="Fermer">×</button>
       <div class="auth-brand">
         <span class="auth-brand-bulb"><svg viewBox="0 0 60 78"><path d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/><ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/><circle cx="25" cy="32" r="3" fill="#17181a"/><circle cx="39" cy="32" r="3" fill="#17181a"/></svg></span>
-        <strong>CLIC IA</strong><em>par Clicia</em>
+        <span class="auth-wordmark"><strong class="auth-wordmark-clic">CLIC</strong><strong class="auth-wordmark-ia">IA</strong></span><em>par Clicia</em>
       </div>
       <div id="premiumInactive">
         <h2 class="auth-title">Activer ClicIA+</h2>
