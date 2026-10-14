@@ -3,7 +3,8 @@
 .chat-wordmark-clic,
 .hero-copy-v9 h1 strong,
 .auth-wordmark-clic,
-.feature-wordmark-clic{
+.feature-wordmark-clic,
+.footer-wordmark-clic{
   font-family:Manrope,Inter,sans-serif;
   font-weight:800;
   color:#f6f8fc;
@@ -67,6 +68,18 @@
   color:transparent;
   -webkit-text-stroke:.75px rgba(214,224,244,.78);
   text-stroke:.75px rgba(214,224,244,.78);
+  letter-spacing:-.02em;
+}
+
+/* Footer brand */
+.footer-wordmark{display:inline-flex;align-items:baseline;gap:3px;white-space:nowrap}
+.footer-wordmark-clic{font-size:1em;line-height:1;letter-spacing:-.04em}
+.footer-wordmark-ia{
+  font:800 .60em/1 Manrope,Inter,sans-serif;
+  color:transparent;
+  -webkit-text-stroke:.65px rgba(174,194,226,.82);
+  text-stroke:.65px rgba(174,194,226,.82);
+  font-style:normal;
   letter-spacing:-.02em;
 }
 
