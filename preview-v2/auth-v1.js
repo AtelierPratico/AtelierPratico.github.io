@@ -27,7 +27,7 @@
       accountBtn.textContent=state.active?'ClicIA+ actif':'Activer ClicIA+';
       accountBtn.classList.toggle('logged-in',state.active);
     }
-    const usage=$('#usageState');if(usage)usage.textContent=state.active?'ClicIA+ actif':'Texte illimité · Sans compte';
+    const plus=$('#chatPremiumPlus');if(plus){plus.hidden=!state.active;plus.setAttribute('aria-hidden',state.active?'false':'true');}
     const engine=$('#engineState');if(engine&&!window.__clicThinking)engine.textContent='';
     dispatch();
   }
