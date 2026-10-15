@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#081b46">
+  <title>ClicIA — Gestion des eBooks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./admin-ebooks-v1.css?v=1">
+</head>
+<body>
+  <main class="admin-shell">
+    <div class="admin-top">
+      <div class="admin-brand"><span class="clic">CLIC</span><span class="ia">IA</span><small>ADMIN EBOOKS</small></div>
+      <a class="back-link" href="./">← Retour au site</a>
+    </div>
+
+    <section class="admin-hero">
+      <div><h1>Bibliothèque ClicIA</h1><p>Ajoute tes PDF ou EPUB dans le stockage privé Supabase. Les couvertures restent publiques, mais les eBooks ne reçoivent que des liens temporaires sécurisés.</p></div>
+      <div class="cost-chip">Configuration économique · GitHub Pages + Supabase Free</div>
+    </section>
+
+    <section class="panel" id="accessPanel">
+      <h2>Accès propriétaire</h2>
+      <p>Entre ton code ClicIA+ propriétaire. Il n’est jamais affiché dans la page ni enregistré dans le dépôt GitHub.</p>
+      <div class="auth-row">
+        <label class="field"><span>Code propriétaire</span><input id="adminCode" type="password" placeholder="CLICIA-XXXX-XXXX-XXXX" autocomplete="off"></label>
+        <button class="primary" id="adminLogin" type="button">Ouvrir la gestion</button>
+      </div>
+      <div class="status" id="adminStatus"></div>
+    </section>
+
+    <div id="adminArea" class="locked">
+      <div class="admin-grid">
+        <section class="panel">
+          <h2>Ajouter un eBook</h2>
+          <p>Maximum 30 Mo pour le livre et 5 Mo pour la couverture. Ton Tome 1 premium entre dans cette limite.</p>
+          <form class="upload-form" id="ebookForm">
+            <div class="two">
+              <label class="field"><span>Titre</span><input id="bookTitle" required maxlength="180" placeholder="Le guide des réparations maison"></label>
+              <label class="field"><span>Sous-titre</span><input id="bookSubtitle" maxlength="240" placeholder="75 fiches illustrées pour débutants"></label>
+            </div>
+            <label class="field"><span>Description</span><textarea id="bookDescription" maxlength="5000" placeholder="Courte description de l’eBook"></textarea></label>
+            <div class="two">
+              <label class="field"><span>Catégorie</span><select id="bookCategory"><option value="maison">Maison & bricolage</option><option value="animaux">Animaux</option><option value="cuisine">Cuisine & recettes</option><option value="technologie">Technologie</option><option value="education">Éducation & formation</option><option value="business">Business & finances</option><option value="bienetre">Santé & bien-être</option><option value="creativite">Créativité & design</option></select></label>
+              <label class="field"><span>Prix CAD</span><input id="bookPrice" type="number" min="0" step="0.01" value="14.95"></label>
+            </div>
+            <label class="file-zone field"><span>Fichier eBook · PDF ou EPUB</span><input id="bookFile" type="file" accept="application/pdf,application/epub+zip,.pdf,.epub" required></label>
+            <label class="file-zone field"><span>Couverture · JPG, PNG ou WebP</span><input id="coverFile" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></label>
+            <label class="checks"><input id="bookFeatured" type="checkbox" checked> Mettre ce produit en vedette</label>
+            <button class="primary" id="uploadBtn" type="submit">Téléverser et publier</button>
+            <div class="upload-progress" id="uploadProgress">Prêt.</div>
+          </form>
+        </section>
+
+        <div>
+          <section class="panel storage-card">
+            <h2>Stockage eBooks</h2>
+            <div class="storage-line"><span>Utilisé par les produits ClicIA</span><strong id="storageText">0 Mo / 1 Go gratuit</strong></div>
+            <div class="storage-track"><div class="storage-fill" id="storageFill"></div></div>
+            <div class="storage-note">Le calcul correspond aux fichiers enregistrés dans le catalogue ClicIA. Le quota gratuit Supabase actuel est de 1 Go pour Storage.</div>
+          </section>
+          <section class="panel">
+            <h2>Produits</h2>
+            <p>Publie, masque ou prévisualise tes eBooks. Les fichiers restent privés même lorsqu’un produit est publié.</p>
+            <div class="product-list" id="productList"><div class="empty">Aucun produit pour le moment.</div></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="./admin-ebooks-v1.js?v=1"></script>
+</body>
+</html>
