@@ -4,10 +4,10 @@
   const filterBtn=$('#storeFilterBtn');
   const panel=$('#storeFilterPanel');
   const empty=$('#storeSearchEmpty');
-  const cards=[...document.querySelectorAll('#productGrid .product-card')];
   const headerSearch=$('#headerSearchBtn');
   let category='all';
 
+  function cards(){return [...document.querySelectorAll('#productGrid .product-card')]}
   function norm(v=''){
     return String(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
   }
@@ -15,7 +15,7 @@
   function apply(){
     const q=norm(input?.value||'');
     let visible=0;
-    cards.forEach(card=>{
+    cards().forEach(card=>{
       const hay=norm(card.textContent||'');
       const cat=card.dataset.category||'';
       const okText=!q||hay.includes(q);
@@ -52,6 +52,7 @@
   });
 
   document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});
+  window.addEventListener('clicia-catalog-rendered',apply);
 
   headerSearch?.addEventListener('click',()=>{
     $('#boutique')?.scrollIntoView({behavior:'smooth',block:'start'});
