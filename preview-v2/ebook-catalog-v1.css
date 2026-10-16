@@ -6,4 +6,217 @@
 .catalog-body{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1}.catalog-title{font:800 20px/1.12 Manrope,Inter,sans-serif;color:#fff}.catalog-subtitle{font-size:13px;line-height:1.45;color:#adbfdf;min-height:38px}.catalog-description{font-size:12px;line-height:1.5;color:#8fa6cc;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .catalog-footer{margin-top:auto;padding-top:10px;display:flex;align-items:center;justify-content:space-between;gap:12px}.catalog-price{font:800 18px/1 Manrope,Inter,sans-serif;color:#7fe7f7}.catalog-action{border:1px solid rgba(63,186,255,.44);border-radius:12px;padding:10px 13px;background:linear-gradient(135deg,rgba(31,173,244,.92),rgba(35,104,236,.92));color:white;font-weight:800;font-size:12px;cursor:pointer}.catalog-action[disabled]{opacity:.58;cursor:default;background:rgba(26,61,117,.72);border-color:rgba(121,173,232,.20)}.catalog-action:not([disabled]):hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(31,155,244,.18)}
 .catalog-note{grid-column:1/-1;color:#8ea6ca;font-size:12px;margin-top:-10px}.catalog-loading{grid-column:1/-1;padding:18px;border:1px dashed rgba(103,181,255,.20);border-radius:14px;color:#9db3d3;text-align:center}
+
+/* =========================================================
+   CLICIA — PREMIUM COSMIC EXPERIENCE / OCT. 2026
+   ========================================================= */
+:root{
+  --clicia-bg:#02091d;
+  --clicia-bg-2:#061535;
+  --clicia-blue:#1c75ff;
+  --clicia-cyan:#57efff;
+  --clicia-ice:#dffcff;
+  --clicia-line:rgba(122,197,255,.24);
+  --clicia-glass:rgba(5,24,62,.56);
+  --clicia-glass-strong:rgba(4,20,54,.86);
+  --clicia-text:#f6fbff;
+  --clicia-muted:#a9bddf;
+  --px:0;
+  --py:0;
+}
+html{scroll-behavior:smooth;background:var(--clicia-bg)}
+body.clicia-premium-2026{margin:0;background:
+  radial-gradient(circle at 50% -10%,rgba(20,91,255,.18),transparent 34%),
+  linear-gradient(180deg,#02091d 0%,#04122d 58%,#02091d 100%);color:var(--clicia-text);overflow-x:hidden}
+body.clicia-premium-2026:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:
+  radial-gradient(circle at 16% 18%,rgba(31,160,255,.08),transparent 24%),
+  radial-gradient(circle at 86% 40%,rgba(69,225,255,.07),transparent 28%),
+  radial-gradient(circle at 54% 78%,rgba(59,61,255,.08),transparent 26%)}
+body.clicia-premium-2026 *{box-sizing:border-box}
+
+/* NAVIGATION */
+body.clicia-premium-2026 .site-header{
+  position:absolute!important;top:18px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;
+  width:min(1268px,calc(100% - 32px))!important;height:54px!important;padding:0 18px 0 26px!important;z-index:80!important;
+  display:grid!important;grid-template-columns:auto 1fr auto!important;align-items:center!important;gap:26px!important;
+  border:1px solid rgba(111,179,255,.25)!important;border-radius:999px!important;
+  background:linear-gradient(180deg,rgba(9,32,77,.68),rgba(4,18,49,.52))!important;
+  box-shadow:0 18px 70px rgba(0,11,42,.32),inset 0 1px 0 rgba(255,255,255,.06)!important;
+  backdrop-filter:blur(22px) saturate(150%)!important;-webkit-backdrop-filter:blur(22px) saturate(150%)!important}
+body.clicia-premium-2026 .brand{display:flex!important;align-items:center!important;gap:0!important;color:#fff!important;text-decoration:none!important;letter-spacing:.02em!important}
+body.clicia-premium-2026 .brand-bulb{display:none!important}
+body.clicia-premium-2026 .brand-clic{font:400 23px/1 Inter,sans-serif!important;letter-spacing:.08em!important}
+body.clicia-premium-2026 .brand-ia{font:300 14px/1 Inter,sans-serif!important;letter-spacing:.12em!important;margin-left:2px!important;opacity:.94!important}
+body.clicia-premium-2026 .main-nav{display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important}
+body.clicia-premium-2026 .main-nav a{position:relative!important;padding:10px 16px!important;border-radius:999px!important;color:#9fb4d6!important;text-decoration:none!important;font:500 12px/1 Inter,sans-serif!important;transition:.28s ease!important}
+body.clicia-premium-2026 .main-nav a:hover{color:#fff!important;background:rgba(75,145,255,.08)!important}
+body.clicia-premium-2026 .main-nav a.active{color:#fff!important;background:linear-gradient(135deg,rgba(36,111,255,.82),rgba(29,75,211,.72))!important;box-shadow:0 6px 25px rgba(23,101,255,.28)!important}
+body.clicia-premium-2026 .header-actions{display:flex!important;align-items:center!important;gap:7px!important}
+body.clicia-premium-2026 .circle-action{width:35px!important;height:35px!important;border:0!important;background:transparent!important;color:#eaf6ff!important;display:grid!important;place-items:center!important;border-radius:50%!important;transition:.25s ease!important}
+body.clicia-premium-2026 .circle-action:hover{background:rgba(73,145,255,.12)!important;box-shadow:0 0 24px rgba(55,157,255,.14)!important}
+body.clicia-premium-2026 .circle-action svg{width:18px!important;height:18px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.6!important}
+body.clicia-premium-2026 .account-btn{height:35px!important;padding:0 12px!important;border:1px solid rgba(91,168,255,.18)!important;border-radius:999px!important;background:rgba(30,88,178,.12)!important;color:#b9d2f2!important;font:600 10px/1 Inter,sans-serif!important;white-space:nowrap!important}
+body.clicia-premium-2026 .account-btn:hover{color:#fff!important;border-color:rgba(83,221,255,.38)!important;background:rgba(35,127,232,.18)!important}
+
+/* HERO */
+body.clicia-premium-2026 .hero-v9{
+  min-height:900px!important;height:auto!important;position:relative!important;overflow:hidden!important;padding:0!important;margin:0!important;
+  background:
+    radial-gradient(ellipse at 50% 43%,rgba(21,94,255,.28) 0%,rgba(14,50,131,.13) 28%,transparent 58%),
+    radial-gradient(ellipse at 14% 47%,rgba(0,203,255,.17),transparent 31%),
+    radial-gradient(ellipse at 87% 42%,rgba(39,134,255,.20),transparent 34%),
+    linear-gradient(180deg,#03102a 0%,#061638 49%,#02091d 100%)!important;
+  isolation:isolate!important}
+body.clicia-premium-2026 .hero-v9:before,body.clicia-premium-2026 .hero-v9:after{content:"";position:absolute;pointer-events:none;z-index:0}
+body.clicia-premium-2026 .hero-v9:before{
+  width:130%;height:520px;left:-15%;top:195px;opacity:.82;transform:translate3d(calc(var(--px)*-10px),calc(var(--py)*-7px),0);
+  background:
+    radial-gradient(ellipse at 12% 52%,rgba(68,221,255,.23),transparent 19%),
+    radial-gradient(ellipse at 88% 47%,rgba(55,175,255,.23),transparent 21%),
+    repeating-radial-gradient(ellipse at center,transparent 0 80px,rgba(97,193,255,.06) 82px 83px,transparent 85px 126px);
+  filter:blur(7px);animation:nebulaBreath 8s ease-in-out infinite alternate}
+body.clicia-premium-2026 .hero-v9:after{
+  left:50%;top:250px;width:920px;height:420px;transform:translateX(-50%) rotate(-2deg);opacity:.55;
+  background:conic-gradient(from 180deg at 50% 50%,transparent 0 12%,rgba(46,223,255,.17) 18%,transparent 26% 45%,rgba(37,108,255,.14) 52%,transparent 65% 100%);
+  filter:blur(26px);animation:auroraFlow 13s linear infinite}
+@keyframes nebulaBreath{to{opacity:1;filter:blur(12px);transform:translate3d(calc(var(--px)*-14px),calc(var(--py)*-10px),0) scale(1.035)}}
+@keyframes auroraFlow{50%{transform:translateX(-50%) rotate(3deg) scale(1.05)}100%{transform:translateX(-50%) rotate(-2deg)}}
+#cliciaCosmos{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen;opacity:.9}
+body.clicia-premium-2026 .hero-atmosphere{display:block!important;position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important}
+body.clicia-premium-2026 .hero-atmosphere .orb{position:absolute!important;border-radius:50%!important;filter:blur(4px)!important;background:radial-gradient(circle,rgba(104,237,255,.75),rgba(35,109,255,.16) 38%,transparent 70%)!important;animation:orbDrift 12s ease-in-out infinite alternate!important}
+body.clicia-premium-2026 .hero-atmosphere .o1{width:8px!important;height:8px!important;left:7%!important;top:42%!important}.hero-atmosphere .o2{width:12px!important;height:12px!important;left:18%!important;top:30%!important;animation-delay:-2s!important}.hero-atmosphere .o3{width:9px!important;height:9px!important;right:11%!important;top:37%!important;animation-delay:-4s!important}.hero-atmosphere .o4{width:14px!important;height:14px!important;right:19%!important;top:51%!important;animation-delay:-6s!important}
+body.clicia-premium-2026 .hero-atmosphere .o5{left:27%!important;top:65%!important}.hero-atmosphere .o6{right:28%!important;top:68%!important}.hero-atmosphere .o7{left:13%!important;top:73%!important}.hero-atmosphere .o8{right:10%!important;top:76%!important}.hero-atmosphere .o9{left:36%!important;top:21%!important}.hero-atmosphere .o10{right:36%!important;top:18%!important}.hero-atmosphere .o11{left:48%!important;top:72%!important}.hero-atmosphere .o12{right:45%!important;top:31%!important}
+@keyframes orbDrift{to{transform:translate3d(18px,-14px,0) scale(1.35);opacity:.45}}
+
+body.clicia-premium-2026 .hero-copy-v9{position:absolute!important;z-index:8!important;top:98px!important;left:50%!important;transform:translateX(-50%)!important;width:min(760px,90vw)!important;text-align:center!important;margin:0!important;padding:0!important}
+body.clicia-premium-2026 .premium-wordmark{margin:0!important;font:300 clamp(58px,6.2vw,94px)/.92 Inter,sans-serif!important;letter-spacing:.08em!important;color:#f8fbff!important;text-shadow:0 0 40px rgba(82,169,255,.11)!important;white-space:nowrap!important}
+body.clicia-premium-2026 .premium-wordmark span{font-weight:300!important}
+body.clicia-premium-2026 .premium-wordmark em{font:300 .62em/1 Inter,sans-serif!important;letter-spacing:.13em!important;margin-left:.05em!important;font-style:normal!important;vertical-align:.05em!important;-webkit-text-stroke:1px rgba(235,248,255,.94)!important;color:transparent!important}
+body.clicia-premium-2026 .premium-slogan{margin:10px 0 0!important;color:#a9bddc!important;font:400 clamp(15px,1.5vw,21px)/1.25 Inter,sans-serif!important;letter-spacing:.20em!important;text-transform:none!important}
+
+/* MASCOT + PORTAL */
+body.clicia-premium-2026 .character-zone{position:absolute!important;z-index:7!important;left:50%!important;top:238px!important;transform:translateX(-50%)!important;width:420px!important;height:390px!important;display:grid!important;place-items:center!important;perspective:900px!important;pointer-events:auto!important}
+body.clicia-premium-2026 .character-ring{position:absolute!important;width:345px!important;height:345px!important;border-radius:50%!important;border:1px solid rgba(128,210,255,.30)!important;background:
+  radial-gradient(circle at center,rgba(24,106,255,.10) 0 46%,transparent 47%),
+  conic-gradient(from 0deg,rgba(97,244,255,.58),rgba(43,100,255,.08),rgba(132,168,255,.42),rgba(56,226,255,.08),rgba(97,244,255,.58))!important;
+  box-shadow:0 0 80px rgba(26,133,255,.16),inset 0 0 55px rgba(52,166,255,.10)!important;animation:ringFloat 6s ease-in-out infinite!important}
+body.clicia-premium-2026 .character-ring:before,body.clicia-premium-2026 .character-ring:after{content:"";position:absolute;border-radius:50%;inset:26px;border:1px solid rgba(119,197,255,.16);box-shadow:0 0 0 1px rgba(37,108,255,.05) inset}
+body.clicia-premium-2026 .character-ring:after{inset:58px;border-style:dashed;opacity:.65;animation:ringSpin 18s linear infinite reverse}
+body.clicia-premium-2026 .orbit{position:absolute;inset:-12px;border-radius:50%;border:1px solid rgba(78,195,255,.20);animation:ringSpin 14s linear infinite}
+body.clicia-premium-2026 .orbit-b{inset:14px;border-color:rgba(115,142,255,.23);animation-duration:20s;animation-direction:reverse}.orbit-c{inset:-30px;border-style:dashed;opacity:.36;animation-duration:28s}
+body.clicia-premium-2026 .orbit-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:#7ff6ff;box-shadow:0 0 18px #51dfff,0 0 36px rgba(69,169,255,.5)}
+body.clicia-premium-2026 .dot-a{left:29px;top:83px}.dot-b{right:18px;top:168px;width:7px;height:7px}.dot-c{left:118px;bottom:0;width:6px;height:6px}
+body.clicia-premium-2026 .character{position:relative!important;width:270px!important;height:270px!important;z-index:4!important;transform-style:preserve-3d!important;transform:translate3d(var(--mx,0),var(--my,0),0) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))!important;transition:transform .18s ease-out!important;animation:mascotHover 5s ease-in-out infinite!important;filter:drop-shadow(0 22px 36px rgba(0,124,255,.28))!important}
+body.clicia-premium-2026 .clic-mascot-svg{width:100%!important;height:100%!important;overflow:visible!important}
+body.clicia-premium-2026 .cursor-character{transform-origin:50% 55%;animation:mascotPulse 4.8s ease-in-out infinite}
+body.clicia-premium-2026 .cursor-highlight{mix-blend-mode:screen}
+body.clicia-premium-2026 .click-rays{transform-origin:340px 150px;animation:rayPulse 1.8s ease-in-out infinite}
+body.clicia-premium-2026 .eye{transform-box:fill-box;transform-origin:center;transition:transform .12s ease}
+body.clicia-premium-2026 .blink .eye{transform:scaleY(.08)}
+body.clicia-premium-2026 .blink .pupil,body.clicia-premium-2026 .blink .eye-glint{opacity:0}
+body.clicia-premium-2026 .pupil,body.clicia-premium-2026 .eye-glint{transition:transform .08s linear,opacity .12s ease}
+body.clicia-premium-2026 .character.listening .cursor-character{animation-duration:2.4s}
+body.clicia-premium-2026 .character.thinking .cursor-character{animation:thinkingPulse 1.15s ease-in-out infinite}
+body.clicia-premium-2026 .character-zone.thinking .character-ring{animation:ringSpin 2.2s linear infinite;box-shadow:0 0 110px rgba(49,213,255,.28),inset 0 0 65px rgba(66,173,255,.18)!important}
+body.clicia-premium-2026 .idea-ray{display:none!important}
+@keyframes mascotHover{0%,100%{transform:translate3d(var(--mx,0),calc(var(--my,0) - 3px),0) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}50%{transform:translate3d(var(--mx,0),calc(var(--my,0) + 8px),0) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}}
+@keyframes mascotPulse{50%{transform:scale(1.025);filter:saturate(1.08)}}
+@keyframes rayPulse{50%{transform:scale(1.12) rotate(2deg);opacity:.72}}
+@keyframes thinkingPulse{50%{transform:scale(1.045) rotate(-1.4deg);filter:saturate(1.25) brightness(1.08)}}
+@keyframes ringFloat{50%{transform:translateY(7px) scale(1.012)}}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+
+/* CHAT SEARCH BAR / EXPANDED CHAT */
+body.clicia-premium-2026 .hero-chat-panel{position:absolute!important;z-index:14!important;top:610px!important;left:50%!important;transform:translateX(-50%)!important;width:min(690px,calc(100% - 36px))!important;height:auto!important;min-height:0!important;padding:0!important;margin:0!important;background:transparent!important;border:0!important;box-shadow:none!important;overflow:visible!important}
+body.clicia-premium-2026 .hero-chat-panel:not(.chat-expanded) .chat-topbar,body.clicia-premium-2026 .hero-chat-panel:not(.chat-expanded) .hero-messages,body.clicia-premium-2026 .hero-chat-panel:not(.chat-expanded) .quick-prompts{display:none!important}
+body.clicia-premium-2026 .hero-composer{height:64px!important;margin:0!important;padding:7px 8px 7px 15px!important;display:flex!important;align-items:center!important;gap:11px!important;border:1px solid rgba(107,196,255,.42)!important;border-radius:999px!important;background:linear-gradient(180deg,rgba(11,39,88,.84),rgba(4,22,57,.88))!important;box-shadow:0 16px 50px rgba(0,14,52,.42),0 0 40px rgba(31,133,255,.10),inset 0 1px 0 rgba(255,255,255,.07)!important;backdrop-filter:blur(22px) saturate(160%)!important;transition:.32s ease!important}
+body.clicia-premium-2026 .hero-composer:focus-within{border-color:rgba(81,231,255,.72)!important;box-shadow:0 18px 65px rgba(0,18,62,.48),0 0 54px rgba(47,205,255,.16),inset 0 1px 0 rgba(255,255,255,.10)!important;transform:translateY(-2px)}
+body.clicia-premium-2026 .hero-composer .paperclip{width:34px!important;height:34px!important;border-radius:50%!important;display:grid!important;place-items:center!important;font-size:0!important;color:#dff8ff!important;background:rgba(38,93,177,.24)!important}
+body.clicia-premium-2026 .hero-composer .paperclip:before{content:"•••";font:700 12px/1 Inter,sans-serif;letter-spacing:2px;color:#dff8ff}
+body.clicia-premium-2026 #chatInput{flex:1!important;min-width:0!important;height:42px!important;max-height:42px!important;resize:none!important;border:0!important;outline:0!important;background:transparent!important;color:#edf7ff!important;padding:11px 5px!important;font:400 13px/20px Inter,sans-serif!important;overflow:hidden!important}
+body.clicia-premium-2026 #chatInput::placeholder{color:#89a2c8!important}
+body.clicia-premium-2026 #sendBtn{width:48px!important;height:48px!important;min-width:48px!important;border:1px solid rgba(194,252,255,.78)!important;border-radius:50%!important;background:linear-gradient(145deg,#9ff8ff,#44d6ff 55%,#2b8cff)!important;color:#04346d!important;font-size:0!important;box-shadow:0 0 28px rgba(74,221,255,.35),inset 0 1px 0 rgba(255,255,255,.75)!important;display:grid!important;place-items:center!important;transition:.24s ease!important}
+body.clicia-premium-2026 #sendBtn:before{content:"";width:14px;height:14px;border:2px solid #073f7f;border-radius:50%;display:block;position:relative}
+body.clicia-premium-2026 #sendBtn:after{content:"";width:7px;height:2px;background:#073f7f;transform:translate(10px,-4px) rotate(45deg);border-radius:2px;position:absolute}
+body.clicia-premium-2026 #sendBtn:hover{transform:scale(1.06);filter:brightness(1.08)}
+body.clicia-premium-2026 .premium-chat-close{display:none}
+body.clicia-premium-2026 .hero-chat-panel.chat-expanded{position:fixed!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;width:min(760px,calc(100vw - 28px))!important;height:min(76vh,690px)!important;padding:18px!important;border:1px solid rgba(108,205,255,.34)!important;border-radius:30px!important;background:linear-gradient(180deg,rgba(5,22,57,.97),rgba(2,12,34,.98))!important;box-shadow:0 40px 140px rgba(0,5,25,.72),0 0 80px rgba(26,131,255,.16),inset 0 1px 0 rgba(255,255,255,.06)!important;backdrop-filter:blur(28px) saturate(150%)!important;z-index:1000!important;display:flex!important;flex-direction:column!important;gap:12px!important;overflow:hidden!important}
+body.clicia-premium-2026 .hero-chat-panel.chat-expanded .chat-topbar{display:flex!important;flex:0 0 auto!important;padding:2px 42px 4px 4px!important}
+body.clicia-premium-2026 .hero-chat-panel.chat-expanded .hero-messages{display:block!important;flex:1 1 auto!important;min-height:0!important;overflow:auto!important;padding:10px 8px!important}
+body.clicia-premium-2026 .hero-chat-panel.chat-expanded .quick-prompts{display:flex!important;flex-wrap:wrap!important;gap:7px!important;padding:0 4px!important}
+body.clicia-premium-2026 .hero-chat-panel.chat-expanded .quick-prompts button{border:1px solid rgba(91,174,255,.22)!important;border-radius:999px!important;background:rgba(40,100,190,.12)!important;color:#a9c2e5!important;padding:8px 11px!important;font-size:11px!important}
+body.clicia-premium-2026 .hero-chat-panel.chat-expanded .premium-chat-close{display:grid;place-items:center;position:absolute;right:16px;top:14px;width:32px;height:32px;border:1px solid rgba(126,198,255,.20);border-radius:50%;background:rgba(34,76,145,.15);color:#cfe9ff;font:300 22px/1 Inter,sans-serif;cursor:pointer}
+body.clicia-premium-2026 .hero-chat-panel.chat-expanded .hero-composer{flex:0 0 auto!important}
+body.clicia-premium-2026 .hero-chat-panel.chat-expanded .bubbleav{background:linear-gradient(145deg,#72efff,#246cff)!important}
+
+/* HERO FEATURE CARDS */
+body.clicia-premium-2026 .feature-strip{position:absolute!important;z-index:9!important;top:710px!important;left:50%!important;transform:translateX(-50%)!important;width:min(1220px,calc(100% - 44px))!important;display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:16px!important;margin:0!important;padding:0!important}
+body.clicia-premium-2026 .feature-card.premium-feature{position:relative!important;min-height:126px!important;padding:22px 24px!important;display:grid!important;grid-template-columns:70px 1fr auto!important;align-items:center!important;gap:18px!important;border:1px solid rgba(109,190,255,.30)!important;border-radius:20px!important;background:linear-gradient(135deg,rgba(10,35,82,.74),rgba(5,25,63,.62))!important;box-shadow:0 22px 60px rgba(0,11,42,.22),inset 0 1px 0 rgba(255,255,255,.045)!important;backdrop-filter:blur(18px) saturate(145%)!important;color:#fff!important;text-decoration:none!important;overflow:hidden!important;transition:transform .32s cubic-bezier(.2,.8,.2,1),border-color .32s ease,box-shadow .32s ease!important}
+body.clicia-premium-2026 .feature-card.premium-feature:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--hx,50%) var(--hy,50%),rgba(95,224,255,.18),transparent 38%);opacity:0;transition:.28s ease}
+body.clicia-premium-2026 .feature-card.premium-feature:hover{transform:translateY(-7px) scale(1.012)!important;border-color:rgba(97,224,255,.55)!important;box-shadow:0 28px 80px rgba(0,17,59,.35),0 0 42px rgba(32,156,255,.10)!important}
+body.clicia-premium-2026 .feature-card.premium-feature:hover:before{opacity:1}
+body.clicia-premium-2026 .premium-icon{width:64px!important;height:64px!important;display:grid!important;place-items:center!important;border-radius:15px!important;background:linear-gradient(145deg,rgba(51,137,255,.48),rgba(11,77,192,.26))!important;border:1px solid rgba(118,211,255,.38)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 0 30px rgba(28,130,255,.13)!important}
+body.clicia-premium-2026 .community-feature .premium-icon{background:linear-gradient(145deg,rgba(65,229,255,.48),rgba(18,119,176,.22))!important;border-color:rgba(118,247,255,.50)!important}
+body.clicia-premium-2026 .premium-icon svg{width:34px!important;height:34px!important;fill:none!important;stroke:#89f4ff!important;stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important;filter:drop-shadow(0 0 8px rgba(67,219,255,.55))!important}
+body.clicia-premium-2026 .feature-copy{display:flex!important;flex-direction:column!important;gap:8px!important;min-width:0!important}
+body.clicia-premium-2026 .feature-copy b{font:600 18px/1.1 Inter,sans-serif!important;color:#fff!important;text-transform:none!important;letter-spacing:0!important}
+body.clicia-premium-2026 .feature-copy small{font:400 12px/1.55 Inter,sans-serif!important;color:#9eb5d7!important;letter-spacing:0!important}
+body.clicia-premium-2026 .premium-feature>strong{font:300 32px/1 Inter,sans-serif!important;color:#dff9ff!important;opacity:.9!important;transition:transform .25s ease!important}
+body.clicia-premium-2026 .premium-feature:hover>strong{transform:translateX(5px)}
+
+/* LOWER SITE — PREMIUM CONTINUITY */
+body.clicia-premium-2026 main>section:not(.hero-v9){position:relative!important;background:linear-gradient(180deg,#02091d 0%,#04112a 48%,#02091d 100%)!important;color:#f5fbff!important}
+body.clicia-premium-2026 .content-section,body.clicia-premium-2026 .community-section{padding-top:110px!important;padding-bottom:110px!important}
+body.clicia-premium-2026 .section-heading small,body.clicia-premium-2026 .community-kicker{color:#65dfff!important;letter-spacing:.16em!important}
+body.clicia-premium-2026 .section-heading h2,body.clicia-premium-2026 .community-copy h2{color:#f7fbff!important;font-weight:500!important;letter-spacing:-.035em!important}
+body.clicia-premium-2026 .community-copy p{color:#9fb4d5!important}
+body.clicia-premium-2026 .store-toolbar,body.clicia-premium-2026 .community-shell,body.clicia-premium-2026 .community-categories{border-color:rgba(100,186,255,.20)!important;background:linear-gradient(145deg,rgba(7,31,73,.76),rgba(3,18,46,.72))!important;box-shadow:0 30px 90px rgba(0,8,32,.30),inset 0 1px 0 rgba(255,255,255,.04)!important;backdrop-filter:blur(18px)!important}
+body.clicia-premium-2026 .product-card,body.clicia-premium-2026 .community-category,body.clicia-premium-2026 .info-card{border-color:rgba(95,178,255,.18)!important;background:linear-gradient(145deg,rgba(9,37,83,.72),rgba(4,22,54,.80))!important;color:#edf7ff!important;box-shadow:0 18px 55px rgba(0,8,30,.18)!important;transition:.3s ease!important}
+body.clicia-premium-2026 .product-card:hover,body.clicia-premium-2026 .community-category:not(:disabled):hover,body.clicia-premium-2026 .info-card:hover{transform:translateY(-5px)!important;border-color:rgba(84,219,255,.38)!important;box-shadow:0 26px 75px rgba(0,10,36,.30),0 0 35px rgba(47,160,255,.08)!important}
+body.clicia-premium-2026 .store-search-box,body.clicia-premium-2026 .store-filter-btn{background:rgba(8,32,73,.72)!important;border-color:rgba(100,183,255,.20)!important;color:#dff7ff!important}
+body.clicia-premium-2026 .store-search-box input{color:#eef8ff!important}.store-search-box input::placeholder{color:#819abd!important}
+body.clicia-premium-2026 .site-footer{background:#02091d!important;border-top:1px solid rgba(100,183,255,.10)!important;color:#8fa8cb!important}
+body.clicia-premium-2026 .premium-reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+body.clicia-premium-2026 .premium-reveal.premium-visible{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:980px){
+  body.clicia-premium-2026 .site-header{grid-template-columns:auto 1fr auto!important;padding:0 13px 0 18px!important}
+  body.clicia-premium-2026 .main-nav{display:none!important}
+  body.clicia-premium-2026 .account-btn{display:none!important}
+  body.clicia-premium-2026 .header-actions{justify-self:end!important}
+  body.clicia-premium-2026 .hero-v9{min-height:980px!important}
+  body.clicia-premium-2026 .hero-copy-v9{top:100px!important}
+  body.clicia-premium-2026 .character-zone{top:245px!important;width:390px!important;height:370px!important}
+  body.clicia-premium-2026 .hero-chat-panel{top:615px!important;width:min(650px,calc(100% - 32px))!important}
+  body.clicia-premium-2026 .feature-strip{top:710px!important;width:min(760px,calc(100% - 32px))!important;grid-template-columns:1fr!important;gap:10px!important}
+  body.clicia-premium-2026 .feature-card.premium-feature{min-height:90px!important;padding:14px 18px!important;grid-template-columns:54px 1fr auto!important}
+  body.clicia-premium-2026 .premium-icon{width:52px!important;height:52px!important;border-radius:13px!important}.premium-icon svg{width:28px!important;height:28px!important}
+}
+@media(max-width:640px){
+  body.clicia-premium-2026 .site-header{top:10px!important;width:calc(100% - 18px)!important;height:48px!important;padding:0 9px 0 16px!important}
+  body.clicia-premium-2026 .brand-clic{font-size:19px!important}.brand-ia{font-size:12px!important}
+  body.clicia-premium-2026 .header-actions .circle-action:nth-child(2){display:none!important}
+  body.clicia-premium-2026 .hero-v9{min-height:910px!important}
+  body.clicia-premium-2026 .hero-copy-v9{top:88px!important;width:94vw!important}
+  body.clicia-premium-2026 .premium-wordmark{font-size:54px!important;letter-spacing:.06em!important}
+  body.clicia-premium-2026 .premium-slogan{font-size:13px!important;letter-spacing:.16em!important;margin-top:8px!important}
+  body.clicia-premium-2026 .character-zone{top:212px!important;width:315px!important;height:320px!important}
+  body.clicia-premium-2026 .character-ring{width:285px!important;height:285px!important}
+  body.clicia-premium-2026 .character{width:220px!important;height:220px!important}
+  body.clicia-premium-2026 .hero-chat-panel{top:525px!important;width:calc(100% - 22px)!important}
+  body.clicia-premium-2026 .hero-composer{height:58px!important;padding:5px 6px 5px 10px!important}.hero-composer .paperclip{width:31px!important;height:31px!important}
+  body.clicia-premium-2026 #sendBtn{width:44px!important;height:44px!important;min-width:44px!important}
+  body.clicia-premium-2026 #chatInput{font-size:12px!important}
+  body.clicia-premium-2026 .feature-strip{top:605px!important;width:calc(100% - 22px)!important;gap:9px!important}
+  body.clicia-premium-2026 .feature-card.premium-feature{min-height:82px!important;padding:12px 14px!important;grid-template-columns:49px 1fr auto!important;gap:12px!important;border-radius:17px!important}
+  body.clicia-premium-2026 .premium-icon{width:48px!important;height:48px!important}.premium-icon svg{width:25px!important;height:25px!important}
+  body.clicia-premium-2026 .feature-copy b{font-size:15px!important}.feature-copy small{font-size:10.5px!important;line-height:1.4!important}.premium-feature>strong{font-size:26px!important}
+  body.clicia-premium-2026 .hero-chat-panel.chat-expanded{height:min(82vh,680px)!important;width:calc(100vw - 14px)!important;border-radius:22px!important;padding:13px!important}
+  body.clicia-premium-2026 .content-section,body.clicia-premium-2026 .community-section{padding-top:78px!important;padding-bottom:78px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  body.clicia-premium-2026 *,body.clicia-premium-2026 *:before,body.clicia-premium-2026 *:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
+}
+
 @media(max-width:640px){.catalog-title{font-size:18px}.catalog-body{padding:15px}.catalog-footer{align-items:flex-end}.catalog-price{font-size:16px}.catalog-action{padding:9px 11px}}
