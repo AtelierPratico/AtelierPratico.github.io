@@ -1,4 +1,12 @@
 (() => {
+  const style = document.createElement('style');
+  style.textContent = `
+    #accountBtn{font-size:0!important;position:relative!important;overflow:visible!important}
+    #accountBtn::before{content:"";width:20px;height:20px;display:block;background:currentColor;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='none' stroke='black' stroke-width='1.8'/%3E%3Cpath d='M5 21c.7-5 3-7 7-7s6.3 2 7 7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='none' stroke='black' stroke-width='1.8'/%3E%3Cpath d='M5 21c.7-5 3-7 7-7s6.3 2 7 7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+    .portal-wrap.thinking .ring.r1{animation-duration:4s!important}.portal-wrap.thinking .ring.r2{animation-duration:3s!important}.portal-wrap.thinking .portal-glow{animation-duration:1s!important;opacity:1}.portal-wrap.listening .portal-glow{background:radial-gradient(circle,rgba(91,242,255,.34) 0 38%,rgba(31,115,255,.16) 50%,transparent 72%)!important}
+  `;
+  document.head.appendChild(style);
+
   const stage = document.querySelector('.portal-wrap');
   const mascot = document.querySelector('.mascot');
   const nav = document.querySelector('.main-nav');
@@ -53,6 +61,6 @@
   };
 
   document.querySelector('.mascot img')?.addEventListener('error', e => {
-    e.currentTarget.src = './assets/clicia-mascot.webp?v=final-fallback-1';
+    e.currentTarget.src = './assets/clicia-mascot.webp?v=final-fallback-2';
   }, {once:true});
 })();
