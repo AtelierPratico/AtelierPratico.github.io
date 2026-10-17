@@ -2,192 +2,140 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#081b46">
-  <title>Clicia — L’atelier du quotidien</title>
-  <meta name="description" content="Clicia : boutique, journal, guides et Clic IA dans une expérience premium interactive.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#02091d">
+  <title>ClicIA — Un Clic intelligent</title>
+  <meta name="description" content="ClicIA — Assistant, boutique et communauté dans une expérience premium.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./clicia-v9.css?v=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./clicia-final-v2.css?v=20261016-1">
   <link rel="stylesheet" href="./auth-v1.css?v=2">
-  <link rel="stylesheet" href="./chat-wordmark-v1.css?v=3">
-  <link rel="stylesheet" href="./hero-wordmark-v3.css?v=2">
-  <link rel="stylesheet" href="./wordmark-unified-v1.css?v=2">
-  <link rel="stylesheet" href="./community-coming-v1.css?v=1">
-  <link rel="stylesheet" href="./community-categories-v1.css?v=1">
-  <link rel="stylesheet" href="./store-search-v1.css?v=1">
-  <link rel="stylesheet" href="./ebook-catalog-v1.css?v=1">
-  <link rel="stylesheet" href="./clicia-original-match-v1.css?v=1">
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#accueil" aria-label="Clicia">
-      <span class="brand-bulb" aria-hidden="true">
-        <svg viewBox="0 0 60 78">
-          <path d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/>
-          <ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/>
-          <circle cx="25" cy="32" r="3" fill="#17181a"/><circle cx="39" cy="32" r="3" fill="#17181a"/>
-          <rect x="19" y="64" width="22" height="7" rx="3.5" fill="#17181a"/><rect x="22" y="72" width="16" height="4" rx="2" fill="#17181a"/>
-        </svg>
-      </span>
-      <span class="brand-clic">CLIC</span><span class="brand-ia">IA</span>
-    </a>
-
-    <nav class="main-nav" aria-label="Navigation principale">
-      <a class="active" href="#accueil">Accueil</a><a href="#boutique">Boutique</a><a href="#communaute">Communauté</a><a href="#journal">Journal</a><a href="#guides">Guides</a><a href="#hero-chat">Clic IA</a>
-    </nav>
-
-    <div class="header-actions">
-      <button class="circle-action" id="headerSearchBtn" type="button" aria-label="Rechercher"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 5 5"/></svg></button>
-      <a class="circle-action" href="#boutique" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M4 5h2l2 10h9l2-7H7"/><circle cx="10" cy="19" r="1"/><circle cx="17" cy="19" r="1"/></svg></a>
-      <button class="account-btn" id="accountBtn" type="button">Activer ClicIA+</button>
-    </div>
-  </header>
-
   <main>
-    <section id="accueil" class="hero-v9">
-      <div class="hero-atmosphere" aria-hidden="true">
-        <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span><span class="orb o4"></span><span class="orb o5"></span><span class="orb o6"></span><span class="orb o7"></span><span class="orb o8"></span><span class="orb o9"></span><span class="orb o10"></span><span class="orb o11"></span><span class="orb o12"></span>
+    <section class="clicia-hero" id="accueil">
+      <svg class="cosmos-svg" viewBox="0 0 1600 930" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <radialGradient id="nebL" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7ff7ff" stop-opacity=".95"/><stop offset=".16" stop-color="#1ac9ff" stop-opacity=".65"/><stop offset=".48" stop-color="#185eff" stop-opacity=".24"/><stop offset="1" stop-color="#061331" stop-opacity="0"/></radialGradient>
+          <radialGradient id="nebR" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#8af8ff" stop-opacity=".95"/><stop offset=".17" stop-color="#22c8ff" stop-opacity=".65"/><stop offset=".48" stop-color="#2459ff" stop-opacity=".25"/><stop offset="1" stop-color="#061331" stop-opacity="0"/></radialGradient>
+          <filter id="blur"><feGaussianBlur stdDeviation="26"/></filter>
+          <filter id="soft"><feGaussianBlur stdDeviation="8"/></filter>
+          <linearGradient id="line" x1="0" x2="1"><stop offset="0" stop-color="#00dfff" stop-opacity="0"/><stop offset=".18" stop-color="#6df7ff" stop-opacity=".85"/><stop offset=".52" stop-color="#2c8dff" stop-opacity=".45"/><stop offset=".82" stop-color="#68f1ff" stop-opacity=".8"/><stop offset="1" stop-color="#00dfff" stop-opacity="0"/></linearGradient>
+        </defs>
+        <ellipse cx="145" cy="445" rx="410" ry="255" fill="url(#nebL)" filter="url(#blur)" opacity=".72"/>
+        <ellipse cx="1455" cy="445" rx="410" ry="255" fill="url(#nebR)" filter="url(#blur)" opacity=".72"/>
+        <path d="M-90 690 C260 630 375 350 595 540 C720 650 910 650 1035 540 C1255 350 1370 630 1690 690" fill="none" stroke="url(#line)" stroke-width="2" filter="url(#soft)" opacity=".95"/>
+        <path d="M-120 745 C250 690 440 585 640 640 C820 690 1020 620 1200 610 C1400 600 1540 680 1720 720" fill="none" stroke="#5bcfff" stroke-opacity=".27" stroke-width="1.2"/>
+        <path d="M-70 780 C310 720 560 690 800 700 C1050 708 1320 720 1680 790" fill="none" stroke="#498cff" stroke-opacity=".25" stroke-width="1"/>
+      </svg>
+      <div class="starfield" aria-hidden="true"></div>
+      <div class="nebula left" aria-hidden="true"></div><div class="nebula right" aria-hidden="true"></div>
+      <div class="light-arc arc-left" aria-hidden="true"></div><div class="light-arc arc-right" aria-hidden="true"></div>
+
+      <header class="site-header">
+        <a class="brand" href="#accueil" aria-label="ClicIA"><strong>CLIC</strong><em>IA</em></a>
+        <nav class="main-nav" aria-label="Navigation principale">
+          <a class="active" href="#accueil">Accueil</a>
+          <a href="#hero-chat">Fonctionnalités</a>
+          <a href="#boutique">Boutique</a>
+          <a href="#communaute">Communauté</a>
+          <a href="#apropos">À propos</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-btn" id="headerSearchBtn" type="button" aria-label="Rechercher"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg></button>
+          <button class="icon-btn" id="accountBtn" type="button" aria-label="Compte ClicIA"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 21c.7-5 3-7 7-7s6.3 2 7 7"/></svg></button>
+          <button class="icon-btn" id="menuBtnOfficial" type="button" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        </div>
+      </header>
+
+      <div class="hero-title">
+        <h1>CLICIA</h1>
+        <p>Un Clic intelligent</p>
       </div>
 
-      <div class="hero-copy-v9">
-        <div class="eyebrow"><span></span> VOS IDÉES. NOTRE ASSISTANT</div>
-        <h1><strong>CLIC</strong><em>IA</em></h1>
-        <p>Des produits, des idées, des guides et un assistant pratique réunis dans une expérience simple, rapide et utile. Clic vous aide à passer de la question à l’action.</p>
-        <div class="hero-ctas"><a class="btn-primary" href="#boutique">Explorer ClicIA <span>→</span></a><a class="btn-secondary" href="#hero-chat">Parler à Clic <span>→</span></a></div>
+      <div class="portal-wrap" id="stage">
+        <div class="portal-glow"></div>
+        <div class="ring r2"></div><div class="ring r1"></div><div class="ring r3"></div>
+        <span class="orbit-dot dot1"></span><span class="orbit-dot dot2"></span><span class="orbit-dot dot3"></span>
+        <div class="mascot" id="tikoCharacter">
+          <img src="./assets/clicia-mascot-exact.webp?v=final-20261016" alt="Clic, mascotte officielle de ClicIA" draggable="false">
+        </div>
       </div>
 
-      <section class="hero-chat-panel" id="hero-chat" aria-label="Conversation avec Clic IA">
-        <div class="chat-topbar">
-          <div class="chat-id chat-id-wordmark">
-            <div class="chat-wordmark" aria-label="CLICIA">
-              <span class="chat-wordmark-clic">CLIC</span><span class="chat-wordmark-ia">IA</span><span class="chat-premium-plus" id="chatPremiumPlus" aria-label="ClicIA+ actif" hidden>+</span>
-            </div>
-            <small class="chat-status-line"><span id="engineState"></span></small>
-          </div>
+      <section class="chat-shell" id="hero-chat" aria-label="Conversation avec Clic IA">
+        <div class="chat-topbar"><span>CLICIA<span id="chatPremiumPlus" hidden>+</span></span><span id="engineState"></span></div>
+        <div class="hero-messages" id="messages" aria-live="polite">
+          <div class="welcome msg assistant"><div class="content">Salut ! 👋<br>Moi c'est Clic, ton assistant IA.<br>Pose-moi tes questions!</div></div>
         </div>
-
-        <div id="messages" class="hero-messages">
-          <div class="welcome msg assistant"><div class="bubbleav"></div><div class="content">Salut ! 👋<br>Moi c'est Clic, ton assistant IA.<br>Pose-moi tes questions!</div></div>
-          <div class="demo-answer"><div class="bubbleav"></div><div class="demo-answer-body"><strong>Voici quelques suggestions :</strong><ol><li>Des gadgets utiles pour le quotidien</li><li>Des accessoires pour le télétravail</li><li>Des idées de livres et formations</li><li>Des produits incontournables sur notre boutique</li></ol><a href="https://atelierpratico.github.io/preview-v2/?v=clic-speed-1#boutique"><strong>🛒 Voir tous les produits tech›</strong></a></div></div>
-        </div>
-
-        <div class="quick-prompts">
+        <div class="quick-prompts" aria-hidden="true">
           <button type="button" data-prompt="Comment réparer une porte qui coince?">Porte qui coince</button>
-          <button type="button" data-prompt="Que dois-je vérifier avant de percer un mur?">Percer un mur</button>
-          <button type="button" data-prompt="Comment retirer une tique sur un chien correctement?">Tique sur un chien</button>
+          <button type="button" data-prompt="Donne-moi une idée de recette facile.">Recette facile</button>
+          <button type="button" data-prompt="Quels guides pratiques me conseilles-tu?">Guides pratiques</button>
         </div>
-
         <form id="chatForm" class="hero-composer">
-          <span class="paperclip">⌕</span><textarea id="chatInput" rows="1" placeholder="Écris ta question ici…"></textarea><button id="sendBtn" aria-label="Envoyer">↑</button>
+          <span class="chat-icon"><svg viewBox="0 0 48 48"><path d="M10 12h28a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H24l-8 6 2-6h-8a6 6 0 0 1-6-6V18a6 6 0 0 1 6-6Z"/><circle cx="17" cy="24" r="1.8"/><circle cx="24" cy="24" r="1.8"/><circle cx="31" cy="24" r="1.8"/></svg></span>
+          <textarea id="chatInput" rows="1" maxlength="2000" placeholder="Posez votre question ou recherchez..." required></textarea>
+          <button id="sendBtn" type="submit" aria-label="Envoyer"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg></button>
         </form>
-        <form id="heroAsk" class="hidden-hero-ask"><input id="heroInput" aria-label="Question rapide"></form>
+        <form id="heroAsk" class="hidden"><input id="heroInput" aria-label="Question rapide"></form>
       </section>
 
-      <div class="character-zone" id="stage">
-        <div class="character-ring" aria-hidden="true"></div><div class="character" id="tikoCharacter" aria-label="Clic, personnage ampoule de Clicia"></div><span class="idea-ray r1"></span><span class="idea-ray r2"></span><span class="idea-ray r3"></span>
-      </div>
-
-      <div class="feature-strip" aria-label="Explorer ClicIA">
-        <a class="feature-card" href="#boutique"><span class="feature-icon">🛒</span><span><b>BOUTIQUE</b><small>Produits utiles</small></span><strong>→</strong></a>
-        <a class="feature-card" href="#journal"><span class="feature-icon">▤</span><span><b>JOURNAL</b><small>Astuces et conseils</small></span><strong>→</strong></a>
-        <a class="feature-card" href="#guides"><span class="feature-icon">▱</span><span><b>GUIDES</b><small>Étapes et animations</small></span><strong>→</strong></a>
-        <a class="feature-card" href="#hero-chat"><span class="feature-icon">✦</span><span><b class="feature-wordmark"><span class="feature-wordmark-clic">CLIC</span><span class="feature-wordmark-ia">IA</span></b><small>Votre assistant</small></span><strong>→</strong></a>
+      <div class="feature-strip">
+        <a class="feature-card" href="#hero-chat">
+          <span class="feature-icon"><svg viewBox="0 0 48 48"><path d="M10 11h28a6 6 0 0 1 6 6v13a6 6 0 0 1-6 6H24l-9 6 2-6h-7a6 6 0 0 1-6-6V17a6 6 0 0 1 6-6Z"/><circle cx="17" cy="24" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="31" cy="24" r="2"/></svg></span>
+          <span class="feature-copy"><b>Assistant</b><small>Obtenez des réponses claires<br>et des idées puissantes.</small></span><strong>›</strong>
+        </a>
+        <a class="feature-card" href="#boutique">
+          <span class="feature-icon"><svg viewBox="0 0 48 48"><path d="M13 17h22l3 25H10l3-25Z"/><path d="M18 18v-3a6 6 0 0 1 12 0v3"/></svg></span>
+          <span class="feature-copy"><b>Boutique</b><small>Découvrez nos collections<br>et outils exclusifs.</small></span><strong>›</strong>
+        </a>
+        <a class="feature-card" href="#communaute">
+          <span class="feature-icon"><svg viewBox="0 0 48 48"><circle cx="18" cy="18" r="6"/><circle cx="31" cy="19" r="5"/><path d="M7 39c1-8 5-12 12-12s11 4 12 12"/><path d="M27 29c8-1 13 3 14 10"/></svg></span>
+          <span class="feature-copy"><b>Communauté</b><small>Rejoignez la discussion<br>et partagez vos idées.</small></span><strong>›</strong>
+        </a>
       </div>
     </section>
 
-    <section class="content-section" id="boutique">
-      <div class="section-heading"><span>01</span><div><small>BOUTIQUE</small><h2>Des produits utiles.<br>Rien de superflu.</h2></div></div>
-
+    <section class="section" id="boutique">
+      <div class="section-head"><div><div class="section-kicker">BOUTIQUE</div><h2>Des produits utiles.<br>Rien de superflu.</h2></div></div>
       <div class="store-toolbar" id="storeToolbar">
-        <label class="store-search-box" for="storeSearch">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
-          <input id="storeSearch" type="search" placeholder="Rechercher des produits" autocomplete="off" aria-label="Rechercher des produits">
-        </label>
-        <button class="store-filter-btn" id="storeFilterBtn" type="button" aria-label="Afficher les catégories" aria-expanded="false" aria-controls="storeFilterPanel">
-          <span class="store-filter-lines" aria-hidden="true"><i></i><i></i><i></i></span>
-        </button>
-        <div class="store-filter-panel" id="storeFilterPanel" hidden>
-          <div class="store-filter-title"><b>Catégories</b><span>Filtrer</span></div>
-          <div class="store-filter-options">
-            <button class="store-filter-option active" type="button" data-store-category="all"><span>Tous les produits</span><span>›</span></button>
-            <button class="store-filter-option" type="button" data-store-category="maison"><span>Maison & bricolage</span><span>›</span></button>
-            <button class="store-filter-option" type="button" data-store-category="animaux"><span>Animaux</span><span>›</span></button>
-            <button class="store-filter-option" type="button" data-store-category="cuisine"><span>Cuisine & recettes</span><span>›</span></button>
-            <button class="store-filter-option" type="button" data-store-category="technologie"><span>Technologie</span><span>›</span></button>
-            <button class="store-filter-option" type="button" data-store-category="education"><span>Éducation & formation</span><span>›</span></button>
-            <button class="store-filter-option" type="button" data-store-category="business"><span>Business & finances</span><span>›</span></button>
-            <button class="store-filter-option" type="button" data-store-category="bienetre"><span>Santé & bien-être</span><span>›</span></button>
-            <button class="store-filter-option" type="button" data-store-category="creativite"><span>Créativité & design</span><span>›</span></button>
-          </div>
+        <input class="store-search" id="storeSearch" type="search" placeholder="Rechercher des produits" autocomplete="off">
+        <button id="storeFilterBtn" type="button" aria-expanded="false" aria-controls="storeFilterPanel">☰</button>
+        <div id="storeFilterPanel" hidden>
+          <button data-store-category="all" class="store-filter-option active">Tous les produits</button>
+          <button data-store-category="maison" class="store-filter-option">Maison & bricolage</button>
+          <button data-store-category="animaux" class="store-filter-option">Animaux</button>
+          <button data-store-category="cuisine" class="store-filter-option">Cuisine & recettes</button>
+          <button data-store-category="technologie" class="store-filter-option">Technologie</button>
         </div>
       </div>
-
       <div class="product-grid" id="productGrid">
         <article class="product-card" data-category="maison"><div class="product-art"></div><b>Réparations simples à la maison</b><span>14,95 $</span></article>
         <article class="product-card" data-category="animaux"><div class="product-art"></div><b>Premiers soins pour chien</b><span>19,95 $</span></article>
         <article class="product-card" data-category="cuisine"><div class="product-art"></div><b>Recettes faciles</b><span>12,95 $</span></article>
-        <div class="store-empty" id="storeSearchEmpty" hidden>Aucun produit ne correspond à ta recherche.</div>
+        <div id="storeSearchEmpty" hidden>Aucun produit ne correspond à ta recherche.</div>
       </div>
     </section>
 
-    <section class="community-section" id="communaute" aria-labelledby="communityTitle">
-      <div class="community-shell">
-        <div class="community-copy">
-          <div class="community-kicker">EBOOKS DE LA COMMUNAUTÉ</div>
-          <h2 id="communityTitle">Des créations faites<br>par la communauté.</h2>
-          <p>Bientôt, les créateurs pourront proposer leurs propres eBooks sur ClicIA. Découvre des guides, idées et contenus pratiques créés par des membres de la communauté.</p>
-          <div class="community-coming-badge">À VENIR</div>
-        </div>
-        <div class="community-preview" aria-hidden="true">
-          <div class="community-stack"><span class="community-book b1"></span><span class="community-book b2"></span><span class="community-book b3"></span></div>
-          <div class="community-lock">✦</div>
-        </div>
-      </div>
-
-      <div class="community-categories" aria-label="Catégories d'eBooks à venir">
-        <div class="community-categories-head">
-          <div><small>EXPLORER</small><h3>Par catégorie</h3></div>
-          <span>Les catégories seront activées avec la marketplace.</span>
-        </div>
-        <div class="community-category-grid">
-          <button class="community-category" type="button" disabled><span class="cat-icon">🏠</span><span class="cat-label">Maison & bricolage<small>Guides pratiques et projets</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">🍳</span><span class="cat-label">Cuisine & recettes<small>Recettes, méthodes et idées</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">🐾</span><span class="cat-label">Animaux<small>Soins, conseils et activités</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">💻</span><span class="cat-label">Technologie<small>Outils, IA et guides numériques</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">🎓</span><span class="cat-label">Éducation & formation<small>Apprendre et transmettre</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">🌱</span><span class="cat-label">Développement personnel<small>Habitudes, organisation et objectifs</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">💼</span><span class="cat-label">Business & finances<small>Entrepreneuriat et gestion</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">🧘</span><span class="cat-label">Santé & bien-être<small>Bien-être et habitudes de vie</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">🎨</span><span class="cat-label">Créativité & design<small>Arts, création et inspiration</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">📷</span><span class="cat-label">Photo & vidéo<small>Techniques et création visuelle</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">✍️</span><span class="cat-label">Écriture & publication<small>Écrire, publier et partager</small></span><span class="cat-arrow">›</span></button>
-          <button class="community-category" type="button" disabled><span class="cat-icon">🎯</span><span class="cat-label">Loisirs & passions<small>Projets, collections et activités</small></span><span class="cat-arrow">›</span></button>
-        </div>
+    <section class="section" id="communaute">
+      <div class="community-grid">
+        <div><div class="section-kicker">EBOOKS DE LA COMMUNAUTÉ</div><h2>Des créations faites<br>par la communauté.</h2><p>Découvre bientôt des guides, idées et contenus pratiques créés et partagés par la communauté ClicIA.</p><span class="coming">À VENIR</span></div>
+        <div class="community-art"></div>
       </div>
     </section>
 
-    <section class="content-section split" id="journal"><div class="section-heading"><span>02</span><div><small>JOURNAL</small><h2>Lire vite.<br>Retenir l’essentiel.</h2></div></div><div class="article-stack"><a href="#"><b>5 astuces pour une maison toujours rangée</b><small>MAISON · 6 MIN</small><span>→</span></a><a href="#"><b>Que mettre dans une trousse de premiers soins pour chien?</b><small>ANIMAUX · 4 MIN</small><span>→</span></a><a href="#"><b>Pourquoi ton Wi-Fi ralentit</b><small>TECH · 5 MIN</small><span>→</span></a></div></section>
-
-    <section class="content-section split" id="guides"><div class="section-heading"><span>03</span><div><small>GUIDES</small><h2>Choisir un sujet.<br>Passer à l’action.</h2></div></div><div class="article-stack"><a href="#"><b>Maison & bricolage</b><small>Réparer, ajuster, installer</small><span>→</span></a><a href="#"><b>Animaux</b><small>Premiers soins et prévention</small><span>→</span></a><a href="#"><b>Tech</b><small>Comprendre sans jargon</small><span>→</span></a></div></section>
+    <section class="section" id="apropos">
+      <div class="section-kicker">CLICIA</div><h2>Un Clic intelligent.</h2><p>Assistant IA, guides pratiques, eBooks et boutique réunis dans une même expérience.</p>
+    </section>
   </main>
 
-  <footer class="site-footer"><span><span class="footer-wordmark"><b class="footer-wordmark-clic">CLIC</b><i class="footer-wordmark-ia">IA</i></span> · L’ATELIER DU QUOTIDIEN</span><span>© 2026</span></footer>
+  <div class="auth-modal auth-overlay" id="authModal" aria-hidden="true"><div class="auth-card"></div></div>
 
-  <div class="auth-modal" id="authModal" aria-hidden="true">
-    <div class="auth-card" role="dialog" aria-modal="true" aria-label="Activer ClicIA+">
-      <button class="auth-close" id="authClose" type="button" aria-label="Fermer">×</button>
-      <div class="auth-brand"><span class="auth-brand-bulb"><svg viewBox="0 0 60 78"><path d="M30 4C13 4 4 16 4 31c0 11 5 18 11 25 4 4 5 8 6 13h18c1-5 2-9 6-13 6-7 11-14 11-25C56 16 47 4 30 4Z" fill="#17181a"/><ellipse cx="23" cy="30" rx="6" ry="11" fill="#fff"/><ellipse cx="37" cy="30" rx="6" ry="11" fill="#fff"/><circle cx="25" cy="32" r="3" fill="#17181a"/><circle cx="39" cy="32" r="3" fill="#17181a"/></svg></span><span class="auth-wordmark"><strong class="auth-wordmark-clic">CLIC</strong><strong class="auth-wordmark-ia">IA</strong></span><em>par Clicia</em></div>
-      <h2 class="auth-title">Activer ClicIA+</h2>
-      <p class="auth-subtitle">Le chat texte est gratuit et sans compte. Ton code d’abonnement devient ton compte ClicIA+.</p>
-    </div>
-  </div>
-
-  <script src="./tiko-v3.js?v=10"></script>
-  <script src="./auth-v1.js?v=8"></script>
-  <script src="./app-v2.js?v=11"></script>
-  <script src="./store-search-v1.js?v=2"></script>
-  <script src="./ebook-catalog-v1.js?v=1"></script>
+  <script src="./clicia-final-v2.js?v=20261016-1"></script>
+  <script src="./auth-v1.js?v=9"></script>
+  <script src="./app-v2.js?v=12"></script>
+  <script src="./store-search-v1.js?v=3"></script>
+  <script src="./ebook-catalog-v1.js?v=2"></script>
 </body>
 </html>
