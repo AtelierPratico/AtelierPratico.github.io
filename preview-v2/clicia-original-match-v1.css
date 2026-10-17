@@ -1,104 +1,125 @@
-/* ClicIA — alignement visuel sur la maquette originale */
-body.clicia-official{background:#02091d!important}
+/* ClicIA — maquette officielle inspirée de la référence validée */
+:root{--heroH:930px;--cyan:#63efff;--blue:#176dff;--navy:#020a23}
+body.clicia-official{background:#02091d!important;color:#fff!important}
+
+/* HERO — composition complète */
 body.clicia-official .hero-v9{
-  min-height:930px!important;
+  position:relative!important;isolation:isolate!important;overflow:hidden!important;
+  min-height:var(--heroH)!important;height:var(--heroH)!important;padding:0!important;margin:0!important;
   background:
-    radial-gradient(ellipse at 50% 42%,rgba(11,96,255,.34) 0%,rgba(3,46,124,.18) 28%,transparent 57%),
-    radial-gradient(ellipse at 17% 43%,rgba(0,224,255,.18) 0%,rgba(22,95,255,.11) 18%,transparent 38%),
-    radial-gradient(ellipse at 83% 43%,rgba(0,224,255,.18) 0%,rgba(22,95,255,.11) 18%,transparent 38%),
-    linear-gradient(180deg,#020b28 0%,#06193e 48%,#02091d 100%)!important;
+    radial-gradient(ellipse at 50% 46%,rgba(18,104,255,.26) 0%,rgba(8,57,150,.18) 24%,transparent 49%),
+    radial-gradient(ellipse at 16% 44%,rgba(20,136,255,.18) 0%,transparent 30%),
+    radial-gradient(ellipse at 84% 44%,rgba(20,136,255,.18) 0%,transparent 30%),
+    linear-gradient(180deg,#02091f 0%,#06183c 48%,#02091d 100%)!important;
 }
 body.clicia-official .hero-v9:before{
-  content:""!important;position:absolute!important;inset:75px -8% 130px!important;z-index:1!important;pointer-events:none!important;
+  content:""!important;position:absolute!important;inset:72px -7% 90px!important;z-index:1!important;pointer-events:none!important;
   background:
-    radial-gradient(ellipse at 8% 47%,rgba(31,223,255,.72) 0 1%,rgba(21,137,255,.28) 8%,rgba(7,41,122,.18) 20%,transparent 35%),
-    radial-gradient(ellipse at 92% 47%,rgba(31,223,255,.72) 0 1%,rgba(21,137,255,.28) 8%,rgba(7,41,122,.18) 20%,transparent 35%),
-    conic-gradient(from 206deg at 16% 50%,transparent 0 12%,rgba(64,221,255,.54) 14% 15%,transparent 17% 100%),
-    conic-gradient(from 25deg at 84% 50%,transparent 0 12%,rgba(64,221,255,.54) 14% 15%,transparent 17% 100%);
-  filter:blur(7px) saturate(140%)!important;opacity:.95!important;
-  animation:originalNebula 9s ease-in-out infinite alternate!important;
+    radial-gradient(ellipse at 3% 49%,rgba(137,251,255,.98) 0 1%,rgba(35,212,255,.66) 4%,rgba(22,122,255,.31) 13%,rgba(8,43,133,.10) 31%,transparent 43%),
+    radial-gradient(ellipse at 16% 43%,rgba(42,224,255,.58) 0 3%,rgba(18,123,255,.32) 11%,rgba(5,39,126,.16) 29%,transparent 43%),
+    radial-gradient(ellipse at 97% 49%,rgba(137,251,255,.98) 0 1%,rgba(35,212,255,.66) 4%,rgba(22,122,255,.31) 13%,rgba(8,43,133,.10) 31%,transparent 43%),
+    radial-gradient(ellipse at 84% 43%,rgba(42,224,255,.58) 0 3%,rgba(18,123,255,.32) 11%,rgba(5,39,126,.16) 29%,transparent 43%),
+    radial-gradient(ellipse at 28% 40%,rgba(55,104,255,.23),transparent 24%),
+    radial-gradient(ellipse at 72% 40%,rgba(55,104,255,.23),transparent 24%);
+  filter:blur(7px) saturate(145%)!important;opacity:.98!important;animation:nebulaBreath 10s ease-in-out infinite alternate!important;
 }
 body.clicia-official .hero-v9:after{
-  content:""!important;position:absolute!important;left:-7%!important;right:-7%!important;bottom:82px!important;height:280px!important;z-index:2!important;pointer-events:none!important;
-  border-top:1px solid rgba(71,212,255,.48)!important;border-radius:50%!important;
+  content:""!important;position:absolute!important;left:-11%!important;right:-11%!important;bottom:62px!important;height:285px!important;z-index:2!important;pointer-events:none!important;
+  border-top:1px solid rgba(80,213,255,.48)!important;border-radius:50%!important;
   background:
-    radial-gradient(ellipse at 50% 8%,rgba(45,144,255,.26),transparent 47%),
-    repeating-radial-gradient(ellipse at 50% 18%,transparent 0 64px,rgba(78,207,255,.10) 66px 67px,transparent 69px 118px)!important;
-  box-shadow:0 -16px 70px rgba(29,134,255,.18)!important;
+    radial-gradient(ellipse at 50% 2%,rgba(34,145,255,.32) 0,rgba(23,98,227,.12) 30%,transparent 58%),
+    repeating-radial-gradient(ellipse at 50% 10%,transparent 0 64px,rgba(82,213,255,.10) 66px 67px,transparent 69px 116px)!important;
+  box-shadow:0 -18px 80px rgba(28,143,255,.18)!important;
 }
-@keyframes originalNebula{0%{transform:scale(1) translateY(0);opacity:.82}100%{transform:scale(1.025) translateY(-5px);opacity:1}}
+@keyframes nebulaBreath{from{transform:scale(1);opacity:.84}to{transform:scale(1.025) translateY(-5px);opacity:1}}
 
-/* Supprime les gros globes hérités des anciennes versions */
-body.clicia-official .hero-atmosphere .o5,
-body.clicia-official .hero-atmosphere .o6,
-body.clicia-official .hero-atmosphere .o7,
-body.clicia-official .hero-atmosphere .o8,
-body.clicia-official .hero-atmosphere .o9,
-body.clicia-official .hero-atmosphere .o10,
-body.clicia-official .hero-atmosphere .o11,
-body.clicia-official .hero-atmosphere .o12{display:none!important}
-body.clicia-official .hero-atmosphere .o1,
-body.clicia-official .hero-atmosphere .o2,
-body.clicia-official .hero-atmosphere .o3,
-body.clicia-official .hero-atmosphere .o4{width:5px!important;height:5px!important;filter:none!important;box-shadow:0 0 12px rgba(102,235,255,.9)!important}
+/* Les anciens globes ne font pas partie de la maquette */
+body.clicia-official .hero-atmosphere{position:absolute!important;inset:0!important;z-index:2!important;pointer-events:none!important;display:block!important;overflow:hidden!important;background:
+  radial-gradient(circle at 13% 24%,rgba(76,184,255,.20) 0 1px,transparent 2px),
+  radial-gradient(circle at 22% 56%,rgba(90,222,255,.22) 0 1px,transparent 2px),
+  radial-gradient(circle at 77% 29%,rgba(81,189,255,.18) 0 1px,transparent 2px),
+  radial-gradient(circle at 86% 58%,rgba(90,222,255,.20) 0 1px,transparent 2px)!important}
+body.clicia-official .hero-atmosphere .orb{display:none!important}
+body.clicia-official .hero-atmosphere:before,
+body.clicia-official .hero-atmosphere:after{content:"";position:absolute;top:130px;width:54%;height:460px;border-radius:50%;border:2px solid rgba(90,232,255,.55);filter:drop-shadow(0 0 10px rgba(56,200,255,.55));opacity:.78;animation:arcFloat 9s ease-in-out infinite alternate}
+body.clicia-official .hero-atmosphere:before{left:-24%;transform:rotate(19deg);border-right-color:transparent;border-bottom-color:transparent}
+body.clicia-official .hero-atmosphere:after{right:-24%;transform:rotate(-19deg);border-left-color:transparent;border-bottom-color:transparent;animation-delay:-4s}
+@keyframes arcFloat{to{opacity:.48;filter:drop-shadow(0 0 17px rgba(56,200,255,.75))}}
 
-/* Navigation — même équilibre que la maquette */
-body.clicia-official .site-header{top:17px!important;width:min(1270px,calc(100% - 32px))!important;height:54px!important;grid-template-columns:190px 1fr 190px!important;padding:0 18px 0 28px!important;background:linear-gradient(180deg,rgba(5,28,73,.82),rgba(3,18,49,.68))!important;border-color:rgba(104,177,255,.31)!important;box-shadow:0 16px 60px rgba(0,5,30,.34),inset 0 1px 0 rgba(255,255,255,.05)!important}
+#cliciaSpace{position:absolute!important;inset:0!important;z-index:3!important;pointer-events:none!important;opacity:.82!important}
+.cosmic-trail{position:absolute!important;left:-10%!important;right:-10%!important;top:545px!important;z-index:4!important;height:1px!important;opacity:.95!important;pointer-events:none!important}
+.cosmic-trail:before,.cosmic-trail:after{content:"";position:absolute;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(45,199,255,.28) 14%,rgba(113,244,255,.88) 30%,transparent 49%,rgba(97,225,255,.40) 70%,rgba(118,248,255,.84) 84%,transparent 100%);filter:drop-shadow(0 0 9px #22cfff);animation:trailPulse 6s ease-in-out infinite}
+.cosmic-trail:after{top:104px;opacity:.34;transform:scaleX(.94) rotate(1.4deg);animation-delay:-2.6s}
+@keyframes trailPulse{50%{opacity:.45;transform:translateX(1.5%) scaleX(1.02)}}
+
+/* NAVIGATION */
+body.clicia-official .site-header{
+  top:17px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;
+  width:min(1270px,calc(100% - 36px))!important;height:54px!important;z-index:100!important;
+  grid-template-columns:190px 1fr 190px!important;padding:0 18px 0 28px!important;border-radius:999px!important;
+  border:1px solid rgba(111,184,255,.30)!important;background:linear-gradient(180deg,rgba(5,29,75,.84),rgba(3,18,48,.70))!important;
+  box-shadow:0 16px 60px rgba(0,5,30,.35),inset 0 1px 0 rgba(255,255,255,.055)!important;
+  backdrop-filter:blur(22px) saturate(140%)!important;-webkit-backdrop-filter:blur(22px) saturate(140%)!important;
+}
 body.clicia-official .brand{gap:0!important}
-body.clicia-official .brand-clic,body.clicia-official .brand-ia{font:300 23px/1 Inter,sans-serif!important;letter-spacing:.08em!important;margin:0!important;color:#f8fbff!important}
-body.clicia-official .main-nav{gap:12px!important}
-body.clicia-official .main-nav a{font-size:12px!important;padding:10px 17px!important;color:#aebfdc!important}
-body.clicia-official .main-nav a.active{background:linear-gradient(135deg,#1574ff,#1657df)!important;box-shadow:0 7px 25px rgba(20,104,255,.34)!important}
-body.clicia-official #accountBtn{font-size:0!important;width:36px!important;height:36px!important;position:relative!important;color:#eef9ff!important}
+body.clicia-official .brand-clic,body.clicia-official .brand-ia{font:300 23px/1 Inter,sans-serif!important;letter-spacing:.075em!important;margin:0!important;color:#fbfdff!important}
+body.clicia-official .main-nav{gap:10px!important}
+body.clicia-official .main-nav a{font-size:12px!important;padding:10px 17px!important;color:#b0c1dc!important}
+body.clicia-official .main-nav a.active{color:#fff!important;background:linear-gradient(135deg,#1477ff,#1758df)!important;box-shadow:0 7px 25px rgba(20,104,255,.34)!important}
+body.clicia-official .header-actions{gap:6px!important}
+body.clicia-official #accountBtn{font-size:0!important;width:36px!important;height:36px!important;position:relative!important;color:#eef9ff!important;overflow:hidden!important}
 body.clicia-official #accountBtn>*{display:none!important}
-body.clicia-official #accountBtn:before{content:"";display:block;width:20px;height:20px;background:currentColor;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='none' stroke='black' stroke-width='1.8'/%3E%3Cpath d='M5 21c.7-5 3-7 7-7s6.3 2 7 7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='none' stroke='black' stroke-width='1.8'/%3E%3Cpath d='M5 21c.7-5 3-7 7-7s6.3 2 7 7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+body.clicia-official #accountBtn:before{content:""!important;display:block!important;width:20px!important;height:20px!important;background:currentColor!important;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='none' stroke='black' stroke-width='1.8'/%3E%3Cpath d='M5 21c.7-5 3-7 7-7s6.3 2 7 7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat!important;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4' fill='none' stroke='black' stroke-width='1.8'/%3E%3Cpath d='M5 21c.7-5 3-7 7-7s6.3 2 7 7' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat!important}
 
-/* Titre et slogan */
-body.clicia-official .hero-copy-v9{top:104px!important;width:min(760px,92vw)!important}
-body.clicia-official .official-wordmark{font:300 clamp(64px,5.5vw,88px)/.94 Inter,sans-serif!important;letter-spacing:.085em!important;text-shadow:0 0 34px rgba(97,192,255,.16)!important}
-body.clicia-official .official-slogan{margin-top:10px!important;font:400 clamp(14px,1.25vw,18px)/1.2 Inter,sans-serif!important;letter-spacing:.25em!important;color:#b5c7e2!important}
+/* TITRE */
+body.clicia-official .hero-copy-v9{top:94px!important;left:50%!important;transform:translateX(-50%)!important;width:min(760px,92vw)!important;text-align:center!important;z-index:20!important}
+body.clicia-official .official-wordmark{margin:0!important;color:#f8fbff!important;font:300 clamp(62px,5vw,82px)/.94 Inter,sans-serif!important;letter-spacing:.085em!important;text-shadow:0 0 38px rgba(104,198,255,.17)!important}
+body.clicia-official .official-slogan{margin:10px 0 0!important;color:#b8cae4!important;font:400 clamp(14px,1.15vw,17px)/1.2 Inter,sans-serif!important;letter-spacing:.25em!important}
 
-/* Portail central + mascotte exacte */
-body.clicia-official .character-zone{top:232px!important;width:440px!important;height:390px!important}
-body.clicia-official .portal-layer.p1{width:372px!important;height:372px!important;border-color:rgba(104,231,255,.54)!important;box-shadow:0 0 38px rgba(37,167,255,.24),inset 0 0 62px rgba(60,191,255,.13)!important}
-body.clicia-official .portal-layer.p1:before{inset:19px!important;border-color:rgba(137,205,255,.30)!important;border-right-color:#65f0ff!important;border-top-color:#5b92ff!important}
-body.clicia-official .portal-layer.p2{width:332px!important;height:332px!important;border-color:rgba(120,205,255,.30)!important}
-body.clicia-official .portal-layer.p3{width:414px!important;height:414px!important;opacity:.92!important}
-body.clicia-official .portal-glow{width:342px!important;height:342px!important;background:radial-gradient(circle,rgba(76,212,255,.22) 0 38%,rgba(31,103,255,.13) 50%,transparent 72%)!important;filter:blur(12px)!important}
-body.clicia-official #tikoCharacter{width:292px!important;height:292px!important;filter:drop-shadow(0 0 18px rgba(67,225,255,.48)) drop-shadow(0 0 45px rgba(26,107,255,.28))!important}
-body.clicia-official #tikoCharacter .clicia-official-mascot{width:100%!important;height:100%!important;object-fit:contain!important;filter:drop-shadow(0 0 10px rgba(89,240,255,.54)) drop-shadow(0 0 28px rgba(39,120,255,.34))!important}
+/* PORTAIL + VRAIE MASCOTTE */
+body.clicia-official .character-zone{top:218px!important;left:50%!important;transform:translateX(-50%)!important;width:420px!important;height:390px!important;z-index:16!important;display:grid!important;place-items:center!important}
+body.clicia-official .portal-layer.p1{width:350px!important;height:350px!important;border-color:rgba(104,231,255,.60)!important;box-shadow:0 0 42px rgba(37,167,255,.28),inset 0 0 64px rgba(60,191,255,.14)!important}
+body.clicia-official .portal-layer.p1:before{inset:18px!important;border-color:rgba(137,205,255,.33)!important;border-right-color:#6df4ff!important;border-top-color:#6598ff!important}
+body.clicia-official .portal-layer.p2{width:318px!important;height:318px!important;border-color:rgba(120,205,255,.30)!important}
+body.clicia-official .portal-layer.p3{width:390px!important;height:390px!important;opacity:.96!important}
+body.clicia-official .portal-glow{width:326px!important;height:326px!important;background:radial-gradient(circle,rgba(74,222,255,.24) 0 36%,rgba(28,106,255,.14) 49%,transparent 72%)!important;filter:blur(12px)!important}
+body.clicia-official #tikoCharacter{width:258px!important;height:258px!important;filter:drop-shadow(0 0 18px rgba(67,225,255,.58)) drop-shadow(0 0 46px rgba(26,107,255,.36))!important}
+body.clicia-official #tikoCharacter .clicia-official-mascot{width:100%!important;height:100%!important;object-fit:contain!important;filter:drop-shadow(0 0 11px rgba(89,240,255,.62)) drop-shadow(0 0 30px rgba(39,120,255,.38))!important}
 
-/* Barre centrale */
-body.clicia-official .hero-chat-panel{top:620px!important;width:min(690px,calc(100% - 40px))!important}
-body.clicia-official .hero-composer{height:70px!important;border-color:rgba(128,204,255,.52)!important;background:linear-gradient(180deg,rgba(7,36,84,.90),rgba(3,19,52,.88))!important;box-shadow:0 18px 54px rgba(0,7,36,.40),inset 0 1px 0 rgba(255,255,255,.07),0 0 34px rgba(39,139,255,.11)!important}
+/* BARRE DE RECHERCHE */
+body.clicia-official .hero-chat-panel{top:596px!important;left:50%!important;transform:translateX(-50%)!important;width:min(690px,calc(100% - 40px))!important;height:70px!important;z-index:25!important}
+body.clicia-official .hero-composer{height:68px!important;grid-template-columns:56px 1fr 58px!important;padding:6px 8px 6px 12px!important;border:1px solid rgba(132,208,255,.54)!important;border-radius:999px!important;background:linear-gradient(180deg,rgba(7,37,87,.91),rgba(3,19,52,.91))!important;box-shadow:0 18px 54px rgba(0,7,36,.43),inset 0 1px 0 rgba(255,255,255,.08),0 0 34px rgba(39,139,255,.13)!important}
 body.clicia-official #chatInput{font-size:15px!important;color:#f7fbff!important}
 body.clicia-official #chatInput::placeholder{color:#93a9cc!important}
-body.clicia-official #sendBtn{width:50px!important;height:50px!important;background:linear-gradient(145deg,#a0fbff,#5fe4ff 52%,#58a9ff)!important;box-shadow:0 0 26px rgba(89,229,255,.42)!important}
+body.clicia-official #sendBtn{width:50px!important;height:50px!important;background:linear-gradient(145deg,#a7fdff,#62e8ff 52%,#58a9ff)!important;box-shadow:0 0 28px rgba(89,229,255,.46)!important}
 
-/* Cartes de la maquette */
-body.clicia-official .feature-strip{top:715px!important;width:min(1240px,calc(100% - 56px))!important;grid-template-columns:repeat(3,1fr)!important;gap:14px!important}
-body.clicia-official .feature-card{min-height:128px!important;grid-template-columns:92px 1fr 26px!important;padding:18px 24px!important;border-radius:18px!important;border:1px solid rgba(96,179,255,.44)!important;background:linear-gradient(135deg,rgba(6,28,72,.88),rgba(8,35,87,.72))!important;box-shadow:0 18px 50px rgba(0,8,35,.26),inset 0 1px 0 rgba(255,255,255,.04)!important}
-body.clicia-official .feature-card:nth-child(2){border-color:rgba(59,149,255,.72)!important;background:linear-gradient(135deg,rgba(7,37,93,.94),rgba(14,55,134,.72))!important}
-body.clicia-official .feature-card:nth-child(3){border-color:rgba(62,227,255,.58)!important;background:linear-gradient(135deg,rgba(5,37,79,.92),rgba(4,66,100,.72))!important}
-body.clicia-official .official-feature-icon{width:78px!important;height:78px!important;border-radius:14px!important;background:linear-gradient(145deg,rgba(62,154,255,.36),rgba(18,84,209,.28))!important;border-color:rgba(119,205,255,.40)!important;box-shadow:inset 0 0 30px rgba(71,167,255,.16),0 0 24px rgba(47,123,255,.12)!important}
-body.clicia-official .feature-card:nth-child(3) .official-feature-icon{background:linear-gradient(145deg,rgba(74,233,255,.42),rgba(25,115,170,.30))!important;box-shadow:inset 0 0 30px rgba(97,239,255,.20),0 0 28px rgba(56,216,255,.16)!important}
+/* CARTES */
+body.clicia-official .feature-strip{position:absolute!important;top:698px!important;left:50%!important;transform:translateX(-50%)!important;width:min(1240px,calc(100% - 56px))!important;z-index:22!important;grid-template-columns:repeat(3,1fr)!important;gap:14px!important}
+body.clicia-official .feature-card{min-height:128px!important;grid-template-columns:92px 1fr 26px!important;padding:18px 24px!important;border-radius:18px!important;border:1px solid rgba(96,179,255,.45)!important;background:linear-gradient(135deg,rgba(5,27,70,.92),rgba(8,35,87,.78))!important;box-shadow:0 18px 50px rgba(0,8,35,.29),inset 0 1px 0 rgba(255,255,255,.045)!important}
+body.clicia-official .feature-card:nth-child(2){border-color:rgba(59,149,255,.73)!important;background:linear-gradient(135deg,rgba(7,37,93,.95),rgba(14,55,134,.75))!important}
+body.clicia-official .feature-card:nth-child(3){border-color:rgba(62,227,255,.60)!important;background:linear-gradient(135deg,rgba(5,37,79,.94),rgba(4,66,100,.75))!important}
+body.clicia-official .official-feature-icon{width:78px!important;height:78px!important;border-radius:14px!important;background:linear-gradient(145deg,rgba(62,154,255,.40),rgba(18,84,209,.30))!important;border-color:rgba(119,205,255,.43)!important;box-shadow:inset 0 0 30px rgba(71,167,255,.18),0 0 24px rgba(47,123,255,.15)!important}
+body.clicia-official .feature-card:nth-child(3) .official-feature-icon{background:linear-gradient(145deg,rgba(74,233,255,.46),rgba(25,115,170,.33))!important;box-shadow:inset 0 0 30px rgba(97,239,255,.23),0 0 28px rgba(56,216,255,.18)!important}
 body.clicia-official .official-feature-icon svg{width:42px!important;height:42px!important}
 body.clicia-official .official-feature-copy b{font:600 19px/1.1 Inter,sans-serif!important;color:#fff!important}
-body.clicia-official .official-feature-copy small{font:400 13px/1.45 Inter,sans-serif!important;color:#b4c7e4!important;margin-top:8px!important}
-body.clicia-official .feature-card>strong{font-size:30px!important;font-weight:300!important;color:#e9fbff!important}
-body.clicia-official .feature-card:hover{transform:translateY(-4px)!important;box-shadow:0 24px 60px rgba(0,8,35,.34),0 0 28px rgba(38,138,255,.10)!important}
+body.clicia-official .official-feature-copy small{font:400 13px/1.45 Inter,sans-serif!important;color:#b7c9e5!important;margin-top:8px!important}
+body.clicia-official .feature-card>strong{font-size:30px!important;font-weight:300!important;color:#ecfbff!important}
+body.clicia-official .feature-card:hover{transform:translateY(-4px)!important;box-shadow:0 24px 60px rgba(0,8,35,.34),0 0 30px rgba(38,138,255,.12)!important}
 
-/* Le contenu sous le hero reste fonctionnel mais reprend le bleu premium */
+/* Chat ouvert : garde la fonctionnalité sans casser le hero */
+body.clicia-official .hero-chat-panel.chat-open{top:500px!important;width:min(760px,calc(100% - 28px))!important;height:380px!important;z-index:80!important}
+body.clicia-official .hero-chat-panel.chat-open + .character-zone{opacity:.18!important;filter:blur(2px)!important}
+
+/* Sections suivantes */
 body.clicia-official .content-section,body.clicia-official .community-section,body.clicia-official .journal-section,body.clicia-official .guides-section{background:linear-gradient(180deg,#02091d,#03132f)!important}
 
-@media(max-width:900px){
-  body.clicia-official .site-header{grid-template-columns:1fr auto!important}
-  body.clicia-official .brand-clic,body.clicia-official .brand-ia{font-size:20px!important}
-  body.clicia-official .hero-v9{min-height:1080px!important}
-  body.clicia-official .hero-copy-v9{top:100px!important}
-  body.clicia-official .character-zone{top:235px!important;width:390px!important;height:370px!important}
-  body.clicia-official .hero-chat-panel{top:602px!important}
-  body.clicia-official .feature-strip{top:695px!important;grid-template-columns:1fr!important;width:min(650px,calc(100% - 28px))!important;gap:10px!important}
+@media(max-width:1000px){
+  :root{--heroH:1040px}
+  body.clicia-official .site-header{grid-template-columns:1fr auto!important;padding:0 12px 0 20px!important}
+  body.clicia-official .hero-copy-v9{top:95px!important}
+  body.clicia-official .character-zone{top:220px!important;width:390px!important;height:370px!important}
+  body.clicia-official .hero-chat-panel{top:585px!important;width:min(650px,calc(100% - 28px))!important}
+  body.clicia-official .feature-strip{top:680px!important;grid-template-columns:1fr!important;width:min(650px,calc(100% - 28px))!important;gap:10px!important}
   body.clicia-official .feature-card{min-height:92px!important;grid-template-columns:64px 1fr 20px!important;padding:13px 16px!important}
   body.clicia-official .official-feature-icon{width:58px!important;height:58px!important}
   body.clicia-official .official-feature-icon svg{width:32px!important;height:32px!important}
@@ -106,17 +127,21 @@ body.clicia-official .content-section,body.clicia-official .community-section,bo
   body.clicia-official .official-feature-copy small{font-size:12px!important;margin-top:4px!important}
 }
 @media(max-width:600px){
-  body.clicia-official .site-header{top:10px!important;width:calc(100% - 18px)!important;height:52px!important;padding:0 12px 0 18px!important}
-  body.clicia-official .hero-v9{min-height:1030px!important}
-  body.clicia-official .official-wordmark{font-size:50px!important}
-  body.clicia-official .official-slogan{font-size:12px!important;letter-spacing:.19em!important}
-  body.clicia-official .hero-copy-v9{top:92px!important}
-  body.clicia-official .character-zone{top:215px!important;width:335px!important;height:335px!important}
-  body.clicia-official .portal-layer.p1{width:296px!important;height:296px!important}
-  body.clicia-official .portal-layer.p2{width:266px!important;height:266px!important}
-  body.clicia-official .portal-layer.p3{width:326px!important;height:326px!important}
-  body.clicia-official .portal-glow{width:276px!important;height:276px!important}
-  body.clicia-official #tikoCharacter{width:238px!important;height:238px!important}
-  body.clicia-official .hero-chat-panel{top:548px!important}
-  body.clicia-official .feature-strip{top:640px!important}
+  :root{--heroH:1000px}
+  body.clicia-official .site-header{top:10px!important;width:calc(100% - 18px)!important;height:52px!important;padding:0 10px 0 16px!important}
+  body.clicia-official .brand-clic,body.clicia-official .brand-ia{font-size:18px!important}
+  body.clicia-official .official-wordmark{font-size:49px!important}
+  body.clicia-official .official-slogan{font-size:12px!important;letter-spacing:.18em!important}
+  body.clicia-official .hero-copy-v9{top:91px!important}
+  body.clicia-official .character-zone{top:205px!important;width:330px!important;height:330px!important}
+  body.clicia-official .portal-layer.p1{width:288px!important;height:288px!important}
+  body.clicia-official .portal-layer.p2{width:260px!important;height:260px!important}
+  body.clicia-official .portal-layer.p3{width:320px!important;height:320px!important}
+  body.clicia-official .portal-glow{width:268px!important;height:268px!important}
+  body.clicia-official #tikoCharacter{width:225px!important;height:225px!important}
+  body.clicia-official .hero-chat-panel{top:538px!important}
+  body.clicia-official .feature-strip{top:622px!important}
+  body.clicia-official .hero-atmosphere:before,body.clicia-official .hero-atmosphere:after{top:190px;height:340px;opacity:.46}
+  body.clicia-official .cosmic-trail{top:505px!important}
 }
+@media(prefers-reduced-motion:reduce){body.clicia-official *,body.clicia-official *:before,body.clicia-official *:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
