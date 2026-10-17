@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./clicia-final-v2.css?v=20261016-1">
+  <link rel="stylesheet" href="./clicia-final-v2.css?v=20261016-4">
+  <link rel="stylesheet" href="./clicia-reference-mode-v1.css?v=20261016-4">
   <link rel="stylesheet" href="./auth-v1.css?v=2">
 </head>
 <body>
@@ -19,29 +20,17 @@
         <defs>
           <radialGradient id="nebL" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7ff7ff" stop-opacity=".95"/><stop offset=".16" stop-color="#1ac9ff" stop-opacity=".65"/><stop offset=".48" stop-color="#185eff" stop-opacity=".24"/><stop offset="1" stop-color="#061331" stop-opacity="0"/></radialGradient>
           <radialGradient id="nebR" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#8af8ff" stop-opacity=".95"/><stop offset=".17" stop-color="#22c8ff" stop-opacity=".65"/><stop offset=".48" stop-color="#2459ff" stop-opacity=".25"/><stop offset="1" stop-color="#061331" stop-opacity="0"/></radialGradient>
-          <filter id="blur"><feGaussianBlur stdDeviation="26"/></filter>
-          <filter id="soft"><feGaussianBlur stdDeviation="8"/></filter>
+          <filter id="blur"><feGaussianBlur stdDeviation="26"/></filter><filter id="soft"><feGaussianBlur stdDeviation="8"/></filter>
           <linearGradient id="line" x1="0" x2="1"><stop offset="0" stop-color="#00dfff" stop-opacity="0"/><stop offset=".18" stop-color="#6df7ff" stop-opacity=".85"/><stop offset=".52" stop-color="#2c8dff" stop-opacity=".45"/><stop offset=".82" stop-color="#68f1ff" stop-opacity=".8"/><stop offset="1" stop-color="#00dfff" stop-opacity="0"/></linearGradient>
         </defs>
-        <ellipse cx="145" cy="445" rx="410" ry="255" fill="url(#nebL)" filter="url(#blur)" opacity=".72"/>
-        <ellipse cx="1455" cy="445" rx="410" ry="255" fill="url(#nebR)" filter="url(#blur)" opacity=".72"/>
+        <ellipse cx="145" cy="445" rx="410" ry="255" fill="url(#nebL)" filter="url(#blur)" opacity=".72"/><ellipse cx="1455" cy="445" rx="410" ry="255" fill="url(#nebR)" filter="url(#blur)" opacity=".72"/>
         <path d="M-90 690 C260 630 375 350 595 540 C720 650 910 650 1035 540 C1255 350 1370 630 1690 690" fill="none" stroke="url(#line)" stroke-width="2" filter="url(#soft)" opacity=".95"/>
-        <path d="M-120 745 C250 690 440 585 640 640 C820 690 1020 620 1200 610 C1400 600 1540 680 1720 720" fill="none" stroke="#5bcfff" stroke-opacity=".27" stroke-width="1.2"/>
-        <path d="M-70 780 C310 720 560 690 800 700 C1050 708 1320 720 1680 790" fill="none" stroke="#498cff" stroke-opacity=".25" stroke-width="1"/>
       </svg>
-      <div class="starfield" aria-hidden="true"></div>
-      <div class="nebula left" aria-hidden="true"></div><div class="nebula right" aria-hidden="true"></div>
-      <div class="light-arc arc-left" aria-hidden="true"></div><div class="light-arc arc-right" aria-hidden="true"></div>
+      <div class="starfield" aria-hidden="true"></div><div class="nebula left" aria-hidden="true"></div><div class="nebula right" aria-hidden="true"></div><div class="light-arc arc-left" aria-hidden="true"></div><div class="light-arc arc-right" aria-hidden="true"></div><div class="reference-glow" aria-hidden="true"></div>
 
       <header class="site-header">
         <a class="brand" href="#accueil" aria-label="ClicIA"><strong>CLIC</strong><em>IA</em></a>
-        <nav class="main-nav" aria-label="Navigation principale">
-          <a class="active" href="#accueil">Accueil</a>
-          <a href="#hero-chat">Fonctionnalités</a>
-          <a href="#boutique">Boutique</a>
-          <a href="#communaute">Communauté</a>
-          <a href="#apropos">À propos</a>
-        </nav>
+        <nav class="main-nav" aria-label="Navigation principale"><a class="active" href="#accueil">Accueil</a><a href="#hero-chat">Fonctionnalités</a><a href="#boutique">Boutique</a><a href="#communaute">Communauté</a><a href="#apropos">À propos</a></nav>
         <div class="header-actions">
           <button class="icon-btn" id="headerSearchBtn" type="button" aria-label="Rechercher"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg></button>
           <button class="icon-btn" id="accountBtn" type="button" aria-label="Compte ClicIA"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 21c.7-5 3-7 7-7s6.3 2 7 7"/></svg></button>
@@ -49,90 +38,32 @@
         </div>
       </header>
 
-      <div class="hero-title">
-        <h1>CLICIA</h1>
-        <p>Un Clic intelligent</p>
-      </div>
+      <div class="hero-title"><h1>CLICIA</h1><p>Un Clic intelligent</p></div>
 
-      <div class="portal-wrap" id="stage">
-        <div class="portal-glow"></div>
-        <div class="ring r2"></div><div class="ring r1"></div><div class="ring r3"></div>
-        <span class="orbit-dot dot1"></span><span class="orbit-dot dot2"></span><span class="orbit-dot dot3"></span>
-        <div class="mascot" id="tikoCharacter">
-          <img src="./assets/clicia-mascot-exact.webp?v=final-20261016" alt="Clic, mascotte officielle de ClicIA" draggable="false">
-        </div>
-      </div>
+      <div class="portal-wrap" id="stage"><div class="portal-glow"></div><div class="ring r2"></div><div class="ring r1"></div><div class="ring r3"></div><span class="orbit-dot dot1"></span><span class="orbit-dot dot2"></span><span class="orbit-dot dot3"></span><div class="mascot" id="tikoCharacter"><img src="./assets/clicia-mascot-exact.webp?v=4" alt="Clic, mascotte officielle de ClicIA" draggable="false"></div></div>
 
       <section class="chat-shell" id="hero-chat" aria-label="Conversation avec Clic IA">
         <div class="chat-topbar"><span>CLICIA<span id="chatPremiumPlus" hidden>+</span></span><span id="engineState"></span></div>
-        <div class="hero-messages" id="messages" aria-live="polite">
-          <div class="welcome msg assistant"><div class="content">Salut ! 👋<br>Moi c'est Clic, ton assistant IA.<br>Pose-moi tes questions!</div></div>
-        </div>
-        <div class="quick-prompts" aria-hidden="true">
-          <button type="button" data-prompt="Comment réparer une porte qui coince?">Porte qui coince</button>
-          <button type="button" data-prompt="Donne-moi une idée de recette facile.">Recette facile</button>
-          <button type="button" data-prompt="Quels guides pratiques me conseilles-tu?">Guides pratiques</button>
-        </div>
-        <form id="chatForm" class="hero-composer">
-          <span class="chat-icon"><svg viewBox="0 0 48 48"><path d="M10 12h28a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H24l-8 6 2-6h-8a6 6 0 0 1-6-6V18a6 6 0 0 1 6-6Z"/><circle cx="17" cy="24" r="1.8"/><circle cx="24" cy="24" r="1.8"/><circle cx="31" cy="24" r="1.8"/></svg></span>
-          <textarea id="chatInput" rows="1" maxlength="2000" placeholder="Posez votre question ou recherchez..." required></textarea>
-          <button id="sendBtn" type="submit" aria-label="Envoyer"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg></button>
-        </form>
+        <div class="hero-messages" id="messages" aria-live="polite"><div class="welcome msg assistant"><div class="content">Salut ! 👋<br>Moi c'est Clic, ton assistant IA.<br>Pose-moi tes questions!</div></div></div>
+        <div class="quick-prompts" aria-hidden="true"><button type="button" data-prompt="Comment réparer une porte qui coince?">Porte qui coince</button><button type="button" data-prompt="Donne-moi une idée de recette facile.">Recette facile</button><button type="button" data-prompt="Quels guides pratiques me conseilles-tu?">Guides pratiques</button></div>
+        <form id="chatForm" class="hero-composer"><span class="chat-icon"><svg viewBox="0 0 48 48"><path d="M10 12h28a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H24l-8 6 2-6h-8a6 6 0 0 1-6-6V18a6 6 0 0 1 6-6Z"/><circle cx="17" cy="24" r="1.8"/><circle cx="24" cy="24" r="1.8"/><circle cx="31" cy="24" r="1.8"/></svg></span><textarea id="chatInput" rows="1" maxlength="2000" placeholder="Posez votre question ou recherchez..." required></textarea><button id="sendBtn" type="submit" aria-label="Envoyer"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg></button></form>
         <form id="heroAsk" class="hidden"><input id="heroInput" aria-label="Question rapide"></form>
       </section>
 
       <div class="feature-strip">
-        <a class="feature-card" href="#hero-chat">
-          <span class="feature-icon"><svg viewBox="0 0 48 48"><path d="M10 11h28a6 6 0 0 1 6 6v13a6 6 0 0 1-6 6H24l-9 6 2-6h-7a6 6 0 0 1-6-6V17a6 6 0 0 1 6-6Z"/><circle cx="17" cy="24" r="2"/><circle cx="24" cy="24" r="2"/><circle cx="31" cy="24" r="2"/></svg></span>
-          <span class="feature-copy"><b>Assistant</b><small>Obtenez des réponses claires<br>et des idées puissantes.</small></span><strong>›</strong>
-        </a>
-        <a class="feature-card" href="#boutique">
-          <span class="feature-icon"><svg viewBox="0 0 48 48"><path d="M13 17h22l3 25H10l3-25Z"/><path d="M18 18v-3a6 6 0 0 1 12 0v3"/></svg></span>
-          <span class="feature-copy"><b>Boutique</b><small>Découvrez nos collections<br>et outils exclusifs.</small></span><strong>›</strong>
-        </a>
-        <a class="feature-card" href="#communaute">
-          <span class="feature-icon"><svg viewBox="0 0 48 48"><circle cx="18" cy="18" r="6"/><circle cx="31" cy="19" r="5"/><path d="M7 39c1-8 5-12 12-12s11 4 12 12"/><path d="M27 29c8-1 13 3 14 10"/></svg></span>
-          <span class="feature-copy"><b>Communauté</b><small>Rejoignez la discussion<br>et partagez vos idées.</small></span><strong>›</strong>
-        </a>
+        <a class="feature-card" href="#hero-chat"><span class="feature-icon"><svg viewBox="0 0 48 48"><path d="M10 11h28a6 6 0 0 1 6 6v13a6 6 0 0 1-6 6H24l-9 6 2-6h-7a6 6 0 0 1-6-6V17a6 6 0 0 1 6-6Z"/></svg></span><span class="feature-copy"><b>Assistant</b><small>Obtenez des réponses claires<br>et des idées puissantes.</small></span><strong>›</strong></a>
+        <a class="feature-card" href="#boutique"><span class="feature-icon"><svg viewBox="0 0 48 48"><path d="M13 17h22l3 25H10l3-25Z"/><path d="M18 18v-3a6 6 0 0 1 12 0v3"/></svg></span><span class="feature-copy"><b>Boutique</b><small>Découvrez nos collections<br>et outils exclusifs.</small></span><strong>›</strong></a>
+        <a class="feature-card" href="#communaute"><span class="feature-icon"><svg viewBox="0 0 48 48"><circle cx="18" cy="18" r="6"/><circle cx="31" cy="19" r="5"/><path d="M7 39c1-8 5-12 12-12s11 4 12 12"/></svg></span><span class="feature-copy"><b>Communauté</b><small>Rejoignez la discussion<br>et partagez vos idées.</small></span><strong>›</strong></a>
       </div>
     </section>
 
-    <section class="section" id="boutique">
-      <div class="section-head"><div><div class="section-kicker">BOUTIQUE</div><h2>Des produits utiles.<br>Rien de superflu.</h2></div></div>
-      <div class="store-toolbar" id="storeToolbar">
-        <input class="store-search" id="storeSearch" type="search" placeholder="Rechercher des produits" autocomplete="off">
-        <button id="storeFilterBtn" type="button" aria-expanded="false" aria-controls="storeFilterPanel">☰</button>
-        <div id="storeFilterPanel" hidden>
-          <button data-store-category="all" class="store-filter-option active">Tous les produits</button>
-          <button data-store-category="maison" class="store-filter-option">Maison & bricolage</button>
-          <button data-store-category="animaux" class="store-filter-option">Animaux</button>
-          <button data-store-category="cuisine" class="store-filter-option">Cuisine & recettes</button>
-          <button data-store-category="technologie" class="store-filter-option">Technologie</button>
-        </div>
-      </div>
-      <div class="product-grid" id="productGrid">
-        <article class="product-card" data-category="maison"><div class="product-art"></div><b>Réparations simples à la maison</b><span>14,95 $</span></article>
-        <article class="product-card" data-category="animaux"><div class="product-art"></div><b>Premiers soins pour chien</b><span>19,95 $</span></article>
-        <article class="product-card" data-category="cuisine"><div class="product-art"></div><b>Recettes faciles</b><span>12,95 $</span></article>
-        <div id="storeSearchEmpty" hidden>Aucun produit ne correspond à ta recherche.</div>
-      </div>
-    </section>
-
-    <section class="section" id="communaute">
-      <div class="community-grid">
-        <div><div class="section-kicker">EBOOKS DE LA COMMUNAUTÉ</div><h2>Des créations faites<br>par la communauté.</h2><p>Découvre bientôt des guides, idées et contenus pratiques créés et partagés par la communauté ClicIA.</p><span class="coming">À VENIR</span></div>
-        <div class="community-art"></div>
-      </div>
-    </section>
-
-    <section class="section" id="apropos">
-      <div class="section-kicker">CLICIA</div><h2>Un Clic intelligent.</h2><p>Assistant IA, guides pratiques, eBooks et boutique réunis dans une même expérience.</p>
-    </section>
+    <section class="section" id="boutique"><div class="section-head"><div><div class="section-kicker">BOUTIQUE</div><h2>Des produits utiles.<br>Rien de superflu.</h2></div></div><div class="store-toolbar" id="storeToolbar"><input class="store-search" id="storeSearch" type="search" placeholder="Rechercher des produits" autocomplete="off"><button id="storeFilterBtn" type="button" aria-expanded="false" aria-controls="storeFilterPanel">☰</button><div id="storeFilterPanel" hidden><button data-store-category="all" class="store-filter-option active">Tous les produits</button><button data-store-category="maison" class="store-filter-option">Maison & bricolage</button><button data-store-category="animaux" class="store-filter-option">Animaux</button><button data-store-category="cuisine" class="store-filter-option">Cuisine & recettes</button><button data-store-category="technologie" class="store-filter-option">Technologie</button></div></div><div class="product-grid" id="productGrid"><article class="product-card" data-category="maison"><div class="product-art"></div><b>Réparations simples à la maison</b><span>14,95 $</span></article><article class="product-card" data-category="animaux"><div class="product-art"></div><b>Premiers soins pour chien</b><span>19,95 $</span></article><article class="product-card" data-category="cuisine"><div class="product-art"></div><b>Recettes faciles</b><span>12,95 $</span></article><div id="storeSearchEmpty" hidden>Aucun produit ne correspond à ta recherche.</div></div></section>
+    <section class="section" id="communaute"><div class="community-grid"><div><div class="section-kicker">EBOOKS DE LA COMMUNAUTÉ</div><h2>Des créations faites<br>par la communauté.</h2><p>Découvre bientôt des guides, idées et contenus pratiques créés et partagés par la communauté ClicIA.</p><span class="coming">À VENIR</span></div><div class="community-art"></div></div></section>
+    <section class="section" id="apropos"><div class="section-kicker">CLICIA</div><h2>Un Clic intelligent.</h2><p>Assistant IA, guides pratiques, eBooks et boutique réunis dans une même expérience.</p></section>
   </main>
 
   <div class="auth-modal auth-overlay" id="authModal" aria-hidden="true"><div class="auth-card"></div></div>
-
-  <script src="./clicia-final-v2.js?v=20261016-1"></script>
+  <script src="./clicia-final-v2.js?v=20261016-4"></script>
   <script src="./auth-v1.js?v=9"></script>
   <script src="./app-v2.js?v=12"></script>
   <script src="./store-search-v1.js?v=3"></script>
