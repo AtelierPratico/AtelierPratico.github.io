@@ -1,0 +1,120 @@
+/* ClicIA — mode de référence visuelle desktop. La maquette approuvée devient la base du hero. */
+@media (min-width: 901px){
+  .clicia-hero{
+    position:relative!important;
+    width:100%!important;
+    min-height:0!important;
+    height:auto!important;
+    aspect-ratio:1672/941!important;
+    overflow:hidden!important;
+    background:#02091d url('./assets/clicia-hero-reference.webp?v=1') center top/100% 100% no-repeat!important;
+  }
+
+  /* La référence contient déjà le décor, le titre, la navigation, le portail,
+     la mascotte et les cartes. On conserve les vrais contrôles comme zones interactives. */
+  .cosmos-svg,.starfield,.nebula,.light-arc,.hero-title,.portal-wrap{display:none!important}
+  .clicia-hero::before{content:none!important}
+  .clicia-hero::after{
+    content:""!important;
+    position:absolute!important;
+    z-index:6!important;
+    left:33.05%!important;
+    top:23.4%!important;
+    width:33.9%!important;
+    aspect-ratio:1!important;
+    border-radius:50%!important;
+    pointer-events:none!important;
+    background:conic-gradient(from 0deg,transparent 0 12%,rgba(109,246,255,.25) 14%,transparent 16% 42%,rgba(71,137,255,.20) 44%,transparent 46% 73%,rgba(115,245,255,.23) 75%,transparent 77%)!important;
+    -webkit-mask:radial-gradient(circle,transparent 60%,#000 61% 63%,transparent 64%)!important;
+    mask:radial-gradient(circle,transparent 60%,#000 61% 63%,transparent 64%)!important;
+    filter:drop-shadow(0 0 10px rgba(78,220,255,.45))!important;
+    animation:referenceOrbit 26s linear infinite!important;
+    opacity:.75!important;
+  }
+  @keyframes referenceOrbit{to{transform:rotate(360deg)}}
+
+  .site-header{
+    position:absolute!important;
+    z-index:50!important;
+    top:1.7%!important;
+    left:11.35%!important;
+    transform:none!important;
+    width:76.3%!important;
+    height:5.9%!important;
+    min-height:42px!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    backdrop-filter:none!important;
+    opacity:0!important;
+    grid-template-columns:24% 52% 24%!important;
+  }
+  .site-header *{pointer-events:auto!important}
+
+  .chat-shell{
+    position:absolute!important;
+    z-index:30!important;
+    left:28.58%!important;
+    top:65.55%!important;
+    transform:none!important;
+    width:41.3%!important;
+    min-width:0!important;
+  }
+  .hero-composer{
+    height:7.65vw!important;
+    max-height:72px!important;
+    min-height:58px!important;
+    grid-template-columns:56px 1fr 58px!important;
+    padding:6px 8px 6px 12px!important;
+    border:1px solid rgba(126,204,255,.58)!important;
+    border-radius:999px!important;
+    background:linear-gradient(180deg,rgba(9,41,91,.96),rgba(3,20,55,.96))!important;
+    box-shadow:0 10px 35px rgba(0,6,34,.48),inset 0 1px 0 rgba(255,255,255,.08),0 0 25px rgba(50,151,255,.12)!important;
+    backdrop-filter:blur(18px)!important;
+  }
+  .chat-icon{width:40px!important;height:40px!important;background:rgba(73,137,229,.10)!important}
+  .hero-composer textarea{font-size:clamp(12px,.9vw,15px)!important;color:#eff8ff!important;padding:14px 8px!important}
+  .hero-composer textarea::placeholder{color:#8fa9ce!important;opacity:1!important}
+  .hero-composer button{width:50px!important;height:50px!important;background:linear-gradient(145deg,#a6ffff,#5de9ff 52%,#5aabff)!important;box-shadow:0 0 25px rgba(83,229,255,.50)!important}
+  .hero-messages,.quick-prompts,.chat-topbar{display:none!important}
+
+  .feature-strip{
+    position:absolute!important;
+    z-index:31!important;
+    left:12.48%!important;
+    top:75.75%!important;
+    transform:none!important;
+    width:74.0%!important;
+    height:13.7%!important;
+    display:grid!important;
+    grid-template-columns:repeat(3,1fr)!important;
+    gap:1.2%!important;
+    opacity:0!important;
+  }
+  .feature-card{height:100%!important;min-height:0!important;pointer-events:auto!important}
+
+  /* Au premier message, la vraie interface de conversation reprend le dessus. */
+  .chat-shell.chat-open{
+    left:50%!important;
+    top:52%!important;
+    transform:translate(-50%,-50%)!important;
+    width:min(760px,calc(100% - 40px))!important;
+    padding:16px!important;
+    border:1px solid rgba(114,190,255,.38)!important;
+    border-radius:26px!important;
+    background:rgba(3,17,49,.97)!important;
+    backdrop-filter:blur(24px)!important;
+    box-shadow:0 30px 100px rgba(0,5,35,.70),0 0 55px rgba(34,121,255,.18)!important;
+  }
+  .chat-shell.chat-open .hero-messages{display:block!important;height:230px!important;overflow:auto!important}
+  .chat-shell.chat-open .chat-topbar{display:flex!important}
+  .chat-shell.chat-open .hero-composer{height:62px!important;max-height:none!important}
+
+  /* La zone centrale reste vivante sans altérer la maquette approuvée. */
+  .clicia-hero .reference-glow{
+    position:absolute;z-index:5;left:43.1%;top:55.8%;width:13.8%;height:3.0%;border-radius:50%;
+    pointer-events:none;background:rgba(67,219,255,.20);filter:blur(14px);animation:referenceGlow 3.4s ease-in-out infinite;
+  }
+  @keyframes referenceGlow{50%{transform:scaleX(1.22);opacity:.62}}
+}
